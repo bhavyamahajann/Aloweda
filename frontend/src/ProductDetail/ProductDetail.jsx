@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Navbar from '../Navbar/navbar'
 import Footer from '../Footer/Footer'
-import LoveWhatYouSee from '../assets/Lovewhatyousee.jpg'
+import LoveWhatYouSee from '../assets/LoveWhatYouSee.jpg'
 import './ProductDetail.css'
 
 export default function ProductDetail({ product, onNavigate, onBack, relatedProducts = [] }) {
