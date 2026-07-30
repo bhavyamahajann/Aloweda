@@ -42,6 +42,7 @@ const products = [
 
 export default function SkinCarePage({ onNavigate, searchQuery, categoryFilter, pageTitle, showAllProducts, onLoginClick }) {
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery || '')
+  const [hoveredProduct, setHoveredProduct] = useState(null)
 
   // Search and category filter logic
   const filteredProducts = useMemo(() => {
@@ -134,7 +135,13 @@ export default function SkinCarePage({ onNavigate, searchQuery, categoryFilter, 
       {filteredProducts.length > 0 ? (
         <div className="shop-page__grid">
           {filteredProducts.map(p => (
-            <div key={p.id} className="sp-card" onClick={() => onNavigate('product', { productId: p.id })}>
+            <div 
+              key={p.id} 
+              className="sp-card" 
+              onClick={() => onNavigate('product', { productId: p.id })}
+              onMouseEnter={() => setHoveredProduct(p.id)}
+              onMouseLeave={() => setHoveredProduct(null)}
+            >
               <div className="sp-card__img-wrap">
                 <img src={p.img} alt={p.name} className="sp-card__img" />
               </div>
@@ -147,6 +154,31 @@ export default function SkinCarePage({ onNavigate, searchQuery, categoryFilter, 
                   <button className="sp-add-btn" onClick={(e) => { e.stopPropagation(); alert('Added to cart!') }}>Add to Bag</button>
                 </div>
               </div>
+
+              {/* Hover Popup */}
+              {hoveredProduct === p.id && (
+                <div className="product-popup">
+                  <div className="product-popup__content">
+                    <div className="product-popup__header">
+                      <h3>{p.name}</h3>
+                      <span className="product-popup__category">{p.category}</span>
+                    </div>
+                    <div className="product-popup__details">
+                      <div className="product-popup__price-section">
+                        <span className="popup-price">{p.price}</span>
+                        {p.mrp && <span className="popup-mrp">{p.mrp}</span>}
+                      </div>
+                      <div className="product-popup__info">
+                        <p>✓ Premium Quality Product</p>
+                        <p>✓ Cruelty-Free & Vegan</p>
+                        <p>✓ GMP Certified</p>
+                        <p>✓ Free Shipping on Orders Above ₹499</p>
+                      </div>
+                    </div>
+                    <button className="product-popup__btn" onClick={() => onNavigate('product', { productId: p.id })}>View Details</button>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>

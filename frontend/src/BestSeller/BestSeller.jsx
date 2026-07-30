@@ -52,6 +52,7 @@ function resetTilt(e) {
 
 export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) {
   const [sortBy, setSortBy] = useState('featured')
+  const [hoveredProduct, setHoveredProduct] = useState(null)
 
   const sortedProducts = useMemo(() => {
     let sorted = [...BEST_SELLER_PRODUCTS]
@@ -146,7 +147,11 @@ export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) 
             style={{ '--i': i }}
             onClick={() => onNavigate('product', { productId: product.id })}
             onMouseMove={handleTilt}
-            onMouseLeave={resetTilt}
+            onMouseLeave={(e) => {
+              resetTilt(e)
+              setHoveredProduct(null)
+            }}
+            onMouseEnter={() => setHoveredProduct(product.id)}
           >
             {product.tag && (
               <div className="product-tag">{product.tag}</div>
@@ -173,6 +178,31 @@ export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) 
                 </button>
               </div>
             </div>
+
+            {/* Hover Popup */}
+            {hoveredProduct === product.id && (
+              <div className="product-popup">
+                <div className="product-popup__content">
+                  <div className="product-popup__header">
+                    <h3>{product.name}</h3>
+                    <span className="product-popup__category">{product.category}</span>
+                  </div>
+                  <div className="product-popup__details">
+                    <div className="product-popup__price-section">
+                      <span className="popup-price">{product.price}</span>
+                      {product.mrp && <span className="popup-mrp">{product.mrp}</span>}
+                    </div>
+                    <div className="product-popup__info">
+                      <p>✓ Premium Quality Product</p>
+                      <p>✓ Cruelty-Free & Vegan</p>
+                      <p>✓ GMP Certified</p>
+                      <p>✓ Free Shipping on Orders Above ₹499</p>
+                    </div>
+                  </div>
+                  <button className="product-popup__btn">View Details</button>
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>

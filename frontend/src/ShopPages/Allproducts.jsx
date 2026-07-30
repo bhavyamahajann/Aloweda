@@ -55,6 +55,7 @@ const allProducts = [
 export default function AllProductsPage({ onNavigate, searchQuery, onLoginClick }) {
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery || '')
   const [selectedCategory, setSelectedCategory] = useState('All')
+  const [hoveredProduct, setHoveredProduct] = useState(null)
 
   // Sync searchQuery prop with local state
   useEffect(() => {
@@ -163,6 +164,8 @@ export default function AllProductsPage({ onNavigate, searchQuery, onLoginClick 
                 key={product.id} 
                 className="product-card"
                 onClick={() => handleProductClick(product.id)}
+                onMouseEnter={() => setHoveredProduct(product.id)}
+                onMouseLeave={() => setHoveredProduct(null)}
               >
                 <div className="product-card__img-wrap">
                   <img src={product.img} alt={product.name} className="product-card__img" />
@@ -177,6 +180,31 @@ export default function AllProductsPage({ onNavigate, searchQuery, onLoginClick 
                     )}
                   </div>
                 </div>
+
+                {/* Hover Popup */}
+                {hoveredProduct === product.id && (
+                  <div className="product-popup">
+                    <div className="product-popup__content">
+                      <div className="product-popup__header">
+                        <h3>{product.name}</h3>
+                        <span className="product-popup__category">{product.category}</span>
+                      </div>
+                      <div className="product-popup__details">
+                        <div className="product-popup__price-section">
+                          <span className="popup-price">{product.price}</span>
+                          {product.mrp && <span className="popup-mrp">{product.mrp}</span>}
+                        </div>
+                        <div className="product-popup__info">
+                          <p>✓ Premium Quality Product</p>
+                          <p>✓ Cruelty-Free & Vegan</p>
+                          <p>✓ GMP Certified</p>
+                          <p>✓ Free Shipping on Orders Above ₹499</p>
+                        </div>
+                      </div>
+                      <button className="product-popup__btn" onClick={() => handleProductClick(product.id)}>View Details</button>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>

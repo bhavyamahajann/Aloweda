@@ -11,6 +11,7 @@ export default function ProductCard3D({
 }) {
   const cardRef = useRef(null)
   const [isHovering, setIsHovering] = useState(false)
+  const [showPopup, setShowPopup] = useState(false)
 
   const handleMouseMove = (e) => {
     if (!cardRef.current) return
@@ -35,10 +36,12 @@ export default function ProductCard3D({
 
   const handleMouseEnter = () => {
     setIsHovering(true)
+    setShowPopup(true)
   }
 
   const handleMouseLeave = () => {
     setIsHovering(false)
+    setShowPopup(false)
     if (cardRef.current) {
       // Reset to floating state
       cardRef.current.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)'
@@ -47,8 +50,9 @@ export default function ProductCard3D({
 
   const handleAddToCart = (e) => {
     e.stopPropagation()
+    console.log('Add to Cart clicked for:', product)
     if (onAddToCart) {
-      onAddToCart(product, 1)
+      onAddToCart(product)
     }
   }
 
@@ -92,6 +96,31 @@ export default function ProductCard3D({
           {/* Glare Effect */}
           <div className="product-card-3d__glare" />
         </div>
+
+        {/* Hover Popup */}
+        {showPopup && (
+          <div className="product-popup-3d">
+            <div className="product-popup__content">
+              <div className="product-popup__header">
+                <h3>{product.name}</h3>
+                <span className="product-popup__category">{product.category || 'Product'}</span>
+              </div>
+              <div className="product-popup__details">
+                <div className="product-popup__price-section">
+                  <span className="popup-price">{product.price}</span>
+                  {product.mrp && <span className="popup-mrp">{product.mrp}</span>}
+                </div>
+                <div className="product-popup__info">
+                  <p>✓ Premium Quality Product</p>
+                  <p>✓ Cruelty-Free & Vegan</p>
+                  <p>✓ GMP Certified</p>
+                  <p>✓ Free Shipping on Orders Above ₹499</p>
+                </div>
+              </div>
+              <button className="product-popup__btn" onClick={handleCardClick}>View Details</button>
+            </div>
+          </div>
+        )}
 
         {/* Product Info */}
         <div className="product-card-3d__body">

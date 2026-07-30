@@ -91,13 +91,10 @@ export default function BestSellers({ onNavigate, onAddToCart, allProducts }) {
 
   // Function to handle add to bag
   const handleAddToBag = (e, product) => {
-    e.stopPropagation()
-    if (onAddToCart && allProducts) {
-      // Find full product details from allProducts
-      const fullProduct = allProducts.find(p => p.id === product.id)
-      if (fullProduct) {
-        onAddToCart(fullProduct, 1)
-      }
+    if (e) e.stopPropagation()
+    if (onAddToCart && product) {
+      // Pass the product directly - the parent will handle the cart logic
+      onAddToCart(product, 1)
     }
   }
 
