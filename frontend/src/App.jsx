@@ -279,6 +279,13 @@ export default function App() {
   const [previousPage, setPreviousPage] = useState(null)
   const [showLogin, setShowLogin] = useState(false)
   const [cart, setCart] = useState([]) // Cart state
+  const [user, setUser] = useState(null) // User state
+
+  // Handle successful login
+  const handleLoginSuccess = (userData) => {
+    setUser(userData)
+    showNotification(`Welcome back, ${userData.name}!`)
+  }
 
   // Add to cart function
   const addToCart = (product, quantity = 1) => {
@@ -369,7 +376,7 @@ export default function App() {
           />
           <WhatsAppButton />
           <ScrollToTop />
-          {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
+          {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
         </>
       )
     }
@@ -380,7 +387,7 @@ export default function App() {
       <AllProductsPage onNavigate={navigate} searchQuery={searchParams?.search} onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
     </>
   )
   if (page === 'skincare') return (
@@ -388,7 +395,7 @@ export default function App() {
       <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
     </>
   )
   if (page === 'serums') return (
@@ -396,7 +403,7 @@ export default function App() {
       <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="serums" pageTitle="Serums" onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
     </>
   )
   if (page === 'creams') return (
@@ -404,7 +411,7 @@ export default function App() {
       <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="creams" pageTitle="Creams" onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
     </>
   )
   if (page === 'moisturisers') return (
@@ -412,7 +419,7 @@ export default function App() {
       <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="moisturisers" pageTitle="Moisturisers" onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
     </>
   )
   if (page === 'tattoo') return (
@@ -420,7 +427,7 @@ export default function App() {
       <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="tattoo" pageTitle="Tattoo Care" onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
     </>
   )
   if (page === 'rituals') return (
@@ -428,7 +435,7 @@ export default function App() {
       <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="rituals" pageTitle="Skin Rituals" onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
     </>
   )
   if (page === 'haircare' || page === 'hair') return (
@@ -436,7 +443,7 @@ export default function App() {
       <HairCarePage onNavigate={navigate} searchQuery={searchParams?.search} onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
     </>
   )
   if (page === 'lipcare'  || page === 'lip')  return (
@@ -444,7 +451,7 @@ export default function App() {
       <LipCarePage  onNavigate={navigate} searchQuery={searchParams?.search} onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
     </>
   )
   if (page === 'bestsellers') return (
@@ -452,7 +459,7 @@ export default function App() {
       <BestSellerPage onNavigate={navigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} />
       <WhatsAppButton />
       <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
     </>
   )
 
@@ -468,7 +475,7 @@ export default function App() {
       />
       <WhatsAppButton />
       <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
     </>
   )
 
@@ -477,7 +484,7 @@ export default function App() {
       <HomePage onNavigate={navigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} onAddToCart={addToCart} allProducts={ALL_PRODUCTS} />
       <WhatsAppButton />
       <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
       {notification && (
         <div style={{
           position: 'fixed',

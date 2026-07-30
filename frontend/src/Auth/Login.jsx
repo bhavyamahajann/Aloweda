@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import './Login.css'
 import AlowedaLogo from '../assets/AlowedaLogo.png'
+import { authAPI, storage } from '../utils/api'
 
-export default function Login({ onNavigate, onClose }) {
+export default function Login({ onNavigate, onClose, onLoginSuccess }) {
   const [isSignUp, setIsSignUp] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
@@ -10,11 +11,61 @@ export default function Login({ onNavigate, onClose }) {
     name: ''
   })
   const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Handle login/signup logic here
-    console.log('Form submitted:', formData)
+    setError('')
+    setSuccess('')
+    setLoading(true)
+
+    try {
+      let response
+      
+      if (isSignUp) {
+        // Sign Up
+        if (!formData.name || !formData.email || !formData.password) {
+          throw new Error('Sabhi fields fill karo')
+        }
+        
+        if (formData.password.length < 6) {
+          throw new Error('Password kam se kam 6 characters ka hona chahiye')
+        }
+
+        response = await authAPI.signup(formData.name, formData.email, formData.password)
+        setSuccess('Account successfully ban gaya! Login ho rahe hain...')
+      } else {
+        // Login
+        if (!formData.email || !formData.password) {
+          throw new Error('Email aur password dono do')
+        }
+
+        response = await authAPI.login(formData.email, formData.password)
+        setSuccess('Login successful!')
+      }
+
+      // Save token and user data
+      storage.setToken(response.token)
+      storage.setUser(response.user)
+
+      // Notify parent component
+      if (onLoginSuccess) {
+        onLoginSuccess(response.user)
+      }
+
+      // Close modal after short delay
+      setTimeout(() => {
+        onClose()
+      }, 1000)
+
+    } catch (err) {
+      setError(err.message || 'Kuch gadbad ho gayi, dobara try karo')
+      console.error('Auth error:', err)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleChange = (e) => {
@@ -67,6 +118,29 @@ export default function Login({ onNavigate, onClose }) {
             </div>
 
             <form onSubmit={handleSubmit} className="login-form">
+              {/* Error Message */}
+              {error && (
+                <div className="alert alert-error">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                  </svg>
+                  {error}
+                </div>
+              )}
+
+              {/* Success Message */}
+              {success && (
+                <div className="alert alert-success">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                  </svg>
+                  {success}
+                </div>
+              )}
+
               {isSignUp && (
                 <div className="form-group">
                   <label htmlFor="name" className="form-label">Full Name</label>
@@ -143,8 +217,18 @@ export default function Login({ onNavigate, onClose }) {
                 </div>
               )}
 
-              <button type="submit" className="login-submit-btn">
-                {isSignUp ? 'Create Account' : 'Sign In'}
+              <button type="submit" className="login-submit-btn" disabled={loading}>
+                {loading ? (
+                  <>
+                    <svg className="spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10" opacity="0.25" />
+                      <path d="M12 2a10 10 0 0 1 10 10" strokeLinecap="round" />
+                    </svg>
+                    {isSignUp ? 'Creating...' : 'Signing In...'}
+                  </>
+                ) : (
+                  isSignUp ? 'Create Account' : 'Sign In'
+                )}
               </button>
             </form>
 
