@@ -22,12 +22,40 @@ const BEST_SELLER_PRODUCTS = [
   { id: 16, img: HairCareImg, name: 'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', category: 'Hair Serum', price: '₹ 575', tag: 'Best Seller' },
 ]
 
+const HERO_ITEMS = [
+  { key: 'hair', img: HairCareImg, label: 'Hair Care', nav: 'hair' },
+  { key: 'lip', img: LipCareImg, label: 'Lip Care', nav: 'lip' },
+  { key: 'skincare', img: SmartSkinCareImg, label: 'Smart Skincare', nav: 'skincare' },
+]
+
+// Tracks the cursor over a card to drive the 3D tilt + sheen via CSS variables.
+// Kept as direct DOM writes (not React state) so the effect stays at 60fps.
+function handleTilt(e) {
+  const card = e.currentTarget
+  const rect = card.getBoundingClientRect()
+  const x = e.clientX - rect.left
+  const y = e.clientY - rect.top
+  const rotateX = ((y - rect.height / 2) / rect.height) * -4
+  const rotateY = ((x - rect.width / 2) / rect.width) * 4
+
+  card.style.setProperty('--rx', `${rotateX}deg`)
+  card.style.setProperty('--ry', `${rotateY}deg`)
+  card.style.setProperty('--mx', `${(x / rect.width) * 100}%`)
+  card.style.setProperty('--my', `${(y / rect.height) * 100}%`)
+}
+
+function resetTilt(e) {
+  const card = e.currentTarget
+  card.style.setProperty('--rx', `0deg`)
+  card.style.setProperty('--ry', `0deg`)
+}
+
 export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) {
   const [sortBy, setSortBy] = useState('featured')
 
   const sortedProducts = useMemo(() => {
     let sorted = [...BEST_SELLER_PRODUCTS]
-    
+
     if (sortBy === 'price-low') {
       sorted.sort((a, b) => {
         const priceA = parseFloat(a.price.replace(/[^0-9]/g, ''))
@@ -41,7 +69,7 @@ export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) 
         return priceB - priceA
       })
     }
-    
+
     return sorted
   }, [sortBy])
 
@@ -58,24 +86,19 @@ export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) 
       {/* Hero Section with 3 Product Images */}
       <div className="bestseller-hero">
         <div className="bestseller-hero__container">
-          <div 
-            className="hero-product"
-            onClick={() => onNavigate('hair')}
-          >
-            <img src={HairCareImg} alt="Hair Care" />
-          </div>
-          <div 
-            className="hero-product"
-            onClick={() => onNavigate('lip')}
-          >
-            <img src={LipCareImg} alt="Lip Care" />
-          </div>
-          <div 
-            className="hero-product"
-            onClick={() => onNavigate('skincare')}
-          >
-            <img src={SmartSkinCareImg} alt="Smart Skincare" />
-          </div>
+          {HERO_ITEMS.map((item, i) => (
+            <div
+              key={item.key}
+              className="hero-product"
+              style={{ '--i': i }}
+              onClick={() => onNavigate(item.nav)}
+              onMouseMove={handleTilt}
+              onMouseLeave={resetTilt}
+            >
+              <img src={item.img} alt={item.label} />
+              <div className="hero-product__label">{item.label}</div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -101,10 +124,10 @@ export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) 
 
         <div className="bestseller-topbar-right">
           <label htmlFor="sort-select" className="sort-label">Sort by</label>
-          <select 
+          <select
             id="sort-select"
-            className="sort-select" 
-            value={sortBy} 
+            className="sort-select"
+            value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
           >
             <option value="featured">Featured</option>
@@ -116,11 +139,14 @@ export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) 
 
       {/* Products Grid */}
       <div className="bestseller-grid">
-        {sortedProducts.map((product) => (
-          <div 
-            key={product.id} 
+        {sortedProducts.map((product, i) => (
+          <div
+            key={product.id}
             className="bestseller-card"
+            style={{ '--i': i }}
             onClick={() => onNavigate('product', { productId: product.id })}
+            onMouseMove={handleTilt}
+            onMouseLeave={resetTilt}
           >
             {product.tag && (
               <div className="product-tag">{product.tag}</div>
@@ -136,11 +162,11 @@ export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) 
                   <span className="bestseller-card__price">{product.price}</span>
                   {product.mrp && <span className="bestseller-card__mrp">{product.mrp}</span>}
                 </div>
-                <button 
+                <button
                   className="bestseller-add-btn"
-                  onClick={(e) => { 
-                    e.stopPropagation(); 
-                    alert('Added to cart!') 
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    alert('Added to cart!')
                   }}
                 >
                   Add to Bag

@@ -1,0 +1,253 @@
+/* ── 3D Product Card with Tilt & Floating Effects ── */
+
+.product-card-3d {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: pointer;
+  transform-style: preserve-3d;
+  
+  /* Automatic floating animation */
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: perspective(1000px) translateY(0px) translateZ(0);
+  }
+  50% {
+    transform: perspective(1000px) translateY(-10px) translateZ(5px);
+  }
+}
+
+/* Pause floating on hover for better control */
+.product-card-3d:hover {
+  animation-play-state: paused;
+}
+
+.product-card-3d__inner {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.05),
+    0 2px 4px rgba(0, 0, 0, 0.03);
+  transition: box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.product-card-3d.is-hovering .product-card-3d__inner {
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.15),
+    0 15px 30px rgba(0, 0, 0, 0.1),
+    0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Image Container ── */
+.product-card-3d__img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: visible;
+  background: #faf8f4;
+  transform-style: preserve-3d;
+}
+
+.product-card-3d__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transform: translateZ(30px);
+}
+
+.product-card-3d:hover .product-card-3d__img {
+  transform: translateZ(50px) scale(1.05);
+}
+
+/* ── Tag Badge ── */
+.product-card-3d__tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #2d5f3f;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 20px;
+  z-index: 3;
+  transform: translateZ(60px);
+  box-shadow: 0 4px 8px rgba(45, 95, 63, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.product-card-3d:hover .product-card-3d__tag {
+  transform: translateZ(80px);
+}
+
+/* ── Glare Effect ── */
+.product-card-3d__glare {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  transform: translateZ(70px);
+  mix-blend-mode: overlay;
+}
+
+.product-card-3d.is-hovering .product-card-3d__glare {
+  opacity: 1;
+}
+
+/* ── Hover Overlay ── */
+.product-card-3d__overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  pointer-events: none;
+  width: auto;
+}
+
+.product-card-3d__overlay .btn {
+  background: #2d5f3f;
+  color: white;
+  border: none;
+  padding: 11px 28px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 25px;
+  box-shadow: 
+    0 4px 16px rgba(45, 95, 63, 0.35),
+    0 2px 8px rgba(45, 95, 63, 0.25);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  pointer-events: auto;
+  white-space: nowrap;
+}
+
+.product-card-3d:hover .product-card-3d__overlay .btn {
+  background: #1e4029;
+  transform: scale(1.08);
+  box-shadow: 
+    0 6px 20px rgba(45, 95, 63, 0.45),
+    0 3px 10px rgba(45, 95, 63, 0.35);
+}
+
+.product-card-3d__overlay .btn:active {
+  transform: scale(1.02);
+}
+
+/* ── Product Body ── */
+.product-card-3d__body {
+  padding: 20px;
+  transform: translateZ(20px);
+}
+
+.product-card-3d__name {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #2c2c2c;
+  margin: 0 0 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 40px;
+}
+
+.product-card-3d__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.product-card-3d__prices {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.product-card-3d__price {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d5f3f;
+}
+
+.product-card-3d__mrp {
+  font-size: 14px;
+  color: #999;
+  text-decoration: line-through;
+}
+
+/* ── Button Styles ── */
+.product-card-3d .btn {
+  transform: translateZ(10px);
+  transition: transform 0.2s ease;
+}
+
+.product-card-3d:hover .btn {
+  transform: translateZ(30px);
+}
+
+/* ── Stagger Animation for Multiple Cards ── */
+.product-card-3d:nth-child(1) { animation-delay: 0s; }
+.product-card-3d:nth-child(2) { animation-delay: 0.2s; }
+.product-card-3d:nth-child(3) { animation-delay: 0.4s; }
+.product-card-3d:nth-child(4) { animation-delay: 0.6s; }
+.product-card-3d:nth-child(5) { animation-delay: 0.8s; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .product-card-3d__body {
+    padding: 16px;
+  }
+
+  .product-card-3d__name {
+    font-size: 13px;
+    min-height: 36px;
+  }
+
+  .product-card-3d__price {
+    font-size: 16px;
+  }
+
+  /* Reduce 3D effect intensity on mobile */
+  @keyframes float {
+    0%, 100% {
+      transform: perspective(1000px) translateY(0px) translateZ(0);
+    }
+    50% {
+      transform: perspective(1000px) translateY(-5px) translateZ(2px);
+    }
+  }
+}
+
+/* ── Performance Optimization ── */
+.product-card-3d {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.product-card-3d__img {
+  will-change: transform;
+}

@@ -2,6 +2,31 @@
 .bestseller-page {
   min-height: 100vh;
   background: var(--warm-white);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ambient drifting botanical motes behind the hero — slow, quiet, alive */
+.bestseller-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 480px;
+  background-image:
+    radial-gradient(circle, rgba(74, 93, 67, 0.06) 2px, transparent 2px),
+    radial-gradient(circle, rgba(74, 93, 67, 0.04) 1.5px, transparent 1.5px);
+  background-size: 140px 140px, 90px 90px;
+  background-position: 0 0, 40px 60px;
+  animation: driftMotes 40s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes driftMotes {
+  0% { background-position: 0 0, 40px 60px; }
+  100% { background-position: 140px 200px, -50px 260px; }
 }
 
 /* ─── BEST SELLERS HEADING ─── */
@@ -10,25 +35,34 @@
   margin: 0 auto;
   padding: 120px 48px 32px;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .bestseller-heading h1 {
-  font-size: 3rem;
+  font-size: 3.25rem;
   font-weight: 600;
   color: var(--text-dark);
   margin: 0 0 8px 0;
   letter-spacing: -0.02em;
-  background: linear-gradient(135deg, var(--text-dark) 0%, #6b5d4f 100%);
+  background: linear-gradient(135deg, var(--text-dark) 0%, #6b5d4f 60%, var(--green) 100%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradientShift 4s ease infinite;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  animation: gradientShift 6s ease infinite;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeInUp 0.7s ease forwards, gradientShift 6s ease infinite 0.7s;
 }
 
 @keyframes gradientShift {
-  0%, 100% { filter: hue-rotate(0deg); }
-  50% { filter: hue-rotate(10deg); }
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .bestseller-heading p {
@@ -36,12 +70,16 @@
   color: var(--text-muted);
   margin: 0;
   font-weight: 400;
+  opacity: 0;
+  animation: fadeInUp 0.7s ease 0.15s forwards;
 }
 
 /* ─── HERO SECTION ─── */
 .bestseller-hero {
   padding: 0 48px 40px;
   background: var(--warm-white);
+  position: relative;
+  z-index: 1;
 }
 
 .bestseller-hero__container {
@@ -50,6 +88,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
+  perspective: 1400px;
 }
 
 .hero-product {
@@ -57,49 +96,79 @@
   aspect-ratio: 1;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 
+  contain: paint;
+  isolation: isolate;
+  cursor: pointer;
+  position: relative;
+  background: #faf8f4;
+  transform-style: preserve-3d;
+  transform: perspective(1400px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+  box-shadow:
     0 8px 24px rgba(0, 0, 0, 0.12),
     0 4px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  cursor: pointer;
-  transform-style: preserve-3d;
-  perspective: 1000px;
-  position: relative;
+  opacity: 0;
+  animation: cardRise 0.6s ease forwards;
+  animation-delay: calc(var(--i, 0) * 0.1s + 0.2s);
 }
 
+@keyframes cardRise {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Sheen that follows the cursor */
 .hero-product::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+  background: radial-gradient(
+    circle 220px at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 255, 255, 0.35),
+    transparent 60%
+  );
   opacity: 0;
-  transition: opacity 0.4s;
-  z-index: 1;
+  transition: opacity 0.3s ease;
+  z-index: 3;
   pointer-events: none;
-}
-
-.hero-product:hover {
-  transform: translateY(-16px) rotateX(3deg) scale(1.03);
-  box-shadow: 
-    0 28px 56px rgba(0, 0, 0, 0.18),
-    0 12px 24px rgba(0, 0, 0, 0.12),
-    0 0 0 1px rgba(255, 255, 255, 0.5);
+  mix-blend-mode: overlay;
 }
 
 .hero-product:hover::before {
   opacity: 1;
 }
 
+.hero-product:hover {
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.18),
+    0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
 .hero-product img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform-origin: center;
 }
 
-.hero-product:hover img {
-  transform: scale(1.1) rotate(1deg);
+/* Label that slides up on hover — ties name to the visual */
+.hero-product__label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px 24px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, transparent 100%);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 2;
+}
+
+.hero-product:hover .hero-product__label {
+  transform: translateY(0);
 }
 
 /* ─── TOP BAR (Filter & Sort) ─── */
@@ -111,6 +180,8 @@
   justify-content: space-between;
   align-items: center;
   gap: 24px;
+  position: relative;
+  z-index: 1;
 }
 
 .bestseller-topbar-left {
@@ -133,11 +204,30 @@
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: 'Inter', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-btn::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
 }
 
 .filter-btn:hover {
   background: var(--cream);
   border-color: var(--text-mid);
+}
+
+.filter-btn:hover::after {
+  transform: scaleX(1);
 }
 
 .product-count {
@@ -170,7 +260,7 @@
   background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%232c2416' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
 .sort-select:hover {
@@ -190,6 +280,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 32px;
+  perspective: 1600px;
+  position: relative;
+  z-index: 1;
 }
 
 .bestseller-card {
@@ -197,66 +290,87 @@
   border-radius: 12px;
   overflow: visible;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 0.15s ease-out, box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   position: relative;
+  transform-style: preserve-3d;
+  transform: perspective(1600px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  opacity: 0;
+  animation: cardRise 0.6s ease forwards;
+  animation-delay: calc(var(--i, 0) * 0.08s);
 }
 
 .bestseller-card:hover {
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.14);
 }
 
 .product-tag {
   position: absolute;
   top: 16px;
-  right: 16px;
+  right: -6px;
   background: linear-gradient(135deg, #e8dcc4 0%, #d4c5a9 100%);
   color: var(--text-dark);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  padding: 6px 12px;
-  border-radius: 4px;
+  padding: 6px 16px 6px 12px;
   z-index: 10;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+  clip-path: polygon(0 0, 100% 0, 88% 50%, 100% 100%, 0 100%);
 }
 
-/* ─── PREMIUM 3D IMAGE CONTAINER ─── */
+/* ─── PREMIUM 3D IMAGE STAGE ─── */
 .bestseller-card__img-wrap {
   width: 100%;
   height: 320px;
   overflow: hidden;
-  background: linear-gradient(135deg, #faf8f4 0%, #f5f1ea 100%);
+  contain: paint;
+  isolation: isolate;
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   border-radius: 12px 12px 0 0;
-  
-  /* 3D Setup */
-  perspective: 1200px;
-  transform-style: preserve-3d;
 }
 
-/* Glossy light reflection overlay */
+/* Breathing pedestal glow — the "alive ingredients" signature */
+.bestseller-card__img-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 12%;
+  left: 50%;
+  width: 60%;
+  height: 24px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse, rgba(74, 93, 67, 0.18) 0%, transparent 75%);
+  filter: blur(4px);
+  animation: pedestalBreathe 3.2s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes pedestalBreathe {
+  0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+  50% { opacity: 0.9; transform: translateX(-50%) scale(1.04); }
+}
+
+/* Sheen sweep on hover */
 .bestseller-card__img-wrap::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50%;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.4) 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    transparent 100%
+  inset: 0;
+  background: radial-gradient(
+    circle 200px at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 255, 255, 0.5),
+    transparent 60%
   );
   opacity: 0;
-  transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.35s ease;
   z-index: 2;
   pointer-events: none;
+  mix-blend-mode: overlay;
   border-radius: 12px 12px 0 0;
 }
 
@@ -264,27 +378,6 @@
   opacity: 1;
 }
 
-/* Ambient soft glow */
-.bestseller-card__img-wrap::after {
-  content: '';
-  position: absolute;
-  inset: -20px;
-  background: radial-gradient(
-    circle at center,
-    rgba(232, 220, 196, 0.3) 0%,
-    transparent 70%
-  );
-  opacity: 0;
-  transition: opacity 0.4s ease-in-out;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.bestseller-card:hover .bestseller-card__img-wrap::after {
-  opacity: 1;
-}
-
-/* Inner 3D container for image */
 .bestseller-card__img-wrap > img {
   position: relative;
   z-index: 1;
@@ -294,54 +387,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: all 0.4s ease-in-out;
-  transform-origin: center center;
-  transform-style: preserve-3d;
-  
-  /* Layered shadows for depth */
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
-}
-
-/* Premium hover effect - Apple style */
-.bestseller-card:hover .bestseller-card__img {
-  transform: 
-    perspective(1200px)
-    rotateY(10deg) 
-    rotateX(5deg) 
-    scale(1.05)
-    translateZ(20px);
-  
-  /* Enhanced shadows on hover */
-  filter: 
-    drop-shadow(0 12px 24px rgba(0, 0, 0, 0.15))
-    drop-shadow(0 6px 12px rgba(0, 0, 0, 0.1))
-    brightness(1.02);
-}
-
-/* Floating animation */
-@keyframes subtleFloat {
-  0%, 100% {
-    transform: 
-      perspective(1200px)
-      rotateY(10deg) 
-      rotateX(5deg) 
-      scale(1.05)
-      translateZ(20px)
-      translateY(0px);
-  }
-  50% {
-    transform: 
-      perspective(1200px)
-      rotateY(10deg) 
-      rotateX(5deg) 
-      scale(1.05)
-      translateZ(20px)
-      translateY(-8px);
-  }
-}
-
-.bestseller-card:hover .bestseller-card__img {
-  animation: subtleFloat 3s ease-in-out infinite;
+  object-position: center;
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.1));
 }
 
 /* Reduced motion support */
@@ -349,14 +396,16 @@
   .bestseller-card__img,
   .bestseller-card__img-wrap::before,
   .bestseller-card__img-wrap::after,
-  .bestseller-card {
+  .bestseller-card,
+  .hero-product,
+  .hero-product::before,
+  .bestseller-heading h1,
+  .bestseller-heading p,
+  .bestseller-page::before {
     transition: none !important;
     animation: none !important;
-  }
-  
-  .bestseller-card:hover .bestseller-card__img {
-    transform: scale(1.02);
-    animation: none;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
@@ -425,12 +474,20 @@
   transition: all 0.2s ease;
   font-family: 'Inter', sans-serif;
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
 }
 
 .bestseller-add-btn:hover {
   background: var(--text-dark);
   color: var(--warm-white);
   border-color: var(--text-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+}
+
+.bestseller-add-btn:active {
+  transform: translateY(0);
 }
 
 /* ─── RESPONSIVE ─── */
@@ -445,23 +502,23 @@
   .bestseller-hero {
     padding: 100px 24px 40px;
   }
-  
+
   .bestseller-hero__container {
     grid-template-columns: 1fr;
     gap: 24px;
   }
-  
+
   .bestseller-topbar {
     padding: 0 24px;
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .bestseller-topbar-left,
   .bestseller-topbar-right {
     justify-content: space-between;
   }
-  
+
   .bestseller-grid {
     padding: 0 24px;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -474,7 +531,7 @@
   .bestseller-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .bestseller-card__img-wrap {
     height: 280px;
   }

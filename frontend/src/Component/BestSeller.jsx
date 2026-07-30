@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import './BestSeller.css'
+import ProductCard3D from './ProductCard3D'
 
 import SC1  from '../SkinCareImg/SkinCare1.png'
 import SC2  from '../SkinCareImg/SkinCare2.png'
@@ -131,25 +132,13 @@ export default function BestSellers({ onNavigate, onAddToCart, allProducts }) {
             )
           }
           return (
-            <div key={p.id} className="product-card" onClick={() => onNavigate && onNavigate('product', { productId: p.id })}>
-              <div className="product-card__img-wrap">
-                <img src={p.img} alt={p.name} className="product-card__img" />
-                <span className="product-card__tag">{p.tag}</span>
-                <div className="product-card__overlay">
-                  <button className="btn btn--white" onClick={(e) => { e.stopPropagation(); onNavigate && onNavigate('product', { productId: p.id }) }}>Quick View</button>
-                </div>
-              </div>
-              <div className="product-card__body">
-                <h3 className="product-card__name">{p.name}</h3>
-                <div className="product-card__footer">
-                  <div className="product-card__prices">
-                    <span className="product-card__price">{p.price}</span>
-                    {p.mrp && <span className="product-card__mrp">{p.mrp}</span>}
-                  </div>
-                  <button className="btn btn--outline-dark btn--sm" onClick={(e) => handleAddToBag(e, p)}>Add to Bag</button>
-                </div>
-              </div>
-            </div>
+            <ProductCard3D
+              key={p.id}
+              product={p}
+              onNavigate={onNavigate}
+              onAddToCart={(product) => handleAddToBag(null, product)}
+              showTag={true}
+            />
           )
         })}
       </div>
