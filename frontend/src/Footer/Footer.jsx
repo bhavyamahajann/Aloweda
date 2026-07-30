@@ -2,7 +2,13 @@ import AlowedaLogo from '../assets/AlowedaLogo.png'
 import './Footer.css'
 
 /* ── Footer ── */
-export default function Footer() {
+export default function Footer({ onLoginClick }) {
+  const handleSignUpClick = () => {
+    if (onLoginClick) {
+      onLoginClick()
+    }
+  }
+
   return (
     <footer className="footer">
       <div className="footer__inner">
@@ -45,7 +51,7 @@ export default function Footer() {
             <p className="footer__newsletter-text">
               Subscribe to get notified about product launches, special offers and company news
             </p>
-            <button className="footer__signup-btn">SIGN UP</button>
+            <button className="footer__signup-btn" onClick={handleSignUpClick}>SIGN UP</button>
           </div>
 
         </div>

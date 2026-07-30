@@ -52,7 +52,7 @@ const allProducts = [
   { id:18, img:LC2, name:'Lip Butter 15 Gram: Butters, Oils & Honey. NO CHEMICALS, NO PRESERVATIVES. NOT LIP BALM', category: 'Lip Butter', keywords: 'lip butter butters oils honey natural organic chemical free preservative free balm', price:'From Rs. 165.00' },
 ]
 
-export default function AllProductsPage({ onNavigate, searchQuery }) {
+export default function AllProductsPage({ onNavigate, searchQuery, onLoginClick }) {
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery || '')
   const [selectedCategory, setSelectedCategory] = useState('All')
 
@@ -106,7 +106,7 @@ export default function AllProductsPage({ onNavigate, searchQuery }) {
 
   return (
     <div className="shop-page all-products-page">
-      <Navbar onNavigate={onNavigate} />
+      <Navbar onNavigate={onNavigate} onLoginClick={onLoginClick} />
 
       {/* Simple Page Header */}
       <div className="all-products-header">

@@ -351,7 +351,7 @@ function AlowedaIntro({ onNavigate }) {
 
 /* ─────────────── LOOK BOOK SLIDER ─────────────── */
 
-function LookBookSlider({ onNavigate }) {
+function LookBookSlider({ onNavigate, onAddToCart, allProducts }) {
   const [currentSlide, setCurrentSlide] = useState(0)
 
   const lookBookSlides = [
@@ -397,6 +397,17 @@ function LookBookSlider({ onNavigate }) {
 
   const currentData = lookBookSlides[currentSlide]
 
+  // Function to handle add to cart
+  const handleAddToCart = (e, product) => {
+    e.stopPropagation()
+    if (onAddToCart && allProducts) {
+      const fullProduct = allProducts.find(p => p.id === product.id)
+      if (fullProduct) {
+        onAddToCart(fullProduct, 1)
+      }
+    }
+  }
+
   return (
     <section className="lookbook-section">
       <div className="lookbook-container">
@@ -428,14 +439,16 @@ function LookBookSlider({ onNavigate }) {
               <div 
                 key={product.id} 
                 className="lookbook-product"
-                onClick={() => onNavigate('product', { productId: product.id })}
               >
-                <div className="lookbook-product__img">
+                <div className="lookbook-product__img" onClick={() => onNavigate('product', { productId: product.id })}>
                   <img src={product.img} alt={product.name} />
                 </div>
                 <div className="lookbook-product__info">
-                  <h3 className="lookbook-product__name">{product.name}</h3>
-                  <p className="lookbook-product__price">{product.price}</p>
+                  <h3 className="lookbook-product__name" onClick={() => onNavigate('product', { productId: product.id })}>{product.name}</h3>
+                  <div className="lookbook-product__footer">
+                    <p className="lookbook-product__price">{product.price}</p>
+                    <button className="btn btn--outline-dark btn--sm" onClick={(e) => handleAddToCart(e, product)}>Add to Cart</button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -478,16 +491,16 @@ function Testimonials() {
 
 /* ─────────────── ROOT ─────────────── */
 
-export default function HomePage({ onNavigate }) {
+export default function HomePage({ onNavigate, onLoginClick, cartCount, onAddToCart, allProducts }) {
   return (
     <div className="page">
-      <Navbar onNavigate={onNavigate} />
+      <Navbar onNavigate={onNavigate} onLoginClick={onLoginClick} cartCount={cartCount} />
       <main>
         <HeroSlider onNavigate={onNavigate} />
         <MarqueeStrip />
-        <BestSellers onNavigate={onNavigate} />
+        <BestSellers onNavigate={onNavigate} onAddToCart={onAddToCart} allProducts={allProducts} />
         <ImageCarousel />
-        <LookBookSlider onNavigate={onNavigate} />
+        <LookBookSlider onNavigate={onNavigate} onAddToCart={onAddToCart} allProducts={allProducts} />
         <AlowedaIntro onNavigate={onNavigate} />
         <CategorySlider onNavigate={onNavigate} />
         <Categories />
@@ -495,7 +508,7 @@ export default function HomePage({ onNavigate }) {
         <FeatureList onNavigate={onNavigate} />
         <Testimonials />
       </main>
-      <Footer />
+      <Footer onLoginClick={onLoginClick} />
     </div>
   )
 }

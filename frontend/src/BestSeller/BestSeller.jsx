@@ -22,7 +22,7 @@ const BEST_SELLER_PRODUCTS = [
   { id: 16, img: HairCareImg, name: 'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', category: 'Hair Serum', price: '₹ 575', tag: 'Best Seller' },
 ]
 
-export default function BestSellerPage({ onNavigate }) {
+export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) {
   const [sortBy, setSortBy] = useState('featured')
 
   const sortedProducts = useMemo(() => {
@@ -47,7 +47,7 @@ export default function BestSellerPage({ onNavigate }) {
 
   return (
     <div className="bestseller-page">
-      <Navbar onNavigate={onNavigate} />
+      <Navbar onNavigate={onNavigate} onLoginClick={onLoginClick} cartCount={cartCount} />
 
       {/* Best Sellers Heading */}
       <div className="bestseller-heading">

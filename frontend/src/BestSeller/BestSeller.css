@@ -195,16 +195,15 @@
 .bestseller-card {
   background: white;
   border-radius: 12px;
-  overflow: hidden;
+  overflow: visible;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   position: relative;
 }
 
 .bestseller-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
 }
 
 .product-tag {
@@ -219,28 +218,146 @@
   text-transform: uppercase;
   padding: 6px 12px;
   border-radius: 4px;
-  z-index: 1;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
+/* ─── PREMIUM 3D IMAGE CONTAINER ─── */
 .bestseller-card__img-wrap {
   width: 100%;
   height: 320px;
   overflow: hidden;
-  background: #faf8f4;
+  background: linear-gradient(135deg, #faf8f4 0%, #f5f1ea 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  border-radius: 12px 12px 0 0;
+  
+  /* 3D Setup */
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* Glossy light reflection overlay */
+.bestseller-card__img-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 12px 12px 0 0;
+}
+
+.bestseller-card:hover .bestseller-card__img-wrap::before {
+  opacity: 1;
+}
+
+/* Ambient soft glow */
+.bestseller-card__img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(
+    circle at center,
+    rgba(232, 220, 196, 0.3) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bestseller-card:hover .bestseller-card__img-wrap::after {
+  opacity: 1;
+}
+
+/* Inner 3D container for image */
+.bestseller-card__img-wrap > img {
+  position: relative;
+  z-index: 1;
 }
 
 .bestseller-card__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: all 0.4s ease-in-out;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  
+  /* Layered shadows for depth */
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
+}
+
+/* Premium hover effect - Apple style */
+.bestseller-card:hover .bestseller-card__img {
+  transform: 
+    perspective(1200px)
+    rotateY(10deg) 
+    rotateX(5deg) 
+    scale(1.05)
+    translateZ(20px);
+  
+  /* Enhanced shadows on hover */
+  filter: 
+    drop-shadow(0 12px 24px rgba(0, 0, 0, 0.15))
+    drop-shadow(0 6px 12px rgba(0, 0, 0, 0.1))
+    brightness(1.02);
+}
+
+/* Floating animation */
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: 
+      perspective(1200px)
+      rotateY(10deg) 
+      rotateX(5deg) 
+      scale(1.05)
+      translateZ(20px)
+      translateY(0px);
+  }
+  50% {
+    transform: 
+      perspective(1200px)
+      rotateY(10deg) 
+      rotateX(5deg) 
+      scale(1.05)
+      translateZ(20px)
+      translateY(-8px);
+  }
 }
 
 .bestseller-card:hover .bestseller-card__img {
-  transform: scale(1.05);
+  animation: subtleFloat 3s ease-in-out infinite;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .bestseller-card__img,
+  .bestseller-card__img-wrap::before,
+  .bestseller-card__img-wrap::after,
+  .bestseller-card {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .bestseller-card:hover .bestseller-card__img {
+    transform: scale(1.02);
+    animation: none;
+  }
 }
 
 .bestseller-card__body {

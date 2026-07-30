@@ -4,9 +4,15 @@ import Footer from '../Footer/Footer'
 import LoveWhatYouSee from '../assets/LoveWhatYouSee.jpg'
 import './ProductDetail.css'
 
-export default function ProductDetail({ product, onNavigate, onBack, relatedProducts = [] }) {
+export default function ProductDetail({ product, onNavigate, onBack, relatedProducts = [], onLoginClick, onAddToCart, cartCount }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [quantity, setQuantity] = useState(1)
+  
+  const handleAddToCart = () => {
+    onAddToCart(product, quantity)
+    // Optional: Show success message or animation
+    alert(`Added ${quantity} ${quantity > 1 ? 'items' : 'item'} to cart!`)
+  }
   const [expandedSection, setExpandedSection] = useState(null)
 
   // Product images - if product has multiple images, use them, otherwise use main image
@@ -28,11 +34,6 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
   }
 
-  const handleAddToCart = () => {
-    alert(`Added ${quantity} x ${product.name} to cart!`)
-    // TODO: Implement actual cart functionality
-  }
-
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
@@ -47,7 +48,7 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
 
   return (
     <div className="product-detail">
-      <Navbar onNavigate={onNavigate} />
+      <Navbar onNavigate={onNavigate} onLoginClick={onLoginClick} cartCount={cartCount} />
 
       {/* Breadcrumb */}
       <div className="breadcrumb">

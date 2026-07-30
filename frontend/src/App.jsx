@@ -7,8 +7,10 @@ import HairCarePage from './ShopPages/HairPage'
 import LipCarePage  from './ShopPages/LipCare'
 import AllProductsPage from './ShopPages/Allproducts'
 import ProductDetail from './ProductDetail/ProductDetail'
+import Cart from './Cart/Cart'
 import WhatsAppButton from './Component/WhatsAppButton'
 import ScrollToTop from './Component/ScrollToTop'
+import Login from './Auth/Login'
 
 // Import all products
 import SC1  from './SkinCareImg/SkinCare1.png'
@@ -275,6 +277,57 @@ export default function App() {
   const [page, setPage] = useState('home')
   const [searchParams, setSearchParams] = useState(null)
   const [previousPage, setPreviousPage] = useState(null)
+  const [showLogin, setShowLogin] = useState(false)
+  const [cart, setCart] = useState([]) // Cart state
+
+  // Add to cart function
+  const addToCart = (product, quantity = 1) => {
+    setCart(prevCart => {
+      const existingItem = prevCart.find(item => item.id === product.id)
+      if (existingItem) {
+        // Update quantity if product already in cart
+        return prevCart.map(item =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
+        )
+      } else {
+        // Add new product to cart
+        return [...prevCart, { ...product, quantity }]
+      }
+    })
+    // Show success notification
+    showNotification(`${product.name} added to cart!`)
+  }
+
+  // Simple notification system
+  const [notification, setNotification] = useState(null)
+
+  const showNotification = (message) => {
+    setNotification(message)
+    setTimeout(() => setNotification(null), 3000)
+  }
+
+  // Remove from cart
+  const removeFromCart = (productId) => {
+    setCart(prevCart => prevCart.filter(item => item.id !== productId))
+  }
+
+  // Update quantity
+  const updateQuantity = (productId, newQuantity) => {
+    if (newQuantity <= 0) {
+      removeFromCart(productId)
+    } else {
+      setCart(prevCart =>
+        prevCart.map(item =>
+          item.id === productId ? { ...item, quantity: newQuantity } : item
+        )
+      )
+    }
+  }
+
+  // Get cart count
+  const cartCount = cart.reduce((total, item) => total + item.quantity, 0)
 
   const navigate = (p, params) => {
     if (p === 'product') {
@@ -310,9 +363,13 @@ export default function App() {
             onNavigate={navigate} 
             onBack={goBack}
             relatedProducts={relatedProducts}
+            onLoginClick={() => setShowLogin(true)}
+            onAddToCart={addToCart}
+            cartCount={cartCount}
           />
           <WhatsAppButton />
           <ScrollToTop />
+          {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
         </>
       )
     }
@@ -320,80 +377,126 @@ export default function App() {
 
   if (page === 'shop') return (
     <>
-      <AllProductsPage onNavigate={navigate} searchQuery={searchParams?.search} />
+      <AllProductsPage onNavigate={navigate} searchQuery={searchParams?.search} onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
     </>
   )
   if (page === 'skincare') return (
     <>
-      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} />
+      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
     </>
   )
   if (page === 'serums') return (
     <>
-      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="serums" pageTitle="Serums" />
+      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="serums" pageTitle="Serums" onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
     </>
   )
   if (page === 'creams') return (
     <>
-      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="creams" pageTitle="Creams" />
+      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="creams" pageTitle="Creams" onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
     </>
   )
   if (page === 'moisturisers') return (
     <>
-      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="moisturisers" pageTitle="Moisturisers" />
+      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="moisturisers" pageTitle="Moisturisers" onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
     </>
   )
   if (page === 'tattoo') return (
     <>
-      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="tattoo" pageTitle="Tattoo Care" />
+      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="tattoo" pageTitle="Tattoo Care" onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
     </>
   )
   if (page === 'rituals') return (
     <>
-      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="rituals" pageTitle="Skin Rituals" />
+      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="rituals" pageTitle="Skin Rituals" onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
     </>
   )
   if (page === 'haircare' || page === 'hair') return (
     <>
-      <HairCarePage onNavigate={navigate} searchQuery={searchParams?.search} />
+      <HairCarePage onNavigate={navigate} searchQuery={searchParams?.search} onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
     </>
   )
   if (page === 'lipcare'  || page === 'lip')  return (
     <>
-      <LipCarePage  onNavigate={navigate} searchQuery={searchParams?.search} />
+      <LipCarePage  onNavigate={navigate} searchQuery={searchParams?.search} onLoginClick={() => setShowLogin(true)} />
       <WhatsAppButton />
       <ScrollToTop />
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
     </>
   )
   if (page === 'bestsellers') return (
     <>
-      <BestSellerPage onNavigate={navigate} />
+      <BestSellerPage onNavigate={navigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} />
       <WhatsAppButton />
       <ScrollToTop />
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
+    </>
+  )
+
+  if (page === 'cart') return (
+    <>
+      <Cart 
+        cart={cart} 
+        onNavigate={navigate} 
+        onUpdateQuantity={updateQuantity} 
+        onRemoveItem={removeFromCart}
+        onLoginClick={() => setShowLogin(true)}
+        cartCount={cartCount}
+      />
+      <WhatsAppButton />
+      <ScrollToTop />
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
     </>
   )
 
   return (
     <>
-      <HomePage onNavigate={navigate} />
+      <HomePage onNavigate={navigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} onAddToCart={addToCart} allProducts={ALL_PRODUCTS} />
       <WhatsAppButton />
       <ScrollToTop />
+      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} />}
+      {notification && (
+        <div style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          background: '#2d5f3f',
+          color: 'white',
+          padding: '16px 24px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+          zIndex: 10000,
+          maxWidth: '400px',
+          animation: 'slideInUp 0.3s ease',
+          fontSize: '14px',
+          fontWeight: '500'
+        }}>
+          ✓ {notification}
+        </div>
+      )}
     </>
   )
 }

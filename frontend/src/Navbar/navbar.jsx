@@ -45,7 +45,7 @@ const ALL_SEARCH_PRODUCTS = [
   { id:18, img:LC2, name:'Lip Butter 15 Gram: Butters, Oils & Honey. NO CHEMICALS, NO PRESERVATIVES. NOT LIP BALM', category: 'Lip Butter', keywords: 'lip butter butters oils honey natural organic chemical free preservative free balm', price:'From Rs. 165.00' },
 ]
 
-export default function Navbar({ onNavigate, cartCount = 0 }) {
+export default function Navbar({ onNavigate, cartCount = 0, onLoginClick }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [shopOpen, setShopOpen] = useState(false)
@@ -210,12 +210,12 @@ export default function Navbar({ onNavigate, cartCount = 0 }) {
               </svg>
             </button>
           )}
-          <button className="navbar__icon-btn" aria-label="Account">
+          <button className="navbar__icon-btn" aria-label="Account" onClick={onLoginClick}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
             </svg>
           </button>
-          <button className="navbar__icon-btn navbar__cart-btn" aria-label="Cart">
+          <button className="navbar__icon-btn navbar__cart-btn" aria-label="Cart" onClick={() => nav('cart')}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
               <line x1="3" y1="6" x2="21" y2="6" />

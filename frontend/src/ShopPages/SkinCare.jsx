@@ -40,7 +40,7 @@ const products = [
   { id:16, img:HairCareImg, name:'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', category: 'Serum', keywords: 'redensyl anagain rice water biotin hair therapy serum growth hair fall', price:'₹ 575' },
 ]
 
-export default function SkinCarePage({ onNavigate, searchQuery, categoryFilter, pageTitle, showAllProducts }) {
+export default function SkinCarePage({ onNavigate, searchQuery, categoryFilter, pageTitle, showAllProducts, onLoginClick }) {
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery || '')
 
   // Search and category filter logic
@@ -85,7 +85,7 @@ export default function SkinCarePage({ onNavigate, searchQuery, categoryFilter, 
 
   return (
     <div className="shop-page">
-      <Navbar onNavigate={onNavigate} />
+      <Navbar onNavigate={onNavigate} onLoginClick={onLoginClick} />
 
       {/* Big page heading — reference style */}
       <div className="shop-page__hero">

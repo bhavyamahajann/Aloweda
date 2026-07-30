@@ -60,7 +60,7 @@ const tabs = [
 const VISIBLE = 4 // cards visible at a time
 const SKINCARE_LIMIT = 10 // max skincare products before View More
 
-export default function BestSellers({ onNavigate }) {
+export default function BestSellers({ onNavigate, onAddToCart, allProducts }) {
   const [activeTab, setActiveTab] = useState('skincare')
   const [startIdx, setStartIdx] = useState(0)
 
@@ -87,6 +87,18 @@ export default function BestSellers({ onNavigate }) {
   // Slots: product cards + optional View More card
   const slots = [...products, ...(showViewMore ? [{ id: 'viewmore' }] : [])]
   const visible = slots.slice(startIdx, startIdx + VISIBLE)
+
+  // Function to handle add to bag
+  const handleAddToBag = (e, product) => {
+    e.stopPropagation()
+    if (onAddToCart && allProducts) {
+      // Find full product details from allProducts
+      const fullProduct = allProducts.find(p => p.id === product.id)
+      if (fullProduct) {
+        onAddToCart(fullProduct, 1)
+      }
+    }
+  }
 
   return (
     <section className="section best-sellers">
@@ -134,7 +146,7 @@ export default function BestSellers({ onNavigate }) {
                     <span className="product-card__price">{p.price}</span>
                     {p.mrp && <span className="product-card__mrp">{p.mrp}</span>}
                   </div>
-                  <button className="btn btn--outline-dark btn--sm" onClick={(e) => { e.stopPropagation(); alert('Added to cart!') }}>Add to Bag</button>
+                  <button className="btn btn--outline-dark btn--sm" onClick={(e) => handleAddToBag(e, p)}>Add to Bag</button>
                 </div>
               </div>
             </div>

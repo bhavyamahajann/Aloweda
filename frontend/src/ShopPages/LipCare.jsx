@@ -26,7 +26,7 @@ const products = [
   },
 ]
 
-export default function LipCarePage({ onNavigate, searchQuery }) {
+export default function LipCarePage({ onNavigate, searchQuery, onLoginClick }) {
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery || '')
 
   // Search filter logic
@@ -45,7 +45,7 @@ export default function LipCarePage({ onNavigate, searchQuery }) {
   }
   return (
     <div className="shop-page">
-      <Navbar onNavigate={onNavigate} />
+      <Navbar onNavigate={onNavigate} onLoginClick={onLoginClick} />
 
       <div className="shop-page__hero">
         <h1 className="shop-page__hero-title">Lip Care</h1>
