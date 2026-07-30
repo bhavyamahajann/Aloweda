@@ -6,7 +6,7 @@
 
 /* ─── HERO SECTION ─── */
 .bestseller-hero {
-  padding: 100px 48px 60px;
+  padding: 100px 48px 40px;
   background: var(--warm-white);
 }
 
@@ -37,6 +37,29 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* ─── BEST SELLERS HEADING ─── */
+.bestseller-heading {
+  max-width: 1280px;
+  margin: 0 auto 32px;
+  padding: 0 48px;
+  text-align: center;
+}
+
+.bestseller-heading h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0 0 8px 0;
+  letter-spacing: -0.02em;
+}
+
+.bestseller-heading p {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  margin: 0;
+  font-weight: 400;
 }
 
 /* ─── TOP BAR (Filter & Sort) ─── */

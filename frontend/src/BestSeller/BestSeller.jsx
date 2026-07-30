@@ -73,6 +73,12 @@ export default function BestSellerPage({ onNavigate }) {
         </div>
       </div>
 
+      {/* Best Sellers Heading */}
+      <div className="bestseller-heading">
+        <h1>Best Sellers</h1>
+        <p>Discover our most loved products</p>
+      </div>
+
       {/* Filter & Sort Bar */}
       <div className="bestseller-topbar">
         <div className="bestseller-topbar-left">
