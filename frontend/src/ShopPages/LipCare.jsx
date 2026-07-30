@@ -9,7 +9,7 @@ import LC2 from '../LipCareImg/LipCare2.jpg'
 
 const products = [
   { 
-    id: 1, 
+    id: 17, 
     img: LC1, 
     name: 'Lip Butter 8 Gram: Butters, Oils & Honey.ZERO CHEMICALS, NO PRESERVATIVES', 
     category: 'Lip Butter',
@@ -17,7 +17,7 @@ const products = [
     price: 'Rs. 75.00' 
   },
   { 
-    id: 2, 
+    id: 18, 
     img: LC2, 
     name: 'Lip Butter 15 Gram: Butters, Oils & Honey. NO CHEMICALS, NO PRESERVATIVES. NOT LIP BALM', 
     category: 'Lip Butter',

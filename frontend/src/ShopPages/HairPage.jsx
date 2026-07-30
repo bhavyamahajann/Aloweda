@@ -7,7 +7,7 @@ import './HairCare.css'
 
 const products = [
   { 
-    id: 1, 
+    id: 16, 
     img: HairCareImg, 
     name: 'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', 
     category: 'Hair Serum',

@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react'
 import Navbar from '../Navbar/navbar'
 import Footer from '../Footer/Footer'
 import LoveWhatYouSee from '../assets/LoveWhatYouSee.jpg'
+import Model3DViewer from '../Component/Model3DViewer'
 import './ProductDetail.css'
 
 export default function ProductDetail({ product, onNavigate, onBack, relatedProducts = [], onLoginClick, onAddToCart, cartCount }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [quantity, setQuantity] = useState(1)
+  const [viewMode, setViewMode] = useState('image') // 'image' or '3d'
+  const [hoveredProduct, setHoveredProduct] = useState(null)
   
   const handleAddToCart = () => {
     onAddToCart(product, quantity)
@@ -58,39 +61,73 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
       </div>
 
       <div className="product-detail__container">
-        {/* Left: Image Gallery */}
+        {/* Left: Image Gallery / 3D Viewer */}
         <div className="product-gallery">
-          <div className="product-gallery__main">
-            <img src={images[currentImageIndex]} alt={product.name} />
-            {images.length > 1 && (
-              <>
-                <button className="gallery-arrow gallery-arrow--prev" onClick={prevImage}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M15 18l-6-6 6-6" />
-                  </svg>
-                </button>
-                <button className="gallery-arrow gallery-arrow--next" onClick={nextImage}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M9 18l6-6-6-6" />
-                  </svg>
-                </button>
-              </>
-            )}
-          </div>
-
-          {/* Thumbnail Navigation */}
-          {images.length > 1 && (
-            <div className="product-gallery__thumbs">
-              {images.map((img, idx) => (
-                <button
-                  key={idx}
-                  className={`thumb ${idx === currentImageIndex ? 'thumb--active' : ''}`}
-                  onClick={() => setCurrentImageIndex(idx)}
-                >
-                  <img src={img} alt={`View ${idx + 1}`} />
-                </button>
-              ))}
+          {/* View Mode Toggle - Only show if product has 3D model */}
+          {product.model3D && (
+            <div className="view-mode-toggle">
+              <button
+                className={`toggle-btn ${viewMode === 'image' ? 'active' : ''}`}
+                onClick={() => setViewMode('image')}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21 15 16 10 5 21" />
+                </svg>
+                Photos
+              </button>
+              <button
+                className={`toggle-btn ${viewMode === '3d' ? 'active' : ''}`}
+                onClick={() => setViewMode('3d')}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                  <line x1="12" y1="22.08" x2="12" y2="12" />
+                </svg>
+                3D View
+              </button>
             </div>
+          )}
+
+          {viewMode === 'image' || !product.model3D ? (
+            <>
+              <div className="product-gallery__main">
+                <img src={images[currentImageIndex]} alt={product.name} />
+                {images.length > 1 && (
+                  <>
+                    <button className="gallery-arrow gallery-arrow--prev" onClick={prevImage}>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M15 18l-6-6 6-6" />
+                      </svg>
+                    </button>
+                    <button className="gallery-arrow gallery-arrow--next" onClick={nextImage}>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M9 18l6-6-6-6" />
+                      </svg>
+                    </button>
+                  </>
+                )}
+              </div>
+
+              {/* Thumbnail Navigation */}
+              {images.length > 1 && (
+                <div className="product-gallery__thumbs">
+                  {images.map((img, idx) => (
+                    <button
+                      key={idx}
+                      className={`thumb ${idx === currentImageIndex ? 'thumb--active' : ''}`}
+                      onClick={() => setCurrentImageIndex(idx)}
+                    >
+                      <img src={img} alt={`View ${idx + 1}`} />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </>
+          ) : (
+            <Model3DViewer modelPath={product.model3D} />
           )}
         </div>
 
@@ -336,7 +373,13 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
           <h2 className="related-products__title">You may also like</h2>
           <div className="related-products__grid">
             {relatedProducts.map((p) => (
-              <div key={p.id} className="related-card" onClick={() => onNavigate('product', { productId: p.id })}>
+              <div 
+                key={p.id} 
+                className="related-card" 
+                onClick={() => onNavigate('product', { productId: p.id })}
+                onMouseEnter={() => setHoveredProduct(p.id)}
+                onMouseLeave={() => setHoveredProduct(null)}
+              >
                 <div className="related-card__img-wrap">
                   <img src={p.img} alt={p.name} />
                 </div>
@@ -347,6 +390,31 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
                     {p.mrp && <span className="mrp">{p.mrp}</span>}
                   </div>
                 </div>
+
+                {/* Hover Popup */}
+                {hoveredProduct === p.id && (
+                  <div className="product-popup">
+                    <div className="product-popup__content">
+                      <div className="product-popup__header">
+                        <h3>{p.name}</h3>
+                        <span className="product-popup__category">{p.category || 'Product'}</span>
+                      </div>
+                      <div className="product-popup__details">
+                        <div className="product-popup__price-section">
+                          <span className="popup-price">{p.price}</span>
+                          {p.mrp && <span className="popup-mrp">{p.mrp}</span>}
+                        </div>
+                        <div className="product-popup__info">
+                          <p>✓ Premium Quality Product</p>
+                          <p>✓ Cruelty-Free & Vegan</p>
+                          <p>✓ GMP Certified</p>
+                          <p>✓ Free Shipping on Orders Above ₹499</p>
+                        </div>
+                      </div>
+                      <button className="product-popup__btn">View Details</button>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>

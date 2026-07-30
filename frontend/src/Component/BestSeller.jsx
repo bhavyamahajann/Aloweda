@@ -44,11 +44,11 @@ const productsByTab = {
     { id:15, img: SC15, name: 'Anti Acne Face wash: 100 ml, Salicylic Acid 2% for Oily & Acne Prone Skin',                                    price: '₹ 185', mrp: '',        tag: 'Best Seller' },
   ],
   lipcare: [
-    { id:1, img: LC1, name: 'Lip Butter 8 Gram: Butters, Oils & Honey. ZERO CHEMICALS, NO PRESERVATIVES',                   price: '₹ 75',  mrp: '', tag: 'Best Seller' },
-    { id:2, img: LC2, name: 'Lip Butter 15 Gram: Butters, Oils & Honey. NO CHEMICALS, NO PRESERVATIVES. NOT LIP BALM',  price: 'From ₹ 165', mrp: '', tag: 'Best Seller' },
+    { id:17, img: LC1, name: 'Lip Butter 8 Gram: Butters, Oils & Honey. ZERO CHEMICALS, NO PRESERVATIVES',                   price: '₹ 75',  mrp: '', tag: 'Best Seller' },
+    { id:18, img: LC2, name: 'Lip Butter 15 Gram: Butters, Oils & Honey. NO CHEMICALS, NO PRESERVATIVES. NOT LIP BALM',  price: 'From ₹ 165', mrp: '', tag: 'Best Seller' },
   ],
   haircare: [
-    { id:1, img: HairCareImg, name: 'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', price: '₹ 575', mrp: '', tag: 'Best Seller' },
+    { id:16, img: HairCareImg, name: 'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', price: '₹ 575', mrp: '', tag: 'Best Seller' },
   ],
 }
 
