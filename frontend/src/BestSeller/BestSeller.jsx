@@ -49,6 +49,12 @@ export default function BestSellerPage({ onNavigate }) {
     <div className="bestseller-page">
       <Navbar onNavigate={onNavigate} />
 
+      {/* Best Sellers Heading */}
+      <div className="bestseller-heading">
+        <h1>Best Sellers</h1>
+        <p>Discover our most loved products</p>
+      </div>
+
       {/* Hero Section with 3 Product Images */}
       <div className="bestseller-hero">
         <div className="bestseller-hero__container">
@@ -71,12 +77,6 @@ export default function BestSellerPage({ onNavigate }) {
             <img src={SmartSkinCareImg} alt="Smart Skincare" />
           </div>
         </div>
-      </div>
-
-      {/* Best Sellers Heading */}
-      <div className="bestseller-heading">
-        <h1>Best Sellers</h1>
-        <p>Discover our most loved products</p>
       </div>
 
       {/* Filter & Sort Bar */}
