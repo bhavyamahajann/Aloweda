@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 const authRoutes = require('./routes/auth');
 const protect = require('./middleware/auth');
-const User = require('./models/user');
+const User = require('./models/User');
 
 const app = express();
 
