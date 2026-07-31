@@ -47,20 +47,23 @@
 }
 
 .bestseller-heading h1 {
-  font-size: 3.25rem;
-  font-weight: 600;
-  color: var(--text-dark);
-  margin: 0 auto 8px auto;
-  letter-spacing: -0.02em;
-  background: linear-gradient(135deg, var(--text-dark) 0%, #6b5d4f 60%, var(--green) 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: fadeInUp 0.7s ease forwards, gradientShift 6s ease infinite 0.7s;
+  font-size: 3.25rem !important;
+  font-weight: 600 !important;
+  color: var(--text-dark) !important;
+  margin: 0 auto 8px auto !important;
+  letter-spacing: -0.02em !important;
+  background: linear-gradient(135deg, var(--text-dark) 0%, #6b5d4f 60%, var(--green) 100%) !important;
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  text-fill-color: transparent !important;
+  animation: none !important;
   text-align: center !important;
-  width: 100%;
-  display: block;
+  width: 100% !important;
+  display: block !important;
+  transform: none !important;
+  opacity: 1 !important;
 }
 
 @keyframes gradientShift {
@@ -80,14 +83,16 @@
 }
 
 .bestseller-heading p {
-  font-size: 1.125rem;
-  color: var(--text-muted);
-  margin: 0 auto;
-  font-weight: 400;
-  animation: fadeInUp 0.7s ease 0.15s forwards;
+  font-size: 1.125rem !important;
+  color: var(--text-muted) !important;
+  margin: 0 auto !important;
+  font-weight: 400 !important;
+  animation: none !important;
+  opacity: 1 !important;
   text-align: center !important;
-  width: 100%;
-  display: block;
+  width: 100% !important;
+  display: block !important;
+  transform: none !important;
 }
 
 /* ─── HERO SECTION ─── */

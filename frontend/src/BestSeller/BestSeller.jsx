@@ -28,8 +28,7 @@ const HERO_ITEMS = [
   { key: 'skincare', img: SmartSkinCareImg, label: 'Smart Skincare', nav: 'skincare' },
 ]
 
-// Tracks the cursor over a card to drive the 3D tilt + sheen via CSS variables.
-// Kept as direct DOM writes (not React state) so the effect stays at 60fps.
+
 function handleTilt(e) {
   const card = e.currentTarget
   const rect = card.getBoundingClientRect()
@@ -79,9 +78,42 @@ export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) 
       <Navbar onNavigate={onNavigate} onLoginClick={onLoginClick} cartCount={cartCount} />
 
       {/* Best Sellers Heading */}
-      <div className="bestseller-heading">
-        <h1>Best Sellers</h1>
-        <p>Discover our most loved products</p>
+      <div 
+        className="bestseller-heading" 
+        style={{ 
+          textAlign: 'center', 
+          paddingLeft: '48px', 
+          paddingRight: '48px',
+          transform: 'none',
+          left: 'auto',
+          right: 'auto',
+          position: 'relative'
+        }}
+      >
+        <h1 style={{ 
+          textAlign: 'center', 
+          width: '100%', 
+          marginLeft: 'auto', 
+          marginRight: 'auto',
+          transform: 'none',
+          position: 'relative',
+          left: '0',
+          right: '0'
+        }}>
+          Best Sellers
+        </h1>
+        <p style={{ 
+          textAlign: 'center', 
+          width: '100%', 
+          marginLeft: 'auto', 
+          marginRight: 'auto',
+          transform: 'none',
+          position: 'relative',
+          left: '0',
+          right: '0'
+        }}>
+          Discover our most loved products
+        </p>
       </div>
 
       {/* Hero Section with 3 Product Images */}
