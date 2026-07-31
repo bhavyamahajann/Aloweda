@@ -181,7 +181,10 @@ export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) 
 
             {/* Hover Popup */}
             {hoveredProduct === product.id && (
-              <div className="product-popup">
+              <div 
+                className="product-popup"
+                onMouseEnter={() => setHoveredProduct(product.id)}
+              >
                 <div className="product-popup__content">
                   <div className="product-popup__header">
                     <h3>{product.name}</h3>
@@ -199,7 +202,15 @@ export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) 
                       <p>✓ Free Shipping on Orders Above ₹499</p>
                     </div>
                   </div>
-                  <button className="product-popup__btn">View Details</button>
+                  <button 
+                    className="product-popup__btn"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      onNavigate('product', { productId: product.id })
+                    }}
+                  >
+                    View Details
+                  </button>
                 </div>
               </div>
             )}
