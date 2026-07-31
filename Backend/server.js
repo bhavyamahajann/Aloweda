@@ -28,17 +28,27 @@ app.get('/', (req, res) => {
   res.send('Auth backend chal raha hai ✅');
 });
 
-// MongoDB se connect karo, phir server start karo
+// MongoDB se connect karo
 const PORT = process.env.PORT || 5000;
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log('MongoDB connected ✅');
-    app.listen(PORT, () => {
-      console.log(`Server chal raha hai: http://localhost:${PORT}`);
+// MongoDB connection - Vercel ke liye optimize
+if (mongoose.connection.readyState === 0) {
+  mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => {
+      console.log('MongoDB connected ✅');
+    })
+    .catch((err) => {
+      console.error('MongoDB connection error ❌:', err.message);
     });
-  })
-  .catch((err) => {
-    console.error('MongoDB connection error ❌:', err.message);
+}
+
+// Local development ke liye server start karo
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server chal raha hai: http://localhost:${PORT}`);
   });
+}
+
+// Vercel ke liye app export karo
+module.exports = app;
