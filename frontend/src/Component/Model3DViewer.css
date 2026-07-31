@@ -1,73 +1,254 @@
-/* ─── 3D MODEL VIEWER ─── */
+/* ─── PREMIUM 3D MODEL VIEWER ─── */
 .model-3d-viewer {
   width: 100%;
-  height: 500px;
+  height: 550px;
   position: relative;
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
-  background: transparent;
+  box-shadow: 
+    0 20px 60px rgba(74, 93, 67, 0.15),
+    0 8px 24px rgba(44, 36, 22, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(74, 93, 67, 0.1);
 }
 
+/* Premium gradient background layers with animation */
+.model-bg-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.model-bg-layer-1 {
+  background: linear-gradient(135deg, 
+    #faf8f4 0%,
+    #f5f0e8 25%,
+    #e8f0eb 50%,
+    #faf8f4 75%,
+    #f5f0e8 100%
+  );
+  background-size: 300% 300%;
+  animation: gradientShift 20s ease infinite;
+}
+
+.model-bg-layer-2 {
+  background: radial-gradient(
+    circle at 30% 40%, 
+    rgba(74, 93, 67, 0.08) 0%, 
+    transparent 50%
+  ),
+  radial-gradient(
+    circle at 70% 60%, 
+    rgba(200, 169, 110, 0.08) 0%, 
+    transparent 50%
+  );
+  animation: pulseGlow 8s ease-in-out infinite;
+}
+
+.model-bg-layer-3 {
+  background: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 80px,
+      rgba(74, 93, 67, 0.02) 80px,
+      rgba(74, 93, 67, 0.02) 160px
+    );
+  animation: slidePattern 30s linear infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes slidePattern {
+  0% { background-position: 0 0; }
+  100% { background-position: 160px 160px; }
+}
+
+/* Floating particles for ambiance */
+.model-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, rgba(74, 93, 67, 0.6), transparent);
+  border-radius: 50%;
+  bottom: -10px;
+  animation: floatUp linear infinite;
+  opacity: 0;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0) scale(0.5);
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-550px) translateX(50px) scale(1);
+  }
+}
+
+/* Canvas styling */
 .model-3d-viewer canvas {
   width: 100% !important;
   height: 100% !important;
   cursor: grab;
+  position: relative;
+  z-index: 2;
 }
 
 .model-3d-viewer canvas:active {
   cursor: grabbing;
 }
 
-/* Viewer Hint */
+/* Premium interactive hint */
 .viewer-hint {
   position: absolute;
-  bottom: 16px;
+  bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, rgba(44, 36, 22, 0.9) 0%, rgba(74, 93, 67, 0.9) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 12px;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 13px;
   font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   pointer-events: none;
-  animation: fadeInUp 0.5s ease;
+  animation: hintFadeIn 0.6s ease;
   z-index: 10;
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-@keyframes fadeInUp {
+.viewer-hint.hint-hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(10px);
+}
+
+@keyframes hintFadeIn {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(10px);
+    transform: translateX(-50%) translateY(20px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateX(-50%) translateY(0) scale(1);
   }
 }
 
 .viewer-hint svg {
   flex-shrink: 0;
+  animation: starRotate 4s linear infinite;
 }
 
-/* Responsive */
+@keyframes starRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Glow effect on hover */
+.model-3d-viewer::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(
+    135deg,
+    rgba(74, 93, 67, 0.4),
+    rgba(200, 169, 110, 0.4),
+    rgba(74, 93, 67, 0.4)
+  );
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+  filter: blur(10px);
+}
+
+.model-3d-viewer:hover::before {
+  opacity: 1;
+  animation: borderGlow 3s ease infinite;
+}
+
+@keyframes borderGlow {
+  0%, 100% { filter: blur(10px) brightness(1); }
+  50% { filter: blur(15px) brightness(1.2); }
+}
+
+/* Premium shine effect on interaction */
+.model-3d-viewer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.model-3d-viewer:hover::after {
+  transform: translateX(100%) translateY(100%) rotate(45deg);
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .model-3d-viewer {
-    height: 400px;
+    height: 450px;
+    border-radius: 16px;
   }
   
   .viewer-hint {
-    font-size: 11px;
-    padding: 6px 12px;
+    font-size: 12px;
+    padding: 10px 20px;
+    bottom: 16px;
   }
 }
 
 @media (max-width: 480px) {
   .model-3d-viewer {
-    height: 320px;
+    height: 380px;
+    border-radius: 12px;
+  }
+  
+  .viewer-hint {
+    font-size: 11px;
+    padding: 8px 16px;
   }
 }
