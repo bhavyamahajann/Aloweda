@@ -70,3 +70,4 @@ export default function Model3DViewer({ modelPath, showControls = true }) {
 // Preload the models for better performance
 useGLTF.preload('/models/AlowedaAntiAcneFac.glb')
 useGLTF.preload('/models/HairTherapySerum.glb')
+useGLTF.preload('/models/AlowvedaSmoothPerfe.glb')
