@@ -18,26 +18,26 @@ router.post('/signup', async (req, res) => {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
-      return res.status(400).json({ message: 'Sab fields fill karo' });
+      return res.status(400).json({ message: 'All fields are required' });
     }
 
     if (password.length < 6) {
       return res
         .status(400)
-        .json({ message: 'Password kam se kam 6 characters ka ho' });
+        .json({ message: 'Password must be at least 6 characters' });
     }
 
-    // Check agar user pehle se exist karta hai
+    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: 'Is email se account already hai' });
+      return res.status(400).json({ message: 'Email already registered' });
     }
 
-    // Password hash karo
+    // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Naya user banao
+    // Create new user
     const user = await User.create({
       name,
       email,
@@ -47,7 +47,7 @@ router.post('/signup', async (req, res) => {
     const token = generateToken(user._id);
 
     res.status(201).json({
-      message: 'Account successfully ban gaya',
+      message: 'Account created successfully',
       token,
       user: {
         id: user._id,
@@ -57,7 +57,7 @@ router.post('/signup', async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error, baad mein try karo' });
+    res.status(500).json({ message: 'Server error, please try again later' });
   }
 });
 
@@ -67,19 +67,19 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({ message: 'Email aur password dono do' });
+      return res.status(400).json({ message: 'Email and password are required' });
     }
 
-    // User dhoondo
+    // Find user
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: 'Email ya password galat hai' });
+      return res.status(400).json({ message: 'Invalid email or password' });
     }
 
-    // Password check karo
+    // Check password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Email ya password galat hai' });
+      return res.status(400).json({ message: 'Invalid email or password' });
     }
 
     const token = generateToken(user._id);
@@ -95,7 +95,7 @@ router.post('/login', async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error, baad mein try karo' });
+    res.status(500).json({ message: 'Server error, please try again later' });
   }
 });
 

@@ -23,22 +23,22 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', authRoutes);
 
-// Example protected route - login ke baad hi access hoga
+// Example protected route - only accessible after login
 app.get('/api/profile', protect, async (req, res) => {
   const user = await User.findById(req.userId).select('-password');
-  if (!user) return res.status(404).json({ message: 'User nahi mila' });
+  if (!user) return res.status(404).json({ message: 'User not found' });
   res.json({ user });
 });
 
 // Health check
 app.get('/', (req, res) => {
-  res.send('Backend is working ✅');
+  res.send('Auth backend is running ✅');
 });
 
 // MongoDB se connect karo
 const PORT = process.env.PORT || 5000;
 
-// MongoDB connection - Vercel ke liye optimize
+// MongoDB connection - Vercel optimized
 if (mongoose.connection.readyState === 0) {
   mongoose
     .connect(process.env.MONGO_URI)
@@ -50,12 +50,12 @@ if (mongoose.connection.readyState === 0) {
     });
 }
 
-// Local development ke liye server start karo
+// Local development server start
 if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => {
-    console.log(`Server chal raha hai: http://localhost:${PORT}`);
+    console.log(`Server running at: http://localhost:${PORT}`);
   });
 }
 
-// Vercel ke liye app export karo
+// Export app for Vercel
 module.exports = app;

@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
 
-// Ye middleware check karta hai ki request ke saath valid token hai ya nahi
-// Isse protected routes banate hain, jaise "/api/profile"
+// Middleware to check if request has a valid token
+// Used for protected routes like "/api/profile"
 const protect = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ message: 'Login karo pehle' });
+    return res.status(401).json({ message: 'Please login first' });
   }
 
   const token = authHeader.split(' ')[1];
@@ -16,7 +16,7 @@ const protect = (req, res, next) => {
     req.userId = decoded.id;
     next();
   } catch (error) {
-    return res.status(401).json({ message: 'Token invalid ya expire ho gaya, dubara login karo' });
+    return res.status(401).json({ message: 'Invalid or expired token, please login again' });
   }
 };
 
