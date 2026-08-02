@@ -10,7 +10,14 @@ const User = require('./models/User');
 const app = express();
 
 // Middleware
-app.use(cors({ origin: process.env.CLIENT_URL || '*' }));
+app.use(cors({ 
+  origin: [
+    'https://aloweda-smoky.vercel.app',
+    'http://localhost:5173',
+    process.env.CLIENT_URL
+  ].filter(Boolean),
+  credentials: true
+}));
 app.use(express.json());
 
 // Routes
@@ -25,7 +32,7 @@ app.get('/api/profile', protect, async (req, res) => {
 
 // Health check
 app.get('/', (req, res) => {
-  res.send('Auth backend chal raha hai ✅');
+  res.send('Backend is working ✅');
 });
 
 // MongoDB se connect karo
