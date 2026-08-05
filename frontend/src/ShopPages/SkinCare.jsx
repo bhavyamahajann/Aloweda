@@ -3,6 +3,7 @@ import Navbar from '../Navbar/navbar'
 import Footer from '../Footer/Footer'
 import './ShopPage.css'
 import './SkinCare.css'
+import { handleNavigation } from '../utils/navigation'
 
 import SC1  from '../SkinCareImg/SkinCare1.png'
 import SC2  from '../SkinCareImg/SkinCare2.png'
@@ -138,7 +139,8 @@ export default function SkinCarePage({ onNavigate, searchQuery, categoryFilter, 
             <div 
               key={p.id} 
               className="sp-card" 
-              onClick={() => onNavigate('product', { productId: p.id })}
+              onClick={(e) => handleNavigation(e, onNavigate, 'product', { productId: p.id })}
+              onAuxClick={(e) => e.button === 1 && handleNavigation(e, onNavigate, 'product', { productId: p.id })}
               onMouseEnter={() => setHoveredProduct(p.id)}
               onMouseLeave={() => setHoveredProduct(null)}
             >
@@ -175,7 +177,11 @@ export default function SkinCarePage({ onNavigate, searchQuery, categoryFilter, 
                         <p>✓ Free Shipping on Orders Above ₹499</p>
                       </div>
                     </div>
-                    <button className="product-popup__btn" onClick={() => onNavigate('product', { productId: p.id })}>View Details</button>
+                    <button 
+                      className="product-popup__btn" 
+                      onClick={(e) => handleNavigation(e, onNavigate, 'product', { productId: p.id })}
+                      onAuxClick={(e) => e.button === 1 && handleNavigation(e, onNavigate, 'product', { productId: p.id })}
+                    >View Details</button>
                   </div>
                 </div>
               )}

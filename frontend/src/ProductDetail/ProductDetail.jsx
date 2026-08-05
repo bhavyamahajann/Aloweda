@@ -4,6 +4,7 @@ import Footer from '../Footer/Footer'
 import LoveWhatYouSee from '../assets/LoveWhatYouSee.jpg'
 import Model3DViewer from '../Component/Model3DViewer'
 import './ProductDetail.css'
+import { handleNavigation } from '../utils/navigation'
 
 export default function ProductDetail({ product, onNavigate, onBack, relatedProducts = [], onLoginClick, onAddToCart, cartCount }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -376,7 +377,8 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
               <div 
                 key={p.id} 
                 className="related-card" 
-                onClick={() => onNavigate('product', { productId: p.id })}
+                onClick={(e) => handleNavigation(e, onNavigate, 'product', { productId: p.id })}
+                onAuxClick={(e) => e.button === 1 && handleNavigation(e, onNavigate, 'product', { productId: p.id })}
                 onMouseEnter={() => setHoveredProduct(p.id)}
                 onMouseLeave={() => setHoveredProduct(null)}
               >

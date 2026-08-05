@@ -8,6 +8,7 @@ import Slide5 from '../assets/HomeSlider5.png'
 import SmartSkinCareLookBook from '../assets/SmartSkinCareLookBook.png'
 import HairCareLookBook from '../assets/HairCareLookBook.png'
 import FaceWashBG from '../assets/FaceWashBG.png'
+import { handleNavigation } from '../utils/navigation'
 import SC1 from '../SkinCareImg/SkinCare1.png'
 import SC2 from '../SkinCareImg/SkinCare2.png'
 import SC3 from '../SkinCareImg/SkinCare3.jpg'
@@ -440,11 +441,19 @@ function LookBookSlider({ onNavigate, onAddToCart, allProducts }) {
                 key={product.id} 
                 className="lookbook-product"
               >
-                <div className="lookbook-product__img" onClick={() => onNavigate('product', { productId: product.id })}>
+                <div 
+                  className="lookbook-product__img" 
+                  onClick={(e) => handleNavigation(e, onNavigate, 'product', { productId: product.id })}
+                  onAuxClick={(e) => e.button === 1 && handleNavigation(e, onNavigate, 'product', { productId: product.id })}
+                >
                   <img src={product.img} alt={product.name} />
                 </div>
                 <div className="lookbook-product__info">
-                  <h3 className="lookbook-product__name" onClick={() => onNavigate('product', { productId: product.id })}>{product.name}</h3>
+                  <h3 
+                    className="lookbook-product__name" 
+                    onClick={(e) => handleNavigation(e, onNavigate, 'product', { productId: product.id })}
+                    onAuxClick={(e) => e.button === 1 && handleNavigation(e, onNavigate, 'product', { productId: product.id })}
+                  >{product.name}</h3>
                   <div className="lookbook-product__footer">
                     <p className="lookbook-product__price">{product.price}</p>
                     <button className="btn btn--outline-dark btn--sm" onClick={(e) => handleAddToCart(e, product)}>Add to Cart</button>

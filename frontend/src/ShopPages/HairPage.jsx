@@ -3,6 +3,7 @@ import Navbar from '../Navbar/navbar'
 import Footer from '../Footer/Footer'
 import HairCareImg from '../assets/HairCare.png'
 import './ShopPage.css'
+import { handleNavigation } from '../utils/navigation'
 import './HairCare.css'
 
 const products = [
@@ -87,7 +88,8 @@ export default function HairCarePage({ onNavigate, searchQuery, onLoginClick }) 
             <div 
               key={p.id} 
               className="sp-card" 
-              onClick={() => onNavigate('product', { productId: p.id })}
+              onClick={(e) => handleNavigation(e, onNavigate, 'product', { productId: p.id })}
+              onAuxClick={(e) => e.button === 1 && handleNavigation(e, onNavigate, 'product', { productId: p.id })}
               onMouseEnter={() => setHoveredProduct(p.id)}
               onMouseLeave={() => setHoveredProduct(null)}
             >
@@ -122,7 +124,11 @@ export default function HairCarePage({ onNavigate, searchQuery, onLoginClick }) 
                         <p>✓ Free Shipping on Orders Above ₹499</p>
                       </div>
                     </div>
-                    <button className="product-popup__btn" onClick={() => onNavigate('product', { productId: p.id })}>View Details</button>
+                    <button 
+                      className="product-popup__btn" 
+                      onClick={(e) => handleNavigation(e, onNavigate, 'product', { productId: p.id })}
+                      onAuxClick={(e) => e.button === 1 && handleNavigation(e, onNavigate, 'product', { productId: p.id })}
+                    >View Details</button>
                   </div>
                 </div>
               )}

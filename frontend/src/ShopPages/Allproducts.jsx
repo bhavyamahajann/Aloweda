@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import Navbar from '../Navbar/navbar'
 import Footer from '../Footer/Footer'
+import { handleNavigation } from '../utils/navigation'
 import './ShopPage.css'
 import './SkinCare.css'
 import './AllProducts.css'
@@ -99,10 +100,8 @@ export default function AllProductsPage({ onNavigate, searchQuery, onLoginClick 
     }
   }
 
-  const handleProductClick = (productId) => {
-    if (onNavigate) {
-      onNavigate('product', { productId })
-    }
+  const handleProductClick = (e, productId) => {
+    handleNavigation(e, onNavigate, 'product', { productId })
   }
 
   return (
@@ -163,7 +162,8 @@ export default function AllProductsPage({ onNavigate, searchQuery, onLoginClick 
               <div 
                 key={product.id} 
                 className="product-card"
-                onClick={() => handleProductClick(product.id)}
+                onClick={(e) => handleProductClick(e, product.id)}
+                onAuxClick={(e) => e.button === 1 && handleProductClick(e, product.id)}
                 onMouseEnter={() => setHoveredProduct(product.id)}
                 onMouseLeave={() => setHoveredProduct(null)}
               >
@@ -201,7 +201,13 @@ export default function AllProductsPage({ onNavigate, searchQuery, onLoginClick 
                           <p>✓ Free Shipping on Orders Above ₹499</p>
                         </div>
                       </div>
-                      <button className="product-popup__btn" onClick={() => handleProductClick(product.id)}>View Details</button>
+                      <button 
+                        className="product-popup__btn" 
+                        onClick={(e) => handleProductClick(e, product.id)}
+                        onAuxClick={(e) => e.button === 1 && handleProductClick(e, product.id)}
+                      >
+                        View Details
+                      </button>
                     </div>
                   </div>
                 )}
