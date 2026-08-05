@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import AlowedaLogo from '../assets/AlowedaLogo.png'
 import { CATEGORIES } from '../data/products'
 import './navbar.css'
@@ -105,7 +106,29 @@ export default function Navbar({ onNavigate, cartCount = 0, onLoginClick }) {
   }
 
   const handleProductClick = (productId) => {
-    nav('product', { id: productId })
+    nav('product', { productId })
+  }
+
+  // Helper to convert page name to route
+  const getRoute = (page) => {
+    const routes = {
+      'home': '/',
+      'shop': '/shop',
+      'skincare': '/skincare',
+      'haircare': '/haircare',
+      'hair': '/haircare',
+      'lipcare': '/lipcare',
+      'lip': '/lipcare',
+      'bestsellers': '/bestsellers',
+      'cart': '/cart',
+      'serums': '/serums',
+      'creams': '/creams',
+      'moisturisers': '/moisturisers',
+      'tattoo': '/tattoo',
+      'rituals': '/rituals',
+      'about': '/about'
+    }
+    return routes[page] || `/${page}`
   }
 
   return (
@@ -131,25 +154,29 @@ export default function Navbar({ onNavigate, cartCount = 0, onLoginClick }) {
                   </span>
                   <div className="navbar__dropdown-submenu">
                     {CATEGORIES.filter(c => c.parent === 'skincare').map((c) => (
-                      <a key={c.id} href="#" className="navbar__dropdown-subitem"
-                        onClick={e => { e.preventDefault(); nav(c.id) }}>
+                      <Link 
+                        key={c.id} 
+                        to={getRoute(c.id)} 
+                        className="navbar__dropdown-subitem"
+                        onClick={() => { setShopOpen(false); setMenuOpen(false); }}
+                      >
                         {c.label}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
               </div>
             )}
           </div>
-          <a href="#" className="navbar__link" onClick={e => { e.preventDefault(); nav('bestsellers') }}>Best Sellers</a>
-          <a href="#" className="navbar__link" onClick={e => { e.preventDefault(); nav('about') }}>About</a>
+          <Link to="/bestsellers" className="navbar__link" onClick={() => { setMenuOpen(false); setShopOpen(false); }}>Best Sellers</Link>
+          <Link to="/about" className="navbar__link" onClick={() => { setMenuOpen(false); setShopOpen(false); }}>About</Link>
         </nav>
 
         {/* Logo */}
-        <a href="/" className="navbar__logo-wrap" onClick={e => { e.preventDefault(); nav('home') }}>
+        <Link to="/" className="navbar__logo-wrap" onClick={() => { setMenuOpen(false); setShopOpen(false); }}>
           <img src={AlowedaLogo} alt="Aloweda" className="navbar__logo" />
           <span className="navbar__tagline">Sensible · Simple · Synergy</span>
-        </a>
+        </Link>
 
         {/* Right */}
         <div className="navbar__right">
@@ -174,17 +201,18 @@ export default function Navbar({ onNavigate, cartCount = 0, onLoginClick }) {
               {searchResults.length > 0 && (
                 <div className="navbar__search-dropdown">
                   {searchResults.slice(0, 5).map(product => (
-                    <div 
+                    <Link 
                       key={product.id} 
+                      to={`/product/${product.id}`}
                       className="navbar__search-result"
-                      onClick={() => handleProductClick(product.id)}
+                      onClick={() => { setSearchOpen(false); setSearchQuery(''); setSearchResults([]); }}
                     >
                       <img src={product.img} alt={product.name} className="navbar__search-result-img" />
                       <div className="navbar__search-result-info">
                         <div className="navbar__search-result-name">{product.name}</div>
                         <div className="navbar__search-result-price">{product.price}</div>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                   {searchResults.length > 5 && (
                     <div 
@@ -215,14 +243,14 @@ export default function Navbar({ onNavigate, cartCount = 0, onLoginClick }) {
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
             </svg>
           </button>
-          <button className="navbar__icon-btn navbar__cart-btn" aria-label="Cart" onClick={() => nav('cart')}>
+          <Link to="/cart" className="navbar__icon-btn navbar__cart-btn" aria-label="Cart" onClick={() => { setMenuOpen(false); setShopOpen(false); }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
               <line x1="3" y1="6" x2="21" y2="6" />
               <path d="M16 10a4 4 0 0 1-8 0" />
             </svg>
             {cartCount > 0 && <span className="navbar__cart-count">{cartCount}</span>}
-          </button>
+          </Link>
           <button className={`navbar__burger ${menuOpen ? 'open' : ''}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
             <span /><span /><span />
           </button>
@@ -232,15 +260,19 @@ export default function Navbar({ onNavigate, cartCount = 0, onLoginClick }) {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="navbar__mobile-menu">
-          <a href="#" className="navbar__mobile-link" onClick={e => { e.preventDefault(); nav('home') }}>Home</a>
-          <a href="#" className="navbar__mobile-link" onClick={e => { e.preventDefault(); nav('shop') }}>All Products</a>
-          <a href="#" className="navbar__mobile-link" onClick={e => { e.preventDefault(); nav('bestsellers') }}>Best Sellers</a>
+          <Link to="/" className="navbar__mobile-link" onClick={() => setMenuOpen(false)}>Home</Link>
+          <Link to="/shop" className="navbar__mobile-link" onClick={() => setMenuOpen(false)}>All Products</Link>
+          <Link to="/bestsellers" className="navbar__mobile-link" onClick={() => setMenuOpen(false)}>Best Sellers</Link>
           <div className="navbar__mobile-divider">Smart Skincare</div>
           {CATEGORIES.filter(c => c.parent === 'skincare').map((c) => (
-            <a key={c.id} href="#" className="navbar__mobile-link navbar__mobile-link--sub"
-              onClick={e => { e.preventDefault(); nav(c.id) }}>
+            <Link 
+              key={c.id} 
+              to={getRoute(c.id)} 
+              className="navbar__mobile-link navbar__mobile-link--sub"
+              onClick={() => setMenuOpen(false)}
+            >
               {c.icon} {c.label}
-            </a>
+            </Link>
           ))}
         </div>
       )}
