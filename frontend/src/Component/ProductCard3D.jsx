@@ -14,24 +14,8 @@ export default function ProductCard3D({
   const [showPopup, setShowPopup] = useState(false)
 
   const handleMouseMove = (e) => {
-    if (!cardRef.current) return
-    
-    const card = cardRef.current
-    const rect = card.getBoundingClientRect()
-    
-    // Calculate mouse position relative to card center
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    
-    const centerX = rect.width / 2
-    const centerY = rect.height / 2
-    
-    // Calculate rotation angles (max ±15 degrees)
-    const rotateX = ((y - centerY) / centerY) * -15
-    const rotateY = ((x - centerX) / centerX) * 15
-    
-    // Apply 3D transform
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`
+    // 3D rotation disabled
+    return
   }
 
   const handleMouseEnter = () => {
@@ -42,10 +26,6 @@ export default function ProductCard3D({
   const handleMouseLeave = () => {
     setIsHovering(false)
     setShowPopup(false)
-    if (cardRef.current) {
-      // Reset to floating state
-      cardRef.current.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)'
-    }
   }
 
   const handleAddToCart = (e) => {
