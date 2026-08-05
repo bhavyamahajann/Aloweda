@@ -45,6 +45,7 @@ export const PRODUCTS = [
     img: Slide2,
     desc: 'Lightweight daily moisturiser with broad-spectrum SPF 30 protection.',
     bestSeller: true,
+    model3D: '/models/DayCreamJar.glb',
   },
   {
     id: 3,
@@ -149,6 +150,20 @@ export const PRODUCTS = [
     img: Slide5,
     desc: 'Complete 3-step ritual: Cleanse, Treat, Moisturise. Save 28%.',
     bestSeller: false,
+  },
+  {
+    id: 11,
+    name: 'Saffron Face Oil',
+    category: 'serums',
+    price: 1299,
+    mrp: 1599,
+    tag: 'Premium',
+    rating: 4.9,
+    reviews: 156,
+    img: Slide1,
+    desc: 'Pure Saffron & Vitamin E face oil for radiant, nourished skin.',
+    bestSeller: false,
+    model3D: '/models/SaffronFaceOilBott.glb',
   },
 ]
 
