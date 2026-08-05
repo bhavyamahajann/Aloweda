@@ -29,27 +29,6 @@ const HERO_ITEMS = [
   { key: 'skincare', img: SmartSkinCareImg, label: 'Smart Skincare', nav: 'skincare' },
 ]
 
-
-function handleTilt(e) {
-  const card = e.currentTarget
-  const rect = card.getBoundingClientRect()
-  const x = e.clientX - rect.left
-  const y = e.clientY - rect.top
-  const rotateX = ((y - rect.height / 2) / rect.height) * -4
-  const rotateY = ((x - rect.width / 2) / rect.width) * 4
-
-  card.style.setProperty('--rx', `${rotateX}deg`)
-  card.style.setProperty('--ry', `${rotateY}deg`)
-  card.style.setProperty('--mx', `${(x / rect.width) * 100}%`)
-  card.style.setProperty('--my', `${(y / rect.height) * 100}%`)
-}
-
-function resetTilt(e) {
-  const card = e.currentTarget
-  card.style.setProperty('--rx', `0deg`)
-  card.style.setProperty('--ry', `0deg`)
-}
-
 export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) {
   const [sortBy, setSortBy] = useState('featured')
   const [hoveredProduct, setHoveredProduct] = useState(null)
@@ -126,8 +105,6 @@ export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) 
               className="hero-product"
               style={{ '--i': i }}
               onClick={() => onNavigate(item.nav)}
-              onMouseMove={handleTilt}
-              onMouseLeave={resetTilt}
             >
               <img src={item.img} alt={item.label} />
               <div className="hero-product__label">{item.label}</div>
@@ -184,11 +161,7 @@ export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) 
                 handleNavigation(e, onNavigate, 'product', { productId: product.id });
               }
             }}
-            onMouseMove={handleTilt}
-            onMouseLeave={(e) => {
-              resetTilt(e)
-              setHoveredProduct(null)
-            }}
+            onMouseLeave={() => setHoveredProduct(null)}
             onMouseEnter={() => setHoveredProduct(product.id)}
           >
             {product.tag && (

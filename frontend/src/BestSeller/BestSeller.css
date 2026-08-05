@@ -122,9 +122,7 @@
   cursor: pointer;
   position: relative;
   background: #faf8f4;
-  transform-style: preserve-3d;
-  transform: perspective(1400px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow:
     0 8px 24px rgba(0, 0, 0, 0.12),
     0 4px 8px rgba(0, 0, 0, 0.08);
@@ -160,6 +158,7 @@
 }
 
 .hero-product:hover {
+  transform: translateY(-4px) scale(1.02);
   box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.18),
     0 8px 16px rgba(0, 0, 0, 0.1);
@@ -311,11 +310,9 @@
   border-radius: 12px;
   overflow: visible;
   cursor: pointer;
-  transition: transform 0.15s ease-out, box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 0.3s ease, box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   position: relative;
-  transform-style: preserve-3d;
-  transform: perspective(1600px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   opacity: 0;
   animation: cardRise 0.6s ease forwards;
   animation-delay: calc(var(--i, 0) * 0.08s);
@@ -323,6 +320,7 @@
 }
 
 .bestseller-card:hover {
+  transform: translateY(-4px);
   box-shadow: 0 24px 56px rgba(0, 0, 0, 0.14);
   z-index: 100;
 }
