@@ -12,6 +12,7 @@ import Cart from './Cart/Cart'
 import WhatsAppButton from './Component/WhatsAppButton'
 import ScrollToTop from './Component/ScrollToTop'
 import Login from './Auth/Login'
+import NotFound from './Pages/NotFound'
 
 // Import all products
 import SC1  from './SkinCareImg/SkinCare1.png'
@@ -467,8 +468,8 @@ function AppContent() {
           } 
         />
 
-        {/* Catch-all redirect to home */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* Catch-all redirect to 404 */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <WhatsAppButton />
