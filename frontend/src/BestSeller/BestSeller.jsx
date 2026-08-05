@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import Navbar from '../Navbar/navbar'
 import Footer from '../Footer/Footer'
 import './BestSeller.css'
+import { handleNavigation } from '../utils/navigation'
 
 // Import product images
 import SC1 from '../SkinCareImg/SkinCare1.png'
@@ -177,7 +178,12 @@ export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) 
             key={product.id}
             className="bestseller-card"
             style={{ '--i': i }}
-            onClick={() => onNavigate('product', { productId: product.id })}
+            onClick={(e) => handleNavigation(e, onNavigate, 'product', { productId: product.id })}
+            onAuxClick={(e) => {
+              if (e.button === 1) { // Middle mouse button
+                handleNavigation(e, onNavigate, 'product', { productId: product.id });
+              }
+            }}
             onMouseMove={handleTilt}
             onMouseLeave={(e) => {
               resetTilt(e)
