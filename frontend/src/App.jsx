@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useParams, useSearchParams, useLocation } from 'react-router-dom'
 import './App.css'
 import HomePage from './Component/HomePage'
 import BestSellerPage from './BestSeller/BestSeller'
@@ -277,12 +278,20 @@ const ALL_PRODUCTS = [
 ]
 
 export default function App() {
-  const [page, setPage] = useState('home')
-  const [searchParams, setSearchParams] = useState(null)
-  const [previousPage, setPreviousPage] = useState(null)
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
+  )
+}
+
+// Main App Content with Routes
+function AppContent() {
   const [showLogin, setShowLogin] = useState(false)
   const [cart, setCart] = useState([]) // Cart state
   const [user, setUser] = useState(null) // User state
+  const [notification, setNotification] = useState(null)
+  const navigate = useNavigate()
 
   // Handle successful login
   const handleLoginSuccess = (userData) => {
@@ -311,8 +320,6 @@ export default function App() {
   }
 
   // Simple notification system
-  const [notification, setNotification] = useState(null)
-
   const showNotification = (message) => {
     setNotification(message)
     setTimeout(() => setNotification(null), 3000)
@@ -339,155 +346,134 @@ export default function App() {
   // Get cart count
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0)
 
-  const navigate = (p, params) => {
-    if (p === 'product') {
-      setPreviousPage(page)
-    }
-    setPage(p)
-    setSearchParams(params || null)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  const goBack = () => {
-    if (previousPage) {
-      setPage(previousPage)
-      setPreviousPage(null)
+  // Custom navigate function for backward compatibility
+  const handleNavigate = (path, params) => {
+    if (path === 'home') {
+      navigate('/')
+    } else if (path === 'product' && params?.productId) {
+      navigate(`/product/${params.productId}`)
+    } else if (path === 'shop') {
+      navigate('/shop')
+    } else if (path === 'skincare') {
+      navigate('/skincare')
+    } else if (path === 'haircare' || path === 'hair') {
+      navigate('/haircare')
+    } else if (path === 'lipcare' || path === 'lip') {
+      navigate('/lipcare')
+    } else if (path === 'bestsellers') {
+      navigate('/bestsellers')
+    } else if (path === 'cart') {
+      navigate('/cart')
+    } else if (path === 'serums') {
+      navigate('/serums')
+    } else if (path === 'creams') {
+      navigate('/creams')
+    } else if (path === 'moisturisers') {
+      navigate('/moisturisers')
+    } else if (path === 'tattoo') {
+      navigate('/tattoo')
+    } else if (path === 'rituals') {
+      navigate('/rituals')
     } else {
-      setPage('home')
+      navigate(`/${path}`)
     }
   }
-
-  // Product Detail Page
-  if (page === 'product' && searchParams?.productId) {
-    const product = ALL_PRODUCTS.find(p => p.id === searchParams.productId)
-    if (product) {
-      // Get related products from same category
-      const relatedProducts = ALL_PRODUCTS
-        .filter(p => p.category === product.category && p.id !== product.id)
-        .slice(0, 4)
-      
-      return (
-        <>
-          <ProductDetail 
-            product={product} 
-            onNavigate={navigate} 
-            onBack={goBack}
-            relatedProducts={relatedProducts}
-            onLoginClick={() => setShowLogin(true)}
-            onAddToCart={addToCart}
-            cartCount={cartCount}
-          />
-          <WhatsAppButton />
-          <ScrollToTop />
-          {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
-        </>
-      )
-    }
-  }
-
-  if (page === 'shop') return (
-    <>
-      <AllProductsPage onNavigate={navigate} searchQuery={searchParams?.search} onLoginClick={() => setShowLogin(true)} />
-      <WhatsAppButton />
-      <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
-    </>
-  )
-  if (page === 'skincare') return (
-    <>
-      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} onLoginClick={() => setShowLogin(true)} />
-      <WhatsAppButton />
-      <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
-    </>
-  )
-  if (page === 'serums') return (
-    <>
-      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="serums" pageTitle="Serums" onLoginClick={() => setShowLogin(true)} />
-      <WhatsAppButton />
-      <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
-    </>
-  )
-  if (page === 'creams') return (
-    <>
-      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="creams" pageTitle="Creams" onLoginClick={() => setShowLogin(true)} />
-      <WhatsAppButton />
-      <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
-    </>
-  )
-  if (page === 'moisturisers') return (
-    <>
-      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="moisturisers" pageTitle="Moisturisers" onLoginClick={() => setShowLogin(true)} />
-      <WhatsAppButton />
-      <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
-    </>
-  )
-  if (page === 'tattoo') return (
-    <>
-      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="tattoo" pageTitle="Tattoo Care" onLoginClick={() => setShowLogin(true)} />
-      <WhatsAppButton />
-      <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
-    </>
-  )
-  if (page === 'rituals') return (
-    <>
-      <SkinCarePage onNavigate={navigate} searchQuery={searchParams?.search} categoryFilter="rituals" pageTitle="Skin Rituals" onLoginClick={() => setShowLogin(true)} />
-      <WhatsAppButton />
-      <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
-    </>
-  )
-  if (page === 'haircare' || page === 'hair') return (
-    <>
-      <HairCarePage onNavigate={navigate} searchQuery={searchParams?.search} onLoginClick={() => setShowLogin(true)} />
-      <WhatsAppButton />
-      <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
-    </>
-  )
-  if (page === 'lipcare'  || page === 'lip')  return (
-    <>
-      <LipCarePage  onNavigate={navigate} searchQuery={searchParams?.search} onLoginClick={() => setShowLogin(true)} />
-      <WhatsAppButton />
-      <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
-    </>
-  )
-  if (page === 'bestsellers') return (
-    <>
-      <BestSellerPage onNavigate={navigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} />
-      <WhatsAppButton />
-      <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
-    </>
-  )
-
-  if (page === 'cart') return (
-    <>
-      <Cart 
-        cart={cart} 
-        onNavigate={navigate} 
-        onUpdateQuantity={updateQuantity} 
-        onRemoveItem={removeFromCart}
-        onLoginClick={() => setShowLogin(true)}
-        cartCount={cartCount}
-      />
-      <WhatsAppButton />
-      <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
-    </>
-  )
 
   return (
     <>
-      <HomePage onNavigate={navigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} onAddToCart={addToCart} allProducts={ALL_PRODUCTS} />
+      <Routes>
+        {/* Home Route */}
+        <Route 
+          path="/" 
+          element={
+            <HomePage 
+              onNavigate={handleNavigate} 
+              onLoginClick={() => setShowLogin(true)} 
+              cartCount={cartCount} 
+              onAddToCart={addToCart} 
+              allProducts={ALL_PRODUCTS} 
+            />
+          } 
+        />
+
+        {/* Product Detail Route */}
+        <Route 
+          path="/product/:productId" 
+          element={<ProductDetailWrapper onNavigate={handleNavigate} onLoginClick={() => setShowLogin(true)} onAddToCart={addToCart} cartCount={cartCount} />} 
+        />
+
+        {/* Shop Routes */}
+        <Route 
+          path="/shop" 
+          element={<AllProductsPage onNavigate={handleNavigate} onLoginClick={() => setShowLogin(true)} />} 
+        />
+
+        {/* Skin Care Routes */}
+        <Route 
+          path="/skincare" 
+          element={<SkinCarePage onNavigate={handleNavigate} onLoginClick={() => setShowLogin(true)} />} 
+        />
+        <Route 
+          path="/serums" 
+          element={<SkinCarePage onNavigate={handleNavigate} categoryFilter="serums" pageTitle="Serums" onLoginClick={() => setShowLogin(true)} />} 
+        />
+        <Route 
+          path="/creams" 
+          element={<SkinCarePage onNavigate={handleNavigate} categoryFilter="creams" pageTitle="Creams" onLoginClick={() => setShowLogin(true)} />} 
+        />
+        <Route 
+          path="/moisturisers" 
+          element={<SkinCarePage onNavigate={handleNavigate} categoryFilter="moisturisers" pageTitle="Moisturisers" onLoginClick={() => setShowLogin(true)} />} 
+        />
+        <Route 
+          path="/tattoo" 
+          element={<SkinCarePage onNavigate={handleNavigate} categoryFilter="tattoo" pageTitle="Tattoo Care" onLoginClick={() => setShowLogin(true)} />} 
+        />
+        <Route 
+          path="/rituals" 
+          element={<SkinCarePage onNavigate={handleNavigate} categoryFilter="rituals" pageTitle="Skin Rituals" onLoginClick={() => setShowLogin(true)} />} 
+        />
+
+        {/* Hair Care Route */}
+        <Route 
+          path="/haircare" 
+          element={<HairCarePage onNavigate={handleNavigate} onLoginClick={() => setShowLogin(true)} />} 
+        />
+
+        {/* Lip Care Route */}
+        <Route 
+          path="/lipcare" 
+          element={<LipCarePage onNavigate={handleNavigate} onLoginClick={() => setShowLogin(true)} />} 
+        />
+
+        {/* Best Sellers Route */}
+        <Route 
+          path="/bestsellers" 
+          element={<BestSellerPage onNavigate={handleNavigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} />} 
+        />
+
+        {/* Cart Route */}
+        <Route 
+          path="/cart" 
+          element={
+            <Cart 
+              cart={cart} 
+              onNavigate={handleNavigate} 
+              onUpdateQuantity={updateQuantity} 
+              onRemoveItem={removeFromCart}
+              onLoginClick={() => setShowLogin(true)}
+              cartCount={cartCount}
+            />
+          } 
+        />
+
+        {/* Catch-all redirect to home */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+
       <WhatsAppButton />
       <ScrollToTop />
-      {showLogin && <Login onNavigate={navigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
+      {showLogin && <Login onNavigate={handleNavigate} onClose={() => setShowLogin(false)} onLoginSuccess={handleLoginSuccess} />}
       {notification && (
         <div style={{
           position: 'fixed',
@@ -508,5 +494,32 @@ export default function App() {
         </div>
       )}
     </>
+  )
+}
+
+// Wrapper component for Product Detail to handle URL params
+function ProductDetailWrapper({ onNavigate, onLoginClick, onAddToCart, cartCount }) {
+  const { productId } = useParams()
+  const product = ALL_PRODUCTS.find(p => p.id === parseInt(productId))
+  
+  if (!product) {
+    return <Navigate to="/" replace />
+  }
+
+  // Get related products from same category
+  const relatedProducts = ALL_PRODUCTS
+    .filter(p => p.category === product.category && p.id !== product.id)
+    .slice(0, 4)
+  
+  return (
+    <ProductDetail 
+      product={product} 
+      onNavigate={onNavigate} 
+      onBack={() => window.history.back()}
+      relatedProducts={relatedProducts}
+      onLoginClick={onLoginClick}
+      onAddToCart={onAddToCart}
+      cartCount={cartCount}
+    />
   )
 }

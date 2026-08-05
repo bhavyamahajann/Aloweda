@@ -21,7 +21,7 @@ export const handleNavigation = (event, onNavigate, page, params = {}) => {
 };
 
 /**
- * Build URL from page and params
+ * Build URL from page and params (React Router format)
  * @param {string} page - Page identifier
  * @param {object} params - URL parameters
  * @returns {string} Full URL
@@ -31,18 +31,29 @@ const buildUrl = (page, params) => {
   
   // Handle product page
   if (page === 'product' && params.productId) {
-    return `${baseUrl}/#product=${params.productId}`;
+    return `${baseUrl}/product/${params.productId}`;
   }
   
-  // Handle other pages
-  if (params && Object.keys(params).length > 0) {
-    const queryString = Object.entries(params)
-      .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-      .join('&');
-    return `${baseUrl}/#${page}?${queryString}`;
-  }
+  // Handle other pages with proper routing
+  const routes = {
+    'home': '/',
+    'shop': '/shop',
+    'skincare': '/skincare',
+    'haircare': '/haircare',
+    'hair': '/haircare',
+    'lipcare': '/lipcare',
+    'lip': '/lipcare',
+    'bestsellers': '/bestsellers',
+    'cart': '/cart',
+    'serums': '/serums',
+    'creams': '/creams',
+    'moisturisers': '/moisturisers',
+    'tattoo': '/tattoo',
+    'rituals': '/rituals'
+  };
   
-  return `${baseUrl}/#${page}`;
+  const route = routes[page] || `/${page}`;
+  return `${baseUrl}${route}`;
 };
 
 /**

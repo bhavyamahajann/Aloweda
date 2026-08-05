@@ -1,8 +1,15 @@
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import './ScrollToTop.css'
 
 export default function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false)
+  const location = useLocation()
+
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [location.pathname])
 
   // Show button when page is scrolled down
   useEffect(() => {
