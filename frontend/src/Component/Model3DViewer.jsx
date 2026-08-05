@@ -29,6 +29,7 @@ function Model({ modelPath }) {
 
 export default function Model3DViewer({ modelPath, showControls = true }) {
   const [isInteracting, setIsInteracting] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   return (
     <div className="model-3d-viewer">
@@ -52,22 +53,35 @@ export default function Model3DViewer({ modelPath, showControls = true }) {
         ))}
       </div>
 
+      {/* Loading spinner */}
+      {loading && (
+        <div className="model-loading-overlay">
+          <div className="model-spinner"></div>
+          <p>Loading 3D Model...</p>
+        </div>
+      )}
+
       <Canvas
         camera={{ position: [0, 0, 7], fov: 45 }}
         gl={{ 
           antialias: true, 
           alpha: true,
-          powerPreference: 'high-performance'
+          powerPreference: 'high-performance',
+          precision: 'highp',
+          stencil: false,
+          depth: true
         }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]} // Reduced for faster loading
         performance={{ min: 0.5 }}
+        shadows={false} // Disable shadows for performance
         onPointerDown={() => setIsInteracting(true)}
         onPointerUp={() => setIsInteracting(false)}
+        onCreated={() => setLoading(false)}
       >
         <Suspense fallback={null}>
           {/* Premium studio lighting setup */}
           <ambientLight intensity={0.6} />
-          <directionalLight position={[5, 8, 5]} intensity={1.2} castShadow />
+          <directionalLight position={[5, 8, 5]} intensity={1.2} />
           <directionalLight position={[-5, 5, -5]} intensity={0.6} />
           <pointLight position={[0, 10, 0]} intensity={0.8} color="#ffeedd" />
           <spotLight
@@ -75,7 +89,6 @@ export default function Model3DViewer({ modelPath, showControls = true }) {
             angle={0.3}
             penumbra={1}
             intensity={0.5}
-            castShadow
           />
           
           {/* Premium environment with soft reflections */}
@@ -125,7 +138,9 @@ export default function Model3DViewer({ modelPath, showControls = true }) {
   )
 }
 
-// Preload the models for better performance
+// Preload ALL models for instant loading
 useGLTF.preload('/models/AlowedaAntiAcneFac.glb')
 useGLTF.preload('/models/HairTherapySerum.glb')
 useGLTF.preload('/models/AlowvedaSmoothPerfe.glb')
+useGLTF.preload('/models/SaffronFaceOilBott.glb')
+useGLTF.preload('/models/DayCreamJar.glb')
