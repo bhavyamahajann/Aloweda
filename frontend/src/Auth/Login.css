@@ -99,16 +99,6 @@
   margin: 0 auto 24px auto;
   display: block;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
 }
 
 .login-brand-title {
@@ -148,7 +138,6 @@
   height: 200px;
   top: -50px;
   right: -50px;
-  animation: float 6s ease-in-out infinite;
 }
 
 .deco-circle-2 {
@@ -156,7 +145,6 @@
   height: 150px;
   bottom: -30px;
   left: -30px;
-  animation: float 8s ease-in-out infinite reverse;
 }
 
 .deco-circle-3 {
@@ -164,15 +152,16 @@
   height: 100px;
   top: 50%;
   left: 10%;
-  animation: float 7s ease-in-out infinite;
 }
 
 /* ─── RIGHT SIDE - FORM ─── */
 .login-right {
-  padding: 60px 50px;
+  padding: 40px 50px;
   background: white;
   overflow-y: auto;
   max-height: 90vh;
+  display: flex;
+  align-items: center;
 }
 
 .login-form-wrap {
@@ -181,20 +170,20 @@
 }
 
 .login-header {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   text-align: center;
 }
 
 .login-title {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 700;
   color: var(--text-dark);
-  margin: 0 0 8px 0;
+  margin: 0 0 6px 0;
   letter-spacing: -0.01em;
 }
 
 .login-subtitle {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--text-mid);
   margin: 0;
 }
@@ -203,8 +192,8 @@
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  margin-bottom: 28px;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
 .form-group {
@@ -343,14 +332,14 @@
 
 /* ─── SOCIAL LOGIN ─── */
 .social-login {
-  margin: 32px 0;
+  margin: 20px 0 16px 0;
 }
 
 .divider {
   display: flex;
   align-items: center;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .divider::before,
@@ -402,7 +391,7 @@
 /* ─── TOGGLE SIGN UP/IN ─── */
 .login-toggle {
   text-align: center;
-  padding-top: 20px;
+  padding-top: 16px;
   border-top: 1px solid var(--border);
 }
 
@@ -453,7 +442,7 @@
   }
 
   .login-right {
-    padding: 40px 30px;
+    padding: 30px 30px;
   }
 
   .login-title {
@@ -476,7 +465,7 @@
   }
 
   .login-right {
-    padding: 30px 20px;
+    padding: 24px 20px;
   }
 }
 

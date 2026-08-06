@@ -271,7 +271,7 @@ export default function Navbar({ onNavigate, cartCount = 0, onLoginClick }) {
               className="navbar__mobile-link navbar__mobile-link--sub"
               onClick={() => setMenuOpen(false)}
             >
-              {c.icon} {c.label}
+              {c.label}
             </Link>
           ))}
         </div>

@@ -9,14 +9,14 @@ import Slide4 from '../assets/HomeSlider4.png'
 import Slide5 from '../assets/HomeSlider5.png'
 
 export const CATEGORIES = [
-  { id: 'skincare',     label: 'Smart Skincare', icon: '✨', hasSubmenu: true },
-  { id: 'serums',       label: 'Serums',         icon: '💧', parent: 'skincare' },
-  { id: 'creams',       label: 'Creams',         icon: '🫙', parent: 'skincare' },
-  { id: 'moisturisers', label: 'Moisturisers',   icon: '✨', parent: 'skincare' },
-  { id: 'tattoo',       label: 'Tattoo Care',    icon: '🖋️', parent: 'skincare' },
-  { id: 'lip',          label: 'Lip Care',       icon: '💋', parent: 'skincare' },
-  { id: 'hair',         label: 'Hair Care',      icon: '💆', parent: 'skincare' },
-  { id: 'rituals',      label: 'Skin Rituals',   icon: '🌿', parent: 'skincare' },
+  { id: 'skincare',     label: 'Smart Skincare', hasSubmenu: true },
+  { id: 'serums',       label: 'Serums',         parent: 'skincare' },
+  { id: 'creams',       label: 'Creams',         parent: 'skincare' },
+  { id: 'moisturisers', label: 'Moisturisers',   parent: 'skincare' },
+  { id: 'tattoo',       label: 'Tattoo Care',    parent: 'skincare' },
+  { id: 'lip',          label: 'Lip Care',       parent: 'skincare' },
+  { id: 'hair',         label: 'Hair Care',      parent: 'skincare' },
+  { id: 'rituals',      label: 'Skin Rituals',   parent: 'skincare' },
 ]
 
 export const PRODUCTS = [

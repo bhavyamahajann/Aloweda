@@ -179,11 +179,111 @@
 }
 .sp-add-btn:hover { background: var(--text-dark); color: white; }
 
-@media (max-width: 1024px) { .shop-page__grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) {
-  .shop-page__grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 24px 20px 60px; }
-  .shop-page__topbar { padding: 20px; }
-  .shop-page__info { padding: 60px 24px; }
+@media (max-width: 1024px) { 
+  .shop-page__grid { 
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 28px 32px 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .shop-page {
+    padding-top: 70px;
+  }
+
+  .shop-page__hero {
+    padding: 20px 20px 16px;
+  }
+
+  .shop-page__hero-title {
+    font-size: clamp(28px, 5vw, 40px);
+  }
+
+  .shop-page__grid { 
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 20px 16px 40px;
+  }
+
+  .shop-page__topbar { 
+    padding: 16px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .shop-page__meta {
+    font-size: 12px;
+  }
+
+  .shop-page__info { 
+    padding: 50px 20px;
+  }
+
+  .sp-card__body {
+    padding: 10px 4px 6px;
+  }
+
+  .sp-card__name {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .sp-card__price {
+    font-size: 14px;
+  }
+
+  .sp-card__mrp {
+    font-size: 12px;
+  }
+
+  /* Disable hover popup on mobile */
+  .product-popup {
+    display: none !important;
+  }
+
+  .sp-card:hover {
+    z-index: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .shop-page__hero {
+    padding: 16px 12px 12px;
+  }
+
+  .shop-page__grid { 
+    gap: 10px;
+    padding: 16px 12px 32px;
+  }
+
+  .shop-page__topbar {
+    padding: 14px 12px;
+  }
+
+  .sp-card__body {
+    padding: 8px 4px 6px;
+  }
+
+  .sp-card__name {
+    font-size: 11px;
+  }
+
+  .sp-card__price {
+    font-size: 13px;
+  }
+}
+
+/* Disable popup on touch devices regardless of screen size */
+@media (hover: none) and (pointer: coarse) {
+  .product-popup {
+    display: none !important;
+  }
+  
+  .sp-card:hover {
+    z-index: 1;
+  }
 }
 
 /* ==========================================

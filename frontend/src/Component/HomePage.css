@@ -234,8 +234,22 @@
 .marquee-strip:hover .marquee-track { animation-play-state: paused; }
 
 /* ─── SECTION COMMON ─── */
-.section { padding: 96px 40px; max-width: 1280px; margin: 0 auto; }
-.section__header { text-align: center; margin-bottom: 56px; }
+.section { 
+  padding: 96px 40px; 
+  max-width: 1280px; 
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.section__header { 
+  text-align: center; 
+  margin-bottom: 56px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .section__header--left { text-align: left; }
 .section__eyebrow { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
 .section__title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 52px); font-weight: 400; letter-spacing: -0.5px; color: var(--text-dark); margin-bottom: 12px; line-height: 1.1; }
@@ -263,12 +277,10 @@
   border-radius: 0;
   padding: 80px 60px;
   margin: 80px 0;
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .why-section__inner { 
@@ -278,6 +290,8 @@
   align-items: start;
   max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .pillars-grid { 
@@ -285,6 +299,8 @@
   grid-template-columns: repeat(2, 1fr); 
   gap: 32px;
   row-gap: 32px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .pillar-card { 
@@ -294,6 +310,8 @@
   border-radius: 12px; 
   transition: box-shadow 0.3s, transform 0.3s;
   height: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .pillar-card:hover { 
@@ -348,13 +366,43 @@
 /* Mobile */
 @media (max-width: 768px) {
   .why-section {
-    padding: 60px 24px;
-    margin: 60px 0;
+    padding: 48px 16px;
+    margin: 48px 0;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
   
   .why-section__inner {
-    gap: 40px;
+    gap: 32px;
+    width: 100%;
   }
+  
+  .why-section .section__title {
+    font-size: clamp(28px, 6vw, 36px);
+  }
+  
+  .why-grid {
+    gap: 20px;
+  }
+  
+  .why-card {
+    padding: 24px 16px;
+  }
+  
+  .why-card__icon {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .why-card__title {
+    font-size: 16px;
+  }
+  
+  .why-card__desc {
+    font-size: 13px;
+  }
+}
   
   .pillars-grid {
     grid-template-columns: 1fr;
@@ -391,7 +439,22 @@
 .testimonial-card__name { font-size: 13px; font-weight: 600; color: var(--text-dark); }
 .testimonial-card__loc { font-size: 12px; color: var(--text-light); }
 @media (max-width: 900px) { .testimonials-grid { grid-template-columns: 1fr; } }
-@media (max-width: 600px) { .section { padding: 64px 20px; } }
+@media (max-width: 600px) { 
+  .section { 
+    padding: 48px 16px;
+    width: 100%;
+    margin: 0;
+    overflow-x: hidden;
+  }
+  
+  .section__header {
+    margin-bottom: 32px;
+  }
+  
+  .section__title {
+    font-size: clamp(28px, 6vw, 36px);
+  }
+}
 
 
 /* ─── ALOWEDA INTRO SECTION ─── */
@@ -507,26 +570,59 @@
 /* Responsive */
 @media (max-width: 768px) {
   .aloweda-intro {
-    padding: 100px 24px 120px;
-    margin: 60px 0;
+    padding: 60px 16px 80px;
+    margin: 48px 0;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .aloweda-intro__container {
+    max-width: 100%;
+    width: 100%;
+    padding: 0;
   }
 
   .aloweda-intro__title {
-    font-size: 36px;
-    min-height: 50px;
-    margin-bottom: 30px;
+    font-size: clamp(24px, 7vw, 32px);
+    min-height: auto;
+    margin-bottom: 24px;
   }
 
   .aloweda-intro__description {
-    font-size: 16px;
-    line-height: 1.8;
-    min-height: 150px;
-    margin-bottom: 40px;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: auto;
+    margin-bottom: 32px;
+    padding: 0 8px;
   }
 
   .aloweda-intro__btn {
     width: 100%;
-    padding: 16px 32px;
+    max-width: 280px;
+    padding: 14px 28px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .aloweda-intro {
+    padding: 48px 12px 60px;
+    margin: 32px 0;
+  }
+
+  .aloweda-intro__title {
+    font-size: 22px;
+  }
+
+  .aloweda-intro__description {
+    font-size: 14px;
+    padding: 0 4px;
+  }
+
+  .aloweda-intro__btn {
+    max-width: 100%;
+    padding: 12px 24px;
   }
 }
 
@@ -734,27 +830,52 @@
 }
 
 @media (max-width: 768px) {
+  .lookbook-section {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .lookbook-container {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
   .lookbook-left {
-    min-height: 400px;
+    min-height: 300px;
+    width: 100%;
   }
 
   .lookbook-right {
-    padding: 40px 24px;
+    padding: 32px 16px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .lookbook-title {
-    font-size: 32px;
-    margin-bottom: 30px;
+    font-size: 28px;
+    margin-bottom: 24px;
+    padding: 0;
   }
 
   .lookbook-category {
-    font-size: 28px;
-    bottom: 30px;
+    font-size: 24px;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
   }
 
   .lookbook-arrow {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .lookbook-arrow svg {
+    width: 18px;
+    height: 18px;
   }
 
   .lookbook-arrow--prev {
@@ -765,12 +886,81 @@
     right: 12px;
   }
 
+  .lookbook-products {
+    gap: 20px;
+  }
+
+  .lookbook-product {
+    padding: 12px;
+    gap: 12px;
+  }
+
   .lookbook-product__img {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
+  }
+
+  .lookbook-product__info {
+    gap: 6px;
   }
 
   .lookbook-product__name {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .lookbook-product__price {
     font-size: 14px;
+  }
+
+  .lookbook-product__footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .lookbook-product__footer .btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lookbook-left {
+    min-height: 250px;
+  }
+
+  .lookbook-right {
+    padding: 24px 12px;
+  }
+
+  .lookbook-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .lookbook-category {
+    font-size: 20px;
+    bottom: 20px;
+  }
+
+  .lookbook-product {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .lookbook-product__img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .lookbook-product__name {
+    font-size: 12px;
+  }
+
+  .lookbook-product__price {
+    font-size: 13px;
   }
 }

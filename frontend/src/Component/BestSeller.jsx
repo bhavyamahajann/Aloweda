@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import './BestSeller.css'
 import ProductCard3D from './ProductCard3D'
 
@@ -64,10 +64,14 @@ const SKINCARE_LIMIT = 10 // max skincare products before View More
 export default function BestSellers({ onNavigate, onAddToCart, allProducts }) {
   const [activeTab, setActiveTab] = useState('skincare')
   const [startIdx, setStartIdx] = useState(0)
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const autoPlayRef = useRef(null)
+  const gridRef = useRef(null)
 
   const handleTab = (id) => {
     setActiveTab(id)
     setStartIdx(0)
+    setIsAutoPlaying(true) // Restart autoplay on tab change
   }
 
   // For skincare, cap at SKINCARE_LIMIT then add a View More slot
@@ -82,8 +86,54 @@ export default function BestSellers({ onNavigate, onAddToCart, allProducts }) {
   const canPrev = startIdx > 0
   const canNext = startIdx + VISIBLE < products.length + (showViewMore ? 1 : 0)
 
-  const prev = () => { if (canPrev) setStartIdx(i => i - 1) }
-  const next = () => { if (canNext) setStartIdx(i => i + 1) }
+  const prev = () => { 
+    if (canPrev) {
+      setStartIdx(i => i - 1)
+      setIsAutoPlaying(false) // Pause autoplay on manual interaction
+    }
+  }
+  
+  const next = () => { 
+    if (canNext) {
+      setStartIdx(i => i + 1)
+    } else {
+      // Loop back to start when reaching the end
+      setStartIdx(0)
+    }
+  }
+
+  // Auto-scroll effect (only on mobile)
+  useEffect(() => {
+    if (!isAutoPlaying) return
+
+    // Only auto-play on mobile devices
+    const isMobile = window.innerWidth <= 768
+    if (!isMobile) return
+
+    autoPlayRef.current = setInterval(() => {
+      setStartIdx(currentIdx => {
+        const maxIdx = products.length + (showViewMore ? 1 : 0) - VISIBLE
+        if (currentIdx >= maxIdx) {
+          return 0 // Loop back to start
+        }
+        return currentIdx + 1
+      })
+    }, 3000) // Change slide every 3 seconds
+
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current)
+      }
+    }
+  }, [isAutoPlaying, products.length, showViewMore])
+
+  // Pause autoplay when user scrolls manually
+  const handleScroll = () => {
+    setIsAutoPlaying(false)
+    if (autoPlayRef.current) {
+      clearInterval(autoPlayRef.current)
+    }
+  }
 
   // Slots: product cards + optional View More card
   const slots = [...products, ...(showViewMore ? [{ id: 'viewmore' }] : [])]
@@ -119,7 +169,7 @@ export default function BestSellers({ onNavigate, onAddToCart, allProducts }) {
       </div>
 
       {/* Cards */}
-      <div className="bs__grid">
+      <div className="bs__grid" ref={gridRef} onTouchStart={handleScroll} onMouseDown={handleScroll}>
         {visible.map(p => {
           if (p.id === 'viewmore') {
             return (
@@ -143,6 +193,22 @@ export default function BestSellers({ onNavigate, onAddToCart, allProducts }) {
       {/* Bottom bar: divider + arrows */}
       <div className="bs__footer">
         <div className="bs__footer-line" />
+        
+        {/* Slide Indicators (Mobile Only) */}
+        <div className="bs__indicators">
+          {Array.from({ length: Math.ceil((products.length + (showViewMore ? 1 : 0)) / VISIBLE) }).map((_, idx) => (
+            <button
+              key={idx}
+              className={`bs__indicator ${startIdx === idx * VISIBLE || (startIdx >= idx * VISIBLE && startIdx < (idx + 1) * VISIBLE) ? 'bs__indicator--active' : ''}`}
+              onClick={() => {
+                setStartIdx(idx * VISIBLE)
+                setIsAutoPlaying(false)
+              }}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
+        </div>
+
         <div className="bs__arrows">
           <button
             className={`bs__arrow ${!canPrev ? 'bs__arrow--disabled' : ''}`}

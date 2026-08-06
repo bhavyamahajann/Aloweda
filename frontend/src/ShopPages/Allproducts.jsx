@@ -57,6 +57,8 @@ export default function AllProductsPage({ onNavigate, searchQuery, onLoginClick 
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery || '')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [hoveredProduct, setHoveredProduct] = useState(null)
+  // Default to list view on mobile, grid on desktop
+  const [viewMode, setViewMode] = useState(window.innerWidth <= 768 ? 'list' : 'grid')
 
   // Sync searchQuery prop with local state
   useEffect(() => {
@@ -142,74 +144,152 @@ export default function AllProductsPage({ onNavigate, searchQuery, onLoginClick 
           )}
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="category-filter">
-          {categories.map(cat => (
-            <button
-              key={cat}
-              className={`category-pill ${selectedCategory === cat ? 'category-pill--active' : ''}`}
-              onClick={() => setSelectedCategory(cat)}
+        {/* View Mode Toggle & Category Filter */}
+        <div className="filter-bar">
+          {/* View Mode Toggle - Desktop and Mobile */}
+          <div className="view-toggle">
+            <button 
+              className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
+              onClick={() => setViewMode('grid')}
+              aria-label="Grid view"
             >
-              {cat}
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+              </svg>
             </button>
-          ))}
+            <button 
+              className={`view-toggle-btn ${viewMode === 'list' ? 'active' : ''}`}
+              onClick={() => setViewMode('list')}
+              aria-label="List view"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="8" y1="6" x2="21" y2="6" />
+                <line x1="8" y1="12" x2="21" y2="12" />
+                <line x1="8" y1="18" x2="21" y2="18" />
+                <rect x="3" y="4" width="2" height="4" />
+                <rect x="3" y="10" width="2" height="4" />
+                <rect x="3" y="16" width="2" height="4" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Category Filter Pills */}
+          <div className="category-filter">
+            {categories.map(cat => (
+              <button
+                key={cat}
+                className={`category-pill ${selectedCategory === cat ? 'category-pill--active' : ''}`}
+                onClick={() => setSelectedCategory(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Products Grid */}
+        {/* Products Display - Grid or List */}
         {filteredProducts.length > 0 ? (
-          <div className="products-grid">
+          <div className={viewMode === 'grid' ? 'products-grid' : 'products-list'}>
             {filteredProducts.map(product => (
               <div 
                 key={product.id} 
-                className="product-card"
+                className={viewMode === 'grid' ? 'product-card' : 'product-list-card'}
                 onClick={(e) => handleProductClick(e, product.id)}
                 onAuxClick={(e) => e.button === 1 && handleProductClick(e, product.id)}
                 onMouseEnter={() => setHoveredProduct(product.id)}
                 onMouseLeave={() => setHoveredProduct(null)}
               >
-                <div className="product-card__img-wrap">
-                  <img src={product.img} alt={product.name} className="product-card__img" />
-                </div>
-                <div className="product-card__body">
-                  <p className="product-card__category">{product.category}</p>
-                  <h3 className="product-card__name">{product.name}</h3>
-                  <div className="product-card__footer">
-                    <span className="product-card__price">{product.price}</span>
-                    {product.mrp && (
-                      <span className="product-card__mrp">{product.mrp}</span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Hover Popup */}
-                {hoveredProduct === product.id && (
-                  <div className="product-popup">
-                    <div className="product-popup__content">
-                      <div className="product-popup__header">
-                        <h3>{product.name}</h3>
-                        <span className="product-popup__category">{product.category}</span>
-                      </div>
-                      <div className="product-popup__details">
-                        <div className="product-popup__price-section">
-                          <span className="popup-price">{product.price}</span>
-                          {product.mrp && <span className="popup-mrp">{product.mrp}</span>}
-                        </div>
-                        <div className="product-popup__info">
-                          <p>✓ Premium Quality Product</p>
-                          <p>✓ Cruelty-Free & Vegan</p>
-                          <p>✓ GMP Certified</p>
-                          <p>✓ Free Shipping on Orders Above ₹499</p>
-                        </div>
-                      </div>
-                      <button 
-                        className="product-popup__btn" 
-                        onClick={(e) => handleProductClick(e, product.id)}
-                        onAuxClick={(e) => e.button === 1 && handleProductClick(e, product.id)}
-                      >
-                        View Details
-                      </button>
+                {viewMode === 'grid' ? (
+                  // Grid View
+                  <>
+                    <div className="product-card__img-wrap">
+                      <img src={product.img} alt={product.name} className="product-card__img" />
                     </div>
-                  </div>
+                    <div className="product-card__body">
+                      <p className="product-card__category">{product.category}</p>
+                      <h3 className="product-card__name">{product.name}</h3>
+                      <div className="product-card__footer">
+                        <span className="product-card__price">{product.price}</span>
+                        {product.mrp && (
+                          <span className="product-card__mrp">{product.mrp}</span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Hover Popup */}
+                    {hoveredProduct === product.id && (
+                      <div className="product-popup">
+                        <div className="product-popup__content">
+                          <div className="product-popup__header">
+                            <h3>{product.name}</h3>
+                            <span className="product-popup__category">{product.category}</span>
+                          </div>
+                          <div className="product-popup__details">
+                            <div className="product-popup__price-section">
+                              <span className="popup-price">{product.price}</span>
+                              {product.mrp && <span className="popup-mrp">{product.mrp}</span>}
+                            </div>
+                            <div className="product-popup__info">
+                              <p>✓ Premium Quality Product</p>
+                              <p>✓ Cruelty-Free & Vegan</p>
+                              <p>✓ GMP Certified</p>
+                              <p>✓ Free Shipping on Orders Above ₹499</p>
+                            </div>
+                          </div>
+                          <button 
+                            className="product-popup__btn" 
+                            onClick={(e) => handleProductClick(e, product.id)}
+                            onAuxClick={(e) => e.button === 1 && handleProductClick(e, product.id)}
+                          >
+                            View Details
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  // List View (Flipkart Style)
+                  <>
+                    <div className="product-list-card__image">
+                      <img src={product.img} alt={product.name} />
+                    </div>
+                    <div className="product-list-card__content">
+                      <div className="product-list-card__header">
+                        <h3 className="product-list-card__name">{product.name}</h3>
+                        <div className="product-list-card__meta">
+                          <span className="product-list-card__category">{product.category}</span>
+                          <div className="product-rating">
+                            <span className="stars">★★★★★</span>
+                            <span className="rating-count">(4.5)</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="product-list-card__features">
+                        <span className="feature-badge">✓ Cruelty Free</span>
+                        <span className="feature-badge">✓ GMP Certified</span>
+                        <span className="feature-badge">✓ Natural</span>
+                      </div>
+                      <div className="product-list-card__footer">
+                        <div className="product-list-card__pricing">
+                          <span className="list-price">{product.price}</span>
+                          {product.mrp && (
+                            <>
+                              <span className="list-mrp">{product.mrp}</span>
+                              <span className="list-discount">
+                                {Math.round(((parseFloat(product.mrp.replace(/[^0-9.]/g, '')) - parseFloat(product.price.replace(/[^0-9.]/g, ''))) / parseFloat(product.mrp.replace(/[^0-9.]/g, ''))) * 100)}% off
+                              </span>
+                            </>
+                          )}
+                        </div>
+                        <button className="list-view-btn" onClick={(e) => { e.stopPropagation(); handleProductClick(e, product.id); }}>
+                          View Details
+                        </button>
+                      </div>
+                    </div>
+                  </>
                 )}
               </div>
             ))}

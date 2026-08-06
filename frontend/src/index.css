@@ -34,6 +34,9 @@ body {
   margin: 0;
   background: var(--warm-white);
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
 }
 
 #root {
@@ -43,6 +46,19 @@ body {
   text-align: left;
   border: none;
   min-height: 100svh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Prevent horizontal scroll globally */
+* {
+  max-width: 100%;
+}
+
+/* Allow specific elements to have custom widths */
+img, svg {
+  max-width: 100%;
+  height: auto;
 }
 
 h1, h2, h3, h4 {
