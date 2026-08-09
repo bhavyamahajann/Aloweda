@@ -164,7 +164,7 @@ export default function Cart({ cart, onNavigate, onUpdateQuantity, onRemoveItem,
         )}
       </div>
 
-      <Footer />
+      <Footer onLoginClick={onLoginClick} />
     </div>
   )
 }

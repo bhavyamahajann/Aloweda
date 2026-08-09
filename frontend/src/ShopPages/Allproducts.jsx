@@ -309,7 +309,7 @@ export default function AllProductsPage({ onNavigate, searchQuery, onLoginClick 
         )}
       </div>
 
-      <Footer />
+      <Footer onLoginClick={onLoginClick} />
     </div>
   )
 }

@@ -210,7 +210,7 @@ export default function SkinCarePage({ onNavigate, searchQuery, categoryFilter, 
         </p>
         <button className="shop-page__quiz-btn">Start Quiz</button>
       </div>
-      <Footer />
+      <Footer onLoginClick={onLoginClick} />
     </div>
   )
 }

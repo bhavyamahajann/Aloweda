@@ -229,7 +229,7 @@ export default function BestSellerPage({ onNavigate, onLoginClick, cartCount }) 
         ))}
       </div>
 
-      <Footer />
+      <Footer onLoginClick={onLoginClick} />
     </div>
   )
 }

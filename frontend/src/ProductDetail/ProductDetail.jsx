@@ -423,7 +423,7 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
         </div>
       )}
 
-      <Footer />
+      <Footer onLoginClick={onLoginClick} />
     </div>
   )
 }
