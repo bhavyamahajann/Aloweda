@@ -1,4 +1,4 @@
-import { Suspense, useRef, useState } from 'react'
+import { Suspense, useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, useGLTF, Environment, ContactShadows, PerspectiveCamera } from '@react-three/drei'
 import './Model3DViewer.css'
@@ -30,6 +30,18 @@ function Model({ modelPath }) {
 export default function Model3DViewer({ modelPath, showControls = true }) {
   const [isInteracting, setIsInteracting] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [progress, setProgress] = useState(0)
+
+  // Track loading progress
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 90) return prev
+        return prev + 10
+      })
+    }, 200)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <div className="model-3d-viewer">
@@ -53,11 +65,15 @@ export default function Model3DViewer({ modelPath, showControls = true }) {
         ))}
       </div>
 
-      {/* Loading spinner */}
+      {/* Loading spinner with progress */}
       {loading && (
         <div className="model-loading-overlay">
           <div className="model-spinner"></div>
           <p>Loading 3D Model...</p>
+          <div className="loading-progress-bar">
+            <div className="loading-progress-fill" style={{ width: `${progress}%` }}></div>
+          </div>
+          <p className="loading-percentage">{progress}%</p>
         </div>
       )}
 
@@ -76,7 +92,10 @@ export default function Model3DViewer({ modelPath, showControls = true }) {
         shadows={false} // Disable shadows for performance
         onPointerDown={() => setIsInteracting(true)}
         onPointerUp={() => setIsInteracting(false)}
-        onCreated={() => setLoading(false)}
+        onCreated={() => {
+          setLoading(false)
+          setProgress(100)
+        }}
       >
         <Suspense fallback={null}>
           {/* Premium studio lighting setup */}
@@ -138,14 +157,5 @@ export default function Model3DViewer({ modelPath, showControls = true }) {
   )
 }
 
-// Preload ALL models for instant loading
-useGLTF.preload('/models/AlowedaAntiAcneFac.glb')
-useGLTF.preload('/models/HairTherapySerum.glb')
-useGLTF.preload('/models/AlowvedaSmoothPerfe.glb')
-useGLTF.preload('/models/SaffronFaceOilBott.glb')
-useGLTF.preload('/models/DayCreamJar.glb')
-useGLTF.preload('/models/PigmentControlSerum.glb')
-useGLTF.preload('/models/SmoothPerfectionSerum.glb')
-useGLTF.preload('/models/AlovedaSuperGlowSerum.glb')
-useGLTF.preload('/models/GlowedaToneTexture.glb')
-useGLTF.preload('/models/TheNightCream.glb')
+// DON'T preload all models - only preload on demand to save bandwidth
+// Models will be loaded when needed

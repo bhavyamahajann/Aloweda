@@ -445,3 +445,27 @@
     opacity: 1;
   }
 }
+
+/* Loading Progress Bar */
+.loading-progress-bar {
+  width: 200px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  margin: 15px 0 8px;
+}
+
+.loading-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4a5d43, #c8a96e);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.loading-percentage {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  margin: 0;
+}
