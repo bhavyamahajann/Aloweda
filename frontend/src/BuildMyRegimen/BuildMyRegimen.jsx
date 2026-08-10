@@ -73,18 +73,13 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount }) 
   }
 
   const canProceed = () => {
-    const onlySpecialCare = formData.skinConcerns.length > 0 && 
-                            formData.skinConcerns.every(c => c === 'haircare' || c === 'lipcare')
-    
     switch (currentStep) {
       case 1:
         return formData.skinConcerns.length > 0
       case 2:
-        // Skip bundle selection if only Hair Care or Lip Care selected
-        return onlySpecialCare || formData.bundle !== ''
+        return formData.bundle !== ''
       case 3:
-        // Skip skin type if only Hair Care or Lip Care selected
-        return onlySpecialCare || formData.skinType !== ''
+        return formData.skinType !== ''
       case 4:
         return true // Photo is optional
       case 5:
@@ -124,55 +119,17 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount }) 
           )}
 
           {currentStep === 2 && (
-            <>
-              {formData.skinConcerns.every(c => c === 'haircare' || c === 'lipcare') ? (
-                <div className="step-container">
-                  <h2 className="step-heading">Bundle Selection</h2>
-                  <p className="step-description">
-                    You've selected Hair Care or Lip Care. These products don't require a facial skincare bundle. 
-                    Click Next to continue.
-                  </p>
-                  <div style={{ textAlign: 'center', padding: '40px', color: '#6b6b6b' }}>
-                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ margin: '0 auto 20px' }}>
-                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                      <polyline points="22 4 12 14.01 9 11.01" />
-                    </svg>
-                    <p style={{ fontSize: '16px', fontWeight: '500', color: '#2b2620' }}>
-                      Your selections are for specialized care products
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <BundleStep
-                  selected={formData.bundle}
-                  onSelect={(bundle) => updateFormData('bundle', bundle)}
-                />
-              )}
-            </>
+            <BundleStep
+              selected={formData.bundle}
+              onSelect={(bundle) => updateFormData('bundle', bundle)}
+            />
           )}
 
           {currentStep === 3 && (
-            <>
-              {formData.skinConcerns.every(c => c === 'haircare' || c === 'lipcare') ? (
-                <div className="step-container">
-                  <h2 className="step-heading">Skin Type</h2>
-                  <p className="step-description">
-                    This step is for facial skincare. Since you selected Hair Care or Lip Care, you can skip this.
-                    Click Next to continue.
-                  </p>
-                  <div style={{ textAlign: 'center', padding: '40px', color: '#6b6b6b' }}>
-                    <p style={{ fontSize: '16px', fontWeight: '500', color: '#2b2620' }}>
-                      Skin type selection not required for your selections
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <SkinTypeStep
-                  selected={formData.skinType}
-                  onSelect={(skinType) => updateFormData('skinType', skinType)}
-                />
-              )}
-            </>
+            <SkinTypeStep
+              selected={formData.skinType}
+              onSelect={(skinType) => updateFormData('skinType', skinType)}
+            />
           )}
 
           {currentStep === 4 && (

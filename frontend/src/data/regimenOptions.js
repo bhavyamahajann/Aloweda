@@ -10,9 +10,7 @@ export const skinConcerns = [
   { id: 'sensitive', label: 'Sensitive Skin & Redness', icon: '❤️' },
   { id: 'texture', label: 'Uneven Skin Texture', icon: '🔷' },
   { id: 'sundamage', label: 'Sun Damage', icon: '☀️' },
-  { id: 'general', label: 'General Skin Health', icon: '✅' },
-  { id: 'lipcare', label: 'Lip Care', icon: '💋' },
-  { id: 'haircare', label: 'Hair Care', icon: '💇' }
+  { id: 'general', label: 'General Skin Health', icon: '✅' }
 ]
 
 export const bundles = [
