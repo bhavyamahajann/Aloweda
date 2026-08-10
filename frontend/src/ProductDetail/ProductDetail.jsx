@@ -1,16 +1,19 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import Navbar from '../Navbar/navbar'
 import Footer from '../Footer/Footer'
 import LoveWhatYouSee from '../assets/LoveWhatYouSee.jpg'
-import Model3DViewer from '../Component/Model3DViewer'
 import './ProductDetail.css'
 import { handleNavigation } from '../utils/navigation'
+
+// Lazy load 3D viewer - only loads when user clicks 3D View button
+const Model3DViewer = lazy(() => import('../Component/Model3DViewer'))
 
 export default function ProductDetail({ product, onNavigate, onBack, relatedProducts = [], onLoginClick, onAddToCart, cartCount }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const [viewMode, setViewMode] = useState('image') // 'image' or '3d'
   const [hoveredProduct, setHoveredProduct] = useState(null)
+  const [load3DViewer, setLoad3DViewer] = useState(false) // Control when to load 3D viewer
   
   const handleAddToCart = () => {
     onAddToCart(product, quantity)
@@ -36,6 +39,12 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
 
   const prevImage = () => {
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
+  }
+
+  // Handle 3D view mode change - lazy load on first click
+  const handle3DViewClick = () => {
+    setLoad3DViewer(true)
+    setViewMode('3d')
   }
 
   const handleShare = () => {
@@ -80,7 +89,7 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
               </button>
               <button
                 className={`toggle-btn ${viewMode === '3d' ? 'active' : ''}`}
-                onClick={() => setViewMode('3d')}
+                onClick={handle3DViewClick}
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
@@ -128,7 +137,16 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
               )}
             </>
           ) : (
-            <Model3DViewer modelPath={product.model3D} />
+            load3DViewer && (
+              <Suspense fallback={
+                <div className="model-loading-overlay">
+                  <div className="model-spinner"></div>
+                  <p>Loading 3D Viewer...</p>
+                </div>
+              }>
+                <Model3DViewer modelPath={product.model3D} />
+              </Suspense>
+            )
           )}
         </div>
 
