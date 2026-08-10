@@ -9,6 +9,7 @@ import LipCarePage  from './ShopPages/LipCare'
 import AllProductsPage from './ShopPages/Allproducts'
 import ProductDetail from './ProductDetail/ProductDetail'
 import Cart from './Cart/Cart'
+import BuildMyRegimen from './BuildMyRegimen/BuildMyRegimen'
 import WhatsAppButton from './Component/WhatsAppButton'
 import ScrollToTop from './Component/ScrollToTop'
 import Login from './Auth/Login'
@@ -457,6 +458,12 @@ function AppContent() {
         <Route 
           path="/bestsellers" 
           element={<BestSellerPage onNavigate={handleNavigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} />} 
+        />
+
+        {/* Build My Regimen Route */}
+        <Route 
+          path="/build-my-regimen" 
+          element={<BuildMyRegimen onNavigate={handleNavigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} />} 
         />
 
         {/* Cart Route */}
