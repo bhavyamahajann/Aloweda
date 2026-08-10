@@ -18,6 +18,7 @@ import LC2 from '../LipCareImg/LipCare2.jpg'
 import HairCareImg from '../assets/HairCare.png'
 import Navbar from '../Navbar/navbar'
 import BestSellers from './BestSeller'
+import BuildRegimenCTA from './BuildRegimenCTA'
 import ImageCarousel from './ImageCarousel'
 import CategorySlider from './CategorySlider'
 import ShopByCategory from './ShopBYCategory'
@@ -508,6 +509,7 @@ export default function HomePage({ onNavigate, onLoginClick, cartCount, onAddToC
         <HeroSlider onNavigate={onNavigate} />
         <MarqueeStrip />
         <BestSellers onNavigate={onNavigate} onAddToCart={onAddToCart} allProducts={allProducts} />
+        <BuildRegimenCTA onNavigate={onNavigate} />
         <ImageCarousel />
         <LookBookSlider onNavigate={onNavigate} onAddToCart={onAddToCart} allProducts={allProducts} />
         <AlowedaIntro onNavigate={onNavigate} />
