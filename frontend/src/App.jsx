@@ -14,6 +14,8 @@ import WhatsAppButton from './Component/WhatsAppButton'
 import ScrollToTop from './Component/ScrollToTop'
 import Login from './Auth/Login'
 import NotFound from './Pages/NotFound'
+import AnnouncementBar from './Components/AnnouncementBar/AnnouncementBar'
+import About from './Pages/About'
 
 // Import all products
 import SC1  from './SkinCareImg/SkinCare1.png'
@@ -288,6 +290,7 @@ const ALL_PRODUCTS = [
 export default function App() {
   return (
     <BrowserRouter>
+      <AnnouncementBar />
       <AppContent />
     </BrowserRouter>
   )
@@ -464,6 +467,12 @@ function AppContent() {
         <Route 
           path="/build-my-regimen" 
           element={<BuildMyRegimen onNavigate={handleNavigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} />} 
+        />
+
+        {/* About Route */}
+        <Route 
+          path="/about" 
+          element={<About onNavigate={handleNavigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} />} 
         />
 
         {/* Cart Route */}

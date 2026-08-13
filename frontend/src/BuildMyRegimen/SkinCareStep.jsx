@@ -22,7 +22,6 @@ export default function SkinCareStep({ selected, onSelect }) {
             className={`selection-card ${selected.includes(concern.id) ? 'selected' : ''}`}
             onClick={() => toggleConcern(concern.id)}
           >
-            <span className="card-icon">{concern.icon}</span>
             <span className="card-label">{concern.label}</span>
             {selected.includes(concern.id) && (
               <span className="card-check">✓</span>

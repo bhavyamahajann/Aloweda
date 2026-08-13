@@ -1,5 +1,15 @@
 /* Global resets handled in index.css */
 
+/* Adjust main content for fixed navbar + announcement bar */
+body {
+  padding-top: 132px; /* 44px announcement bar + 88px navbar */
+}
+
+/* When announcement bar is closed/hidden */
+body.no-announcement-bar {
+  padding-top: 88px; /* Just navbar height */
+}
+
 /* Notification animation */
 @keyframes slideInUp {
   from {

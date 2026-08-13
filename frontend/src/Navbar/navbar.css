@@ -1,13 +1,19 @@
 /* ─── NAVBAR ─── */
 .navbar {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 40px; /* Space for announcement bar */
+  left: 0; right: 0;
   z-index: 1000;
   background: rgba(250, 248, 244, 0.96);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid transparent;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition: top 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+/* When announcement bar is closed/hidden */
+.navbar--no-announcement {
+  top: 0;
 }
 .navbar--scrolled {
   border-bottom-color: var(--border);

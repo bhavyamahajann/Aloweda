@@ -294,10 +294,21 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
                   id="quantity"
                   type="number"
                   min="1"
+                  max="4"
                   value={quantity}
-                  onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value) || 1
+                    setQuantity(Math.min(4, Math.max(1, val)))
+                  }}
                 />
-                <button onClick={() => setQuantity(quantity + 1)} aria-label="Increase">+</button>
+                <button 
+                  onClick={() => setQuantity(Math.min(4, quantity + 1))} 
+                  aria-label="Increase"
+                  disabled={quantity >= 4}
+                  style={{opacity: quantity >= 4 ? 0.5 : 1, cursor: quantity >= 4 ? 'not-allowed' : 'pointer'}}
+                >
+                  +
+                </button>
               </div>
             </div>
             <button className="add-to-cart-btn" onClick={handleAddToCart}>

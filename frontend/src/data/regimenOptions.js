@@ -1,16 +1,16 @@
 // Build My Regimen - Options Configuration
 
 export const skinConcerns = [
-  { id: 'acne', label: 'Acne & Breakouts', icon: '🔴' },
-  { id: 'darkspots', label: 'Dark Spots & Pigmentation', icon: '⚫' },
-  { id: 'dullness', label: 'Dullness & Uneven Skin Tone', icon: '🌫️' },
-  { id: 'dryness', label: 'Dryness & Dehydration', icon: '💧' },
-  { id: 'oiliness', label: 'Oiliness & Large Pores', icon: '✨' },
-  { id: 'finelines', label: 'Fine Lines & Wrinkles', icon: '📏' },
-  { id: 'sensitive', label: 'Sensitive Skin & Redness', icon: '❤️' },
-  { id: 'texture', label: 'Uneven Skin Texture', icon: '🔷' },
-  { id: 'sundamage', label: 'Sun Damage', icon: '☀️' },
-  { id: 'general', label: 'General Skin Health', icon: '✅' }
+  { id: 'acne', label: 'Acne & Breakouts' },
+  { id: 'darkspots', label: 'Dark Spots & Pigmentation' },
+  { id: 'dullness', label: 'Dullness & Uneven Skin Tone' },
+  { id: 'dryness', label: 'Dryness & Dehydration' },
+  { id: 'oiliness', label: 'Oiliness & Large Pores' },
+  { id: 'finelines', label: 'Fine Lines & Wrinkles' },
+  { id: 'sensitive', label: 'Sensitive Skin & Redness' },
+  { id: 'texture', label: 'Uneven Skin Texture' },
+  { id: 'sundamage', label: 'Sun Damage' },
+  { id: 'general', label: 'General Skin Health' }
 ]
 
 export const bundles = [

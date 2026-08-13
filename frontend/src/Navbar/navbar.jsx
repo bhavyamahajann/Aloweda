@@ -53,6 +53,7 @@ export default function Navbar({ onNavigate, cartCount = 0, onLoginClick }) {
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
+  const [hasAnnouncementBar, setHasAnnouncementBar] = useState(true)
   const searchRef = useRef(null)
   const dropdownRef = useRef(null)
 
@@ -60,6 +61,29 @@ export default function Navbar({ onNavigate, cartCount = 0, onLoginClick }) {
     const onScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Listen for announcement bar visibility changes
+  useEffect(() => {
+    const checkAnnouncementBar = () => {
+      const wasClosed = sessionStorage.getItem('announcementBarClosed')
+      setHasAnnouncementBar(wasClosed !== 'true')
+    }
+
+    checkAnnouncementBar()
+
+    const handleAnnouncementBarVisible = () => setHasAnnouncementBar(true)
+    const handleAnnouncementBarHidden = () => setHasAnnouncementBar(false)
+
+    window.addEventListener('announcementBarVisible', handleAnnouncementBarVisible)
+    window.addEventListener('announcementBarHidden', handleAnnouncementBarHidden)
+    window.addEventListener('announcementBarClosed', handleAnnouncementBarHidden)
+
+    return () => {
+      window.removeEventListener('announcementBarVisible', handleAnnouncementBarVisible)
+      window.removeEventListener('announcementBarHidden', handleAnnouncementBarHidden)
+      window.removeEventListener('announcementBarClosed', handleAnnouncementBarHidden)
+    }
   }, [])
 
   useEffect(() => {
@@ -132,7 +156,7 @@ export default function Navbar({ onNavigate, cartCount = 0, onLoginClick }) {
   }
 
   return (
-    <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
+    <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''} ${!hasAnnouncementBar ? 'navbar--no-announcement' : ''}`}>
       <div className="navbar__inner">
 
         {/* Left */}
