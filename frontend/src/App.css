@@ -2,7 +2,7 @@
 
 /* Adjust main content for fixed navbar + announcement bar */
 body {
-  padding-top: 132px; /* 44px announcement bar + 88px navbar */
+  padding-top: 128px; /* 40px announcement bar + 88px navbar */
 }
 
 /* When announcement bar is closed/hidden */
