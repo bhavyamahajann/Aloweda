@@ -68,7 +68,11 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount, on
   const handleNext = () => {
     if (currentStep < totalSteps) {
       setCurrentStep(prev => prev + 1)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      // Scroll to split screen section (skip hero)
+      const splitScreen = document.querySelector('.split-screen-container')
+      if (splitScreen) {
+        splitScreen.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
     } else {
       handleSubmit()
     }
@@ -77,7 +81,11 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount, on
   const handleBack = () => {
     if (currentStep > 1) {
       setCurrentStep(prev => prev - 1)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      // Scroll to split screen section (skip hero)
+      const splitScreen = document.querySelector('.split-screen-container')
+      if (splitScreen) {
+        splitScreen.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
     }
   }
 
