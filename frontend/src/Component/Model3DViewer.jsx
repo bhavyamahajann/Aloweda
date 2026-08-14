@@ -1,6 +1,6 @@
-import { Suspense, useRef, useState, useEffect } from 'react'
+import { Suspense, useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls, useGLTF, Environment, ContactShadows, PerspectiveCamera } from '@react-three/drei'
+import { OrbitControls, useGLTF, PerspectiveCamera } from '@react-three/drei'
 import './Model3DViewer.css'
 
 function Model({ modelPath }) {
@@ -30,18 +30,6 @@ function Model({ modelPath }) {
 export default function Model3DViewer({ modelPath, showControls = true }) {
   const [isInteracting, setIsInteracting] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [progress, setProgress] = useState(0)
-
-  // Track loading progress
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 90) return prev
-        return prev + 10
-      })
-    }, 200)
-    return () => clearInterval(interval)
-  }, [])
 
   return (
     <div className="model-3d-viewer">
@@ -50,9 +38,9 @@ export default function Model3DViewer({ modelPath, showControls = true }) {
       <div className="model-bg-layer model-bg-layer-2"></div>
       <div className="model-bg-layer model-bg-layer-3"></div>
       
-      {/* Animated particles */}
+      {/* Animated particles - reduced for performance */}
       <div className="model-particles">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(12)].map((_, i) => (
           <div 
             key={i} 
             className="particle" 
@@ -65,15 +53,11 @@ export default function Model3DViewer({ modelPath, showControls = true }) {
         ))}
       </div>
 
-      {/* Loading spinner with progress */}
+      {/* Simple loading spinner */}
       {loading && (
         <div className="model-loading-overlay">
           <div className="model-spinner"></div>
           <p>Loading 3D Model...</p>
-          <div className="loading-progress-bar">
-            <div className="loading-progress-fill" style={{ width: `${progress}%` }}></div>
-          </div>
-          <p className="loading-percentage">{progress}%</p>
         </div>
       )}
 
@@ -82,45 +66,20 @@ export default function Model3DViewer({ modelPath, showControls = true }) {
         gl={{ 
           antialias: true, 
           alpha: true,
-          powerPreference: 'high-performance',
-          precision: 'highp',
-          stencil: false,
-          depth: true
+          powerPreference: 'high-performance'
         }}
-        dpr={[1, 1.5]} // Reduced for faster loading
+        dpr={[1, 1.5]}
         performance={{ min: 0.5 }}
-        shadows={false} // Disable shadows for performance
+        shadows={false}
         onPointerDown={() => setIsInteracting(true)}
         onPointerUp={() => setIsInteracting(false)}
-        onCreated={() => {
-          setLoading(false)
-          setProgress(100)
-        }}
+        onCreated={() => setLoading(false)}
       >
         <Suspense fallback={null}>
-          {/* Premium studio lighting setup */}
-          <ambientLight intensity={0.6} />
-          <directionalLight position={[5, 8, 5]} intensity={1.2} />
-          <directionalLight position={[-5, 5, -5]} intensity={0.6} />
-          <pointLight position={[0, 10, 0]} intensity={0.8} color="#ffeedd" />
-          <spotLight
-            position={[10, 10, 10]}
-            angle={0.3}
-            penumbra={1}
-            intensity={0.5}
-          />
-          
-          {/* Premium environment with soft reflections */}
-          <Environment preset="sunset" />
-          
-          {/* Soft contact shadows for depth */}
-          <ContactShadows
-            position={[0, -1.5, 0]}
-            opacity={0.3}
-            scale={10}
-            blur={2}
-            far={4}
-          />
+          {/* Simplified lighting for performance */}
+          <ambientLight intensity={0.8} />
+          <directionalLight position={[5, 8, 5]} intensity={1} />
+          <pointLight position={[0, 10, 0]} intensity={0.6} color="#ffeedd" />
           
           {/* 3D Model with elegant animations */}
           <Model modelPath={modelPath} />
@@ -157,5 +116,7 @@ export default function Model3DViewer({ modelPath, showControls = true }) {
   )
 }
 
-// DON'T preload all models - only preload on demand to save bandwidth
-// Models will be loaded when needed
+// Preload commonly used models for faster subsequent loads
+useGLTF.preload('/models/AlovedaSuperGlowSerum.glb')
+useGLTF.preload('/models/AlowedaAntiAcneFac.glb')
+useGLTF.preload('/models/SaffronFaceOilBott.glb')
