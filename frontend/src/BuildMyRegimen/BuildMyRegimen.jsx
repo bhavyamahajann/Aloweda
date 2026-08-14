@@ -9,7 +9,23 @@ import ConsultationStep from './ConsultationStep'
 import RecommendationResults from './RecommendationResults'
 import './BuildMyRegimen.css'
 
-export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount }) {
+const STEPS = [
+  { id: 1, label: 'Skin Concerns', title: 'What are your skin concerns?', subtitle: 'Select all that apply' },
+  { id: 2, label: 'Routine Type', title: 'Choose your routine type', subtitle: 'What kind of skincare routine are you looking for?' },
+  { id: 3, label: 'Skin Type', title: "What's your skin type?", subtitle: 'Select the one that best describes your skin' },
+  { id: 4, label: 'Photo (Optional)', title: 'Upload a photo', subtitle: 'Optional — helps us understand your skin better' },
+  { id: 5, label: 'Contact Details', title: 'Your contact details', subtitle: "We'll send your personalized regimen to your email" }
+]
+
+function CheckIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+      <path d="M3 8.5L6.2 11.5L13 4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount, onAddToCart }) {
   const [currentStep, setCurrentStep] = useState(1)
   const [showResults, setShowResults] = useState(false)
   const [formData, setFormData] = useState({
@@ -29,7 +45,8 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount }) 
     }
   })
 
-  const totalSteps = 5
+  const totalSteps = STEPS.length
+  const activeStep = STEPS.find(s => s.id === currentStep)
 
   const updateFormData = (field, value) => {
     setFormData(prev => ({
@@ -92,98 +109,52 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount }) 
   }
 
   if (showResults) {
-    return <RecommendationResults formData={formData} onNavigate={onNavigate} />
+    return <RecommendationResults formData={formData} onNavigate={onNavigate} onAddToCart={onAddToCart} />
   }
 
   return (
     <div className="build-regimen-page">
       <Navbar onNavigate={onNavigate} onLoginClick={onLoginClick} cartCount={cartCount} />
 
-      {/* Hero Section */}
-      <div className="regimen-hero">
-        <div className="regimen-hero-content">
-          <span className="hero-badge">Personalized Skincare</span>
-          <h1 className="hero-title">Build Your Perfect Regimen</h1>
-          <p className="hero-description">
-            Answer a few questions and get a personalized skincare routine tailored to your unique needs
-          </p>
-          <div className="hero-stats">
-            <div className="stat-item">
-              <span className="stat-number">5</span>
-              <span className="stat-label">Simple Questions</span>
-            </div>
-            <div className="stat-divider"></div>
-            <div className="stat-item">
-              <span className="stat-number">2 Min</span>
-              <span className="stat-label">Quick Process</span>
-            </div>
-            <div className="stat-divider"></div>
-            <div className="stat-item">
-              <span className="stat-number">100%</span>
-              <span className="stat-label">Personalized</span>
-            </div>
-          </div>
-          <button className="hero-cta" onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}>
-            Get Started
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </button>
-        </div>
-        <div className="hero-decoration">
-          <div className="decoration-circle decoration-circle-1"></div>
-          <div className="decoration-circle decoration-circle-2"></div>
-          <div className="decoration-circle decoration-circle-3"></div>
-        </div>
-      </div>
-
       {/* Split Screen Layout */}
       <div className="split-screen-container">
-        {/* Left Side - Question */}
+        {/* Left Side - Progress Rail + Question */}
         <div className="question-panel">
           <div className="question-content">
-            <div className="progress-text">Question {currentStep} of {totalSteps}</div>
-            
-            {currentStep === 1 && (
-              <>
-                <h1 className="question-title">What are your skin concerns?</h1>
-                <p className="question-subtitle">Select all that apply</p>
-              </>
-            )}
-            
-            {currentStep === 2 && (
-              <>
-                <h1 className="question-title">Choose your routine type</h1>
-                <p className="question-subtitle">What kind of skincare routine are you looking for?</p>
-              </>
-            )}
-            
-            {currentStep === 3 && (
-              <>
-                <h1 className="question-title">What's your skin type?</h1>
-                <p className="question-subtitle">Select the one that best describes your skin</p>
-              </>
-            )}
-            
-            {currentStep === 4 && (
-              <>
-                <h1 className="question-title">Upload a photo (Optional)</h1>
-                <p className="question-subtitle">Help us understand your skin better</p>
-              </>
-            )}
-            
-            {currentStep === 5 && (
-              <>
-                <h1 className="question-title">Your contact details</h1>
-                <p className="question-subtitle">We'll send your personalized regimen to your email</p>
-              </>
-            )}
 
-            {/* Navigation Buttons */}
-            <div className="question-navigation">
+            <div className="progress-rail">
+              <span className="rail-eyebrow">Step {currentStep} of {totalSteps}</span>
+
+              <div className="rail-track" role="progressbar" aria-valuenow={currentStep} aria-valuemin={1} aria-valuemax={totalSteps}>
+                <div className="rail-fill" style={{ width: `${(currentStep / totalSteps) * 100}%` }} />
+              </div>
+
+              <ol className="rail-steps">
+                {STEPS.map(step => {
+                  const isDone = currentStep > step.id
+                  const isCurrent = currentStep === step.id
+                  return (
+                    <li key={step.id} className={`rail-step ${isCurrent ? 'is-current' : ''} ${isDone ? 'is-done' : ''}`}>
+                      <span className="rail-step-marker">
+                        {isDone ? <CheckIcon /> : step.id}
+                      </span>
+                      <span className="rail-step-label">{step.label}</span>
+                    </li>
+                  )
+                })}
+              </ol>
+            </div>
+
+            <div className="rail-question">
+              <h1 className="question-title">{activeStep.title}</h1>
+              <p className="question-subtitle">{activeStep.subtitle}</p>
+
               {currentStep > 1 && (
                 <button className="nav-btn nav-btn--back" onClick={handleBack}>
-                  ← Previous
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                  </svg>
+                  Back
                 </button>
               )}
             </div>

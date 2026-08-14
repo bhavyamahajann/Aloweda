@@ -3,11 +3,13 @@ import Navbar from '../Navbar/navbar'
 import Footer from '../Footer/Footer'
 import { concernToProducts, bundleToProducts, skinTypeToProducts, productDatabase } from '../data/productRecommendations'
 import { skinConcerns, bundles, skinTypes } from '../data/regimenOptions'
+import { PRODUCTS } from '../data/products'
 import './RecommendationResults.css'
 
-export default function RecommendationResults({ formData, onNavigate }) {
+export default function RecommendationResults({ formData, onNavigate, onAddToCart }) {
   const [recommendations, setRecommendations] = useState({ morning: [], evening: [], optional: [] })
   const [success, setSuccess] = useState(false)
+  const [addedProducts, setAddedProducts] = useState(new Set())
 
   useEffect(() => {
     calculateRecommendations()
@@ -45,7 +47,11 @@ export default function RecommendationResults({ formData, onNavigate }) {
     // Sort by score and categorize
     const sortedProducts = Object.entries(productScores)
       .sort(([, a], [, b]) => b - a)
-      .map(([id]) => productDatabase[id])
+      .map(([id]) => {
+        const recProduct = productDatabase[id]
+        const fullProduct = PRODUCTS.find(p => p.id === recProduct?.id)
+        return { ...recProduct, ...fullProduct }
+      })
       .filter(Boolean)
 
     const morning = sortedProducts.filter(p => p.routine === 'morning').slice(0, 3)
@@ -53,6 +59,20 @@ export default function RecommendationResults({ formData, onNavigate }) {
     const optional = sortedProducts.filter(p => p.routine === 'optional' || p.routine === 'special').slice(0, 2)
 
     setRecommendations({ morning, evening, optional })
+  }
+
+  const handleAddToCart = (product) => {
+    if (onAddToCart) {
+      onAddToCart(product)
+      setAddedProducts(prev => new Set([...prev, product.id]))
+      setTimeout(() => {
+        setAddedProducts(prev => {
+          const newSet = new Set(prev)
+          newSet.delete(product.id)
+          return newSet
+        })
+      }, 2000)
+    }
   }
 
   const getSelectedConcernLabels = () => {
@@ -106,10 +126,37 @@ export default function RecommendationResults({ formData, onNavigate }) {
                   {recommendations.morning.map((product, idx) => (
                     <div key={idx} className="product-rec-card">
                       <div className="product-number">{idx + 1}</div>
+                      {product.img && (
+                        <img src={product.img} alt={product.name} className="product-rec-image" />
+                      )}
                       <h4>{product.name}</h4>
                       <p className="product-size">{product.size}</p>
                       <p className="product-purpose">{product.purpose}</p>
                       <p className="product-ingredients"><strong>Key Ingredients:</strong> {product.ingredients}</p>
+                      {product.price && (
+                        <div className="product-price-section">
+                          <div className="product-pricing">
+                            <span className="product-price">₹{product.price}</span>
+                            {product.mrp && <span className="product-mrp">₹{product.mrp}</span>}
+                          </div>
+                          <button 
+                            className={`add-to-cart-btn ${addedProducts.has(product.id) ? 'added' : ''}`}
+                            onClick={() => handleAddToCart(product)}
+                            disabled={addedProducts.has(product.id)}
+                          >
+                            {addedProducts.has(product.id) ? (
+                              <>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                  <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Added
+                              </>
+                            ) : (
+                              'Add to Cart'
+                            )}
+                          </button>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -123,10 +170,37 @@ export default function RecommendationResults({ formData, onNavigate }) {
                   {recommendations.evening.map((product, idx) => (
                     <div key={idx} className="product-rec-card">
                       <div className="product-number">{idx + 1}</div>
+                      {product.img && (
+                        <img src={product.img} alt={product.name} className="product-rec-image" />
+                      )}
                       <h4>{product.name}</h4>
                       <p className="product-size">{product.size}</p>
                       <p className="product-purpose">{product.purpose}</p>
                       <p className="product-ingredients"><strong>Key Ingredients:</strong> {product.ingredients}</p>
+                      {product.price && (
+                        <div className="product-price-section">
+                          <div className="product-pricing">
+                            <span className="product-price">₹{product.price}</span>
+                            {product.mrp && <span className="product-mrp">₹{product.mrp}</span>}
+                          </div>
+                          <button 
+                            className={`add-to-cart-btn ${addedProducts.has(product.id) ? 'added' : ''}`}
+                            onClick={() => handleAddToCart(product)}
+                            disabled={addedProducts.has(product.id)}
+                          >
+                            {addedProducts.has(product.id) ? (
+                              <>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                  <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Added
+                              </>
+                            ) : (
+                              'Add to Cart'
+                            )}
+                          </button>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -139,10 +213,37 @@ export default function RecommendationResults({ formData, onNavigate }) {
                 <div className="product-grid">
                   {recommendations.optional.map((product, idx) => (
                     <div key={idx} className="product-rec-card">
+                      {product.img && (
+                        <img src={product.img} alt={product.name} className="product-rec-image" />
+                      )}
                       <h4>{product.name}</h4>
                       <p className="product-size">{product.size}</p>
                       <p className="product-purpose">{product.purpose}</p>
                       <p className="product-ingredients"><strong>Key Ingredients:</strong> {product.ingredients}</p>
+                      {product.price && (
+                        <div className="product-price-section">
+                          <div className="product-pricing">
+                            <span className="product-price">₹{product.price}</span>
+                            {product.mrp && <span className="product-mrp">₹{product.mrp}</span>}
+                          </div>
+                          <button 
+                            className={`add-to-cart-btn ${addedProducts.has(product.id) ? 'added' : ''}`}
+                            onClick={() => handleAddToCart(product)}
+                            disabled={addedProducts.has(product.id)}
+                          >
+                            {addedProducts.has(product.id) ? (
+                              <>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                  <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Added
+                              </>
+                            ) : (
+                              'Add to Cart'
+                            )}
+                          </button>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>

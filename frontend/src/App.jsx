@@ -486,7 +486,7 @@ function AppContent() {
         {/* Build My Regimen Route */}
         <Route 
           path="/build-my-regimen" 
-          element={<BuildMyRegimen onNavigate={handleNavigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} />} 
+          element={<BuildMyRegimen onNavigate={handleNavigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} onAddToCart={addToCart} />} 
         />
 
         {/* About Route */}
