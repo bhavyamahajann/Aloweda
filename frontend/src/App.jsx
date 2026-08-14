@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, useNavigate, useParams, useSearchParams, useLocation } from 'react-router-dom'
 import './App.css'
 import HomePage from './Component/HomePage'
+import PageTransition from './Component/PageTransition'
 import BestSellerPage from './BestSeller/BestSeller'
 import SkinCarePage from './ShopPages/SkinCare'
 import HairCarePage from './ShopPages/HairPage'
@@ -412,6 +413,7 @@ function AppContent() {
 
   return (
     <>
+      <PageTransition />
       <Routes>
         {/* Home Route */}
         <Route 
