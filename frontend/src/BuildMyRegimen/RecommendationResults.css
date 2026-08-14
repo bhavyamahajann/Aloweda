@@ -145,11 +145,12 @@
 
 .product-rec-image {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: 220px;
+  object-fit: contain;
   border-radius: 12px;
   margin-bottom: 8px;
   background: #faf8f4;
+  padding: 16px;
 }
 
 .product-rec-card h4 {
@@ -221,28 +222,47 @@
 }
 
 .add-to-cart-btn {
-  padding: 11px 24px;
-  background: linear-gradient(135deg, #2c241a 0%, #3d3226 100%);
-  color: #f5f3ef;
-  border: none;
-  border-radius: 50px;
-  font-size: 14px;
-  font-weight: 600;
+  padding: 13px 28px;
+  background: #000000;
+  color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
   font-family: 'Comfortaa', sans-serif;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  letter-spacing: 0.3px;
-  box-shadow: 0 4px 12px rgba(44, 36, 26, 0.2);
+  gap: 10px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.add-to-cart-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.add-to-cart-btn:hover:not(:disabled)::before {
+  left: 100%;
 }
 
 .add-to-cart-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(44, 36, 26, 0.3);
-  background: linear-gradient(135deg, #3d3226 0%, #4a3d2f 100%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  background: #1a1a1a;
+  border-color: #1a1a1a;
 }
 
 .add-to-cart-btn:active:not(:disabled) {
@@ -250,9 +270,15 @@
 }
 
 .add-to-cart-btn.added {
-  background: linear-gradient(135deg, #4a7c59 0%, #3d6649 100%);
+  background: #2d5f3f;
+  border-color: #2d5f3f;
   pointer-events: none;
   animation: successPulse 0.5s ease;
+}
+
+.add-to-cart-btn.added:hover {
+  background: #2d5f3f;
+  border-color: #2d5f3f;
 }
 
 @keyframes successPulse {
@@ -265,6 +291,10 @@
 }
 
 .add-to-cart-btn svg {
+  flex-shrink: 0;
+}
+
+.add-to-cart-btn.added svg {
   animation: checkIn 0.3s ease;
 }
 
