@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import './AnnouncementBar.css';
 
 const AnnouncementBar = () => {
-  const [announcements, setAnnouncements] = useState([]);
+  const [announcements, setAnnouncements] = useState(getSampleAnnouncements());
   const [isPaused, setIsPaused] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [loading, setLoading] = useState(true);
   const marqueeRef = useRef(null);
 
   useEffect(() => {
@@ -21,20 +20,14 @@ const AnnouncementBar = () => {
       
       if (data.success && data.data.length > 0) {
         setAnnouncements(data.data);
-      } else {
-        // Fallback to sample announcements if API fails or no data
-        setAnnouncements(getSampleAnnouncements());
       }
     } catch (error) {
       console.log('Using sample announcements (Backend not available)');
-      // Use sample announcements if API fails
-      setAnnouncements(getSampleAnnouncements());
-    } finally {
-      setLoading(false);
+      // Keep sample announcements if API fails
     }
   };
 
-  const getSampleAnnouncements = () => {
+  function getSampleAnnouncements() {
     return [
       {
         _id: '1',
@@ -76,7 +69,7 @@ const AnnouncementBar = () => {
         order: 4
       }
     ];
-  };
+  }
 
   const handleClose = () => {
     setIsVisible(false);
@@ -103,7 +96,7 @@ const AnnouncementBar = () => {
     }
   }, [isVisible]);
 
-  if (!isVisible || loading || announcements.length === 0) {
+  if (!isVisible || announcements.length === 0) {
     return null;
   }
 
