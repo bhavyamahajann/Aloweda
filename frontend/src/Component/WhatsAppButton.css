@@ -74,7 +74,7 @@
   visibility: hidden;
   transition: all 0.3s ease;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
 }
 
 .whatsapp-tooltip::after {
@@ -188,4 +188,5 @@
 .whatsapp-float:active .whatsapp-circle {
   transform: scale(0.92);
 }
+
 

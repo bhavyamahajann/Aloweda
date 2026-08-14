@@ -289,7 +289,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   box-shadow: 0 4px 12px rgba(74, 93, 67, 0.3);
   pointer-events: auto;
 }
@@ -321,3 +321,4 @@
     font-size: 11px;
   }
 }
+

@@ -13,7 +13,7 @@
   border-bottom: 1px solid var(--border);
 }
 .shop-page__hero-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Comfortaa', serif;
   font-size: clamp(36px, 5vw, 60px);
   font-weight: 400;
   color: var(--text-dark);
@@ -32,7 +32,7 @@
 .shop-page__meta {
   font-size: 13px;
   color: var(--text-light);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
 }
 .shop-page__meta strong { color: var(--text-dark); font-weight: 600; }
 
@@ -99,7 +99,7 @@
   color: var(--text-dark);
   margin-bottom: 10px;
   line-height: 1.45;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
 }
 .sp-card__footer {
   display: flex;
@@ -111,14 +111,14 @@
   font-size: 15px;
   font-weight: 600;
   color: var(--text-dark);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
 }
 .sp-card__mrp {
   font-size: 13px;
   font-weight: 400;
   color: #999;
   text-decoration: line-through;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
 }
 
 /* Bottom info section */
@@ -129,7 +129,7 @@
   border-top: 1px solid var(--border);
 }
 .shop-page__info-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Comfortaa', serif;
   font-size: clamp(32px, 4vw, 48px);
   font-weight: 400;
   color: var(--text-dark);
@@ -154,7 +154,7 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   cursor: pointer;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   transition: background 0.2s, color 0.2s;
 }
 .shop-page__quiz-btn:hover {
@@ -173,7 +173,7 @@
   text-transform: uppercase;
   padding: 8px 14px;
   cursor: pointer;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   border-radius: 2px;
   transition: background 0.2s, color 0.2s;
 }
@@ -412,7 +412,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   box-shadow: 0 4px 12px rgba(74, 93, 67, 0.3);
   pointer-events: auto;
 }
@@ -444,3 +444,4 @@
     font-size: 12px;
   }
 }
+

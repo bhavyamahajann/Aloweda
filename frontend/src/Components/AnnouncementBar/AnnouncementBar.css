@@ -69,7 +69,7 @@
   font-weight: 500;
   line-height: 1.4;
   color: #f5f3ef;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Comfortaa', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .announcement-bar__separator {
@@ -268,3 +268,4 @@
     border: 2px solid #a67c52;
   }
 }
+

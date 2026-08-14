@@ -977,7 +977,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
 }
 
 .love-banner__cta:hover {
@@ -1102,7 +1102,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
 }
 
 .highlights-cta:hover {
@@ -1306,7 +1306,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   text-decoration: none;
 }
 
@@ -1483,7 +1483,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   box-shadow: 0 4px 12px rgba(74, 93, 67, 0.3);
   pointer-events: auto;
   display: block !important;
@@ -1522,3 +1522,4 @@
     font-size: 12px;
   }
 }
+

@@ -12,7 +12,7 @@
 }
 
 .cat-slider__heading {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   font-size: clamp(22px, 3vw, 32px);
   font-weight: 500;
   color: var(--text-dark);
@@ -71,7 +71,7 @@
   border-top: 1px solid var(--border);
 }
 .cat-slider__title {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 2.5px;
@@ -87,3 +87,4 @@
 @media (max-width: 480px) {
   .cat-slider__grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
 }
+

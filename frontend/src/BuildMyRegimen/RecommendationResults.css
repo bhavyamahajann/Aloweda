@@ -33,7 +33,7 @@
 }
 
 .success-message h1 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Comfortaa', serif;
   font-size: 36px;
   font-weight: 600;
   color: #2b2620;
@@ -55,7 +55,7 @@
 }
 
 .results-heading {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Comfortaa', serif;
   font-size: 32px;
   font-weight: 600;
   color: #2b2620;
@@ -232,3 +232,4 @@
     font-size: 36px;
   }
 }
+

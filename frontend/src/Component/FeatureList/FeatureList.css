@@ -134,7 +134,7 @@
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: all 0.3s ease;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
 }
 
 .feature-blurb {
@@ -144,7 +144,7 @@
   opacity: 0;
   overflow: hidden;
   transition: all 0.35s ease;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
 }
 
 .feature-item--active .feature-label {
@@ -185,7 +185,7 @@
   border-radius: 999px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   align-self: flex-start;
   box-shadow: 0 2px 10px rgba(201, 168, 102, 0.2);
 }

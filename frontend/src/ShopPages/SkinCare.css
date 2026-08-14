@@ -308,7 +308,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
 }
 
 .category-pill:hover {
@@ -382,7 +382,7 @@
   font-weight: 600;
   color: var(--text-dark);
   margin-bottom: 12px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
 }
 
 .all-products-count {
@@ -390,3 +390,4 @@
   color: var(--text-mid);
   font-weight: 400;
 }
+

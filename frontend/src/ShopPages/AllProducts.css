@@ -28,7 +28,7 @@
   font-weight: 600;
   color: #2c2416;
   margin: 0 0 8px 0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
 }
 
 .all-products-count {
@@ -78,7 +78,7 @@
   font-size: 0.95rem;
   color: #1f2937;
   outline: none;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
 }
 
 .all-products-search .search-input::placeholder {
@@ -548,7 +548,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   box-shadow: 0 4px 12px rgba(74, 93, 67, 0.3);
   pointer-events: auto !important;
   display: block !important;
@@ -881,3 +881,4 @@
     font-size: 0.8rem;
   }
 }
+
