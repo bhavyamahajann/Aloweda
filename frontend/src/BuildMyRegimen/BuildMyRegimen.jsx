@@ -99,6 +99,44 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount }) 
     <div className="build-regimen-page">
       <Navbar onNavigate={onNavigate} onLoginClick={onLoginClick} cartCount={cartCount} />
 
+      {/* Hero Section */}
+      <div className="regimen-hero">
+        <div className="regimen-hero-content">
+          <span className="hero-badge">Personalized Skincare</span>
+          <h1 className="hero-title">Build Your Perfect Regimen</h1>
+          <p className="hero-description">
+            Answer a few questions and get a personalized skincare routine tailored to your unique needs
+          </p>
+          <div className="hero-stats">
+            <div className="stat-item">
+              <span className="stat-number">5</span>
+              <span className="stat-label">Simple Questions</span>
+            </div>
+            <div className="stat-divider"></div>
+            <div className="stat-item">
+              <span className="stat-number">2 Min</span>
+              <span className="stat-label">Quick Process</span>
+            </div>
+            <div className="stat-divider"></div>
+            <div className="stat-item">
+              <span className="stat-number">100%</span>
+              <span className="stat-label">Personalized</span>
+            </div>
+          </div>
+          <button className="hero-cta" onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}>
+            Get Started
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+        <div className="hero-decoration">
+          <div className="decoration-circle decoration-circle-1"></div>
+          <div className="decoration-circle decoration-circle-2"></div>
+          <div className="decoration-circle decoration-circle-3"></div>
+        </div>
+      </div>
+
       {/* Split Screen Layout */}
       <div className="split-screen-container">
         {/* Left Side - Question */}
