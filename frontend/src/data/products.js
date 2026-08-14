@@ -7,6 +7,7 @@ import Slide2 from '../assets/HomeSlider2.png'
 import Slide3 from '../assets/HomeSlider3.png'
 import Slide4 from '../assets/HomeSlider4.png'
 import Slide5 from '../assets/HomeSlider5.png'
+import SkinCare6 from '../SkinCareImg/SkinCare6.jpg'
 
 export const CATEGORIES = [
   { id: 'skincare',     label: 'Smart Skincare', hasSubmenu: true },
@@ -160,7 +161,7 @@ export const PRODUCTS = [
     tag: 'Premium',
     rating: 4.9,
     reviews: 156,
-    img: Slide1,
+    img: SkinCare6,
     desc: 'Pure Saffron & Vitamin E face oil for radiant, nourished skin.',
     bestSeller: false,
     model3D: '/models/SaffronFaceOilBott.glb',
