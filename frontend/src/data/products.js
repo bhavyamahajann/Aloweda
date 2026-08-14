@@ -7,7 +7,9 @@ import Slide2 from '../assets/HomeSlider2.png'
 import Slide3 from '../assets/HomeSlider3.png'
 import Slide4 from '../assets/HomeSlider4.png'
 import Slide5 from '../assets/HomeSlider5.png'
+import SkinCare4 from '../SkinCareImg/SkinCare4.jpg'
 import SkinCare6 from '../SkinCareImg/SkinCare6.jpg'
+import SkinCare12 from '../SkinCareImg/SkinCare12.jpg'
 
 export const CATEGORIES = [
   { id: 'skincare',     label: 'Smart Skincare', hasSubmenu: true },
@@ -43,7 +45,7 @@ export const PRODUCTS = [
     tag: 'New',
     rating: 4.5,
     reviews: 167,
-    img: Slide2,
+    img: SkinCare4,
     desc: 'Lightweight daily moisturiser with broad-spectrum SPF 30 protection.',
     bestSeller: true,
     model3D: '/models/DayCreamJar.glb',
@@ -57,7 +59,7 @@ export const PRODUCTS = [
     tag: 'Trending',
     rating: 4.6,
     reviews: 203,
-    img: Slide3,
+    img: SkinCare6,
     desc: 'Hyaluronic Acid & Peptide blend for plump, dewy skin in 2 weeks.',
     bestSeller: true,
   },
@@ -70,7 +72,7 @@ export const PRODUCTS = [
     tag: 'Best Seller',
     rating: 4.8,
     reviews: 319,
-    img: Slide4,
+    img: SkinCare12,
     desc: 'Alpha Arbutin & AHA formula for smooth, even-toned skin.',
     bestSeller: true,
   },
