@@ -35,7 +35,7 @@ export const skinTypeToProducts = {
 
 export const productDatabase = {
   'day-cream': {
-    id: 4,
+    id: 2, // The Day Cream SPF 30
     name: 'Hyaluronic Acid, SPF 30 & Vitamin E: The Day Cream',
     size: '50 G',
     ingredients: 'Hyaluronic Acid, SPF 30, Vitamin E',
@@ -43,7 +43,7 @@ export const productDatabase = {
     routine: 'morning'
   },
   'night-cream': {
-    id: 5,
+    id: 5, // Radiance Night Cream
     name: 'Retinol 1%, Niacinamide 10%, Aloe Vera Extract & Carrot Oil: The Night Cream',
     size: '50 G',
     ingredients: 'Retinol 1%, Niacinamide 10%, Aloe Vera Extract, Carrot Oil',
@@ -51,7 +51,7 @@ export const productDatabase = {
     routine: 'evening'
   },
   'saffron-oil': {
-    id: 6,
+    id: 11, // Saffron Face Oil
     name: 'Saffron Face Oil',
     size: '30 ml',
     ingredients: 'Saffron Essential Oil, Sweet Almond Oil, Grape Seed Oil, Honey, Ghee',
@@ -59,7 +59,7 @@ export const productDatabase = {
     routine: 'optional'
   },
   'complexion-cream': {
-    id: 7,
+    id: 7, // Tattoo Protect Balm (placeholder)
     name: 'Alpha Arbutin 2%, Vitamin C 15% & Micro Crystalline Wax: Complexion Cream',
     size: '50 G',
     ingredients: 'Alpha Arbutin 2%, Vitamin C 15%, Micro Crystalline Wax',
@@ -67,7 +67,7 @@ export const productDatabase = {
     routine: 'morning'
   },
   'super-glow': {
-    id: 8,
+    id: 3, // Super Glow Face Serum
     name: 'Vitamin C 15%, Ferulic Acid 1% & Niacinamide 5%: Super Glow Serum',
     size: '30 ml',
     ingredients: 'Vitamin C 15%, Ferulic Acid 1%, Niacinamide 5%',
@@ -75,7 +75,7 @@ export const productDatabase = {
     routine: 'morning'
   },
   'pigment-control': {
-    id: 9,
+    id: 1, // Glow Essence Face Serum (placeholder)
     name: 'Alpha Arbutin 2%, Aloe Vera Extract, Ceramides & Kojic Acid 1%: Pigment Control Serum',
     size: '30 ml',
     ingredients: 'Alpha Arbutin 2%, Aloe Vera Extract, Ceramides, Kojic Acid 1%',
@@ -83,7 +83,7 @@ export const productDatabase = {
     routine: 'evening'
   },
   'wrinkles-cream': {
-    id: 10,
+    id: 5, // Radiance Night Cream
     name: 'Retinol 0.3%, Copper Tripeptide, Alpha Arbutin & Niacinamide: Wrinkles & Lines Cream',
     size: '50 G',
     ingredients: 'Retinol 0.3%, Copper Tripeptide, Alpha Arbutin, Niacinamide',
@@ -91,7 +91,7 @@ export const productDatabase = {
     routine: 'evening'
   },
   'lines-serum': {
-    id: 11,
+    id: 3, // Super Glow Face Serum
     name: 'Encapsulated Retinol 1%, Grape Seed Extract & Ceramides: Lines & Wrinkles Serum',
     size: '30 ml',
     ingredients: 'Encapsulated Retinol 1%, Grape Seed Extract, Ceramides',
@@ -99,7 +99,7 @@ export const productDatabase = {
     routine: 'evening'
   },
   'tone-texture': {
-    id: 12,
+    id: 4, // Tone & Texture Serum
     name: 'Niacinamide 10%, Acetyl Glucosamine & Ceramides: Tone & Texture Serum',
     size: '30 ml',
     ingredients: 'Niacinamide 10%, Acetyl Glucosamine, Ceramides',
@@ -107,7 +107,7 @@ export const productDatabase = {
     routine: 'morning'
   },
   'smooth-perfection': {
-    id: 13,
+    id: 3, // Super Glow Face Serum (placeholder)
     name: 'Salicylic Acid 2%, Witch Hazel Extract & Squalene: Smooth Perfection Serum',
     size: '30 ml',
     ingredients: 'Salicylic Acid 2%, Witch Hazel Extract, Squalene',
@@ -115,7 +115,7 @@ export const productDatabase = {
     routine: 'evening'
   },
   'radiance-cream': {
-    id: 14,
+    id: 5, // Radiance Night Cream
     name: 'Vitamin C 20%, Kojic Acid, Avocado Extract & Argan Oil: Radiance Cream',
     size: '50 G',
     ingredients: 'Vitamin C 20%, Kojic Acid, Avocado Extract, Argan Oil',
@@ -123,7 +123,7 @@ export const productDatabase = {
     routine: 'morning'
   },
   'anti-acne-wash': {
-    id: 15,
+    id: 1, // Glow Essence Face Serum (placeholder)
     name: 'Anti Acne Face Wash',
     size: '100 ml',
     ingredients: 'Salicylic Acid 2%',
@@ -131,7 +131,7 @@ export const productDatabase = {
     routine: 'morning,evening'
   },
   'hair-serum': {
-    id: 16,
+    id: 9, // Hair Repair Serum
     name: 'Redensyl 5%, Anagain 5%, Rice Water & Biotin: Total Hair Therapy Serum',
     size: '50 ml',
     ingredients: 'Redensyl 5%, Anagain 5%, Rice Water, Biotin',
@@ -139,7 +139,7 @@ export const productDatabase = {
     routine: 'special'
   },
   'lip-butter-15': {
-    id: 18,
+    id: 8, // Velvet Lip Butter
     name: 'Lip Butter',
     size: '15 Gram',
     ingredients: 'Butters, Oils, Honey',
@@ -147,7 +147,7 @@ export const productDatabase = {
     routine: 'special'
   },
   'lip-butter-8': {
-    id: 17,
+    id: 8, // Velvet Lip Butter
     name: 'Lip Butter',
     size: '8 Gram',
     ingredients: 'Butters, Oils, Honey',
