@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, useNavigate, useParams, useSearchParams, useLocation } from 'react-router-dom'
 import './App.css'
 import HomePage from './Component/HomePage'
@@ -299,10 +299,30 @@ export default function App() {
 // Main App Content with Routes
 function AppContent() {
   const [showLogin, setShowLogin] = useState(false)
-  const [cart, setCart] = useState([]) // Cart state
+  
+  // Initialize cart from localStorage or empty array
+  const [cart, setCart] = useState(() => {
+    try {
+      const savedCart = localStorage.getItem('alowedaCart')
+      return savedCart ? JSON.parse(savedCart) : []
+    } catch (error) {
+      console.error('Error loading cart from localStorage:', error)
+      return []
+    }
+  })
+  
   const [user, setUser] = useState(null) // User state
   const [notification, setNotification] = useState(null)
   const navigate = useNavigate()
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('alowedaCart', JSON.stringify(cart))
+    } catch (error) {
+      console.error('Error saving cart to localStorage:', error)
+    }
+  }, [cart])
 
   // Handle successful login
   const handleLoginSuccess = (userData) => {
