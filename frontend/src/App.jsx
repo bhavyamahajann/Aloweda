@@ -10,6 +10,7 @@ import LipCarePage  from './ShopPages/LipCare'
 import AllProductsPage from './ShopPages/Allproducts'
 import ProductDetail from './ProductDetail/ProductDetail'
 import Cart from './Cart/Cart'
+// import CartTest from './Cart/CartTest' // Uncomment for testing
 import BuildMyRegimen from './BuildMyRegimen/BuildMyRegimen'
 import WhatsAppButton from './Component/WhatsAppButton'
 import ScrollToTop from './Component/ScrollToTop'
