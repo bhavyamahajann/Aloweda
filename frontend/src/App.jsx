@@ -39,12 +39,28 @@ import HairCareImg from './assets/HairCare.png'
 import LC1 from './LipCareImg/LipCare1.jpg'
 import LC2 from './LipCareImg/LipCare2.jpg'
 
+// Product Detail Images
+import RitualOfRadianceDetail from './ProductDetailsImages/RITUALOFRADIANCESuperGlowSerum30ml+TheDayCream+RadianceCream50gram.png'
+import DayCream4Detail from './ProductDetailsImages/DayCream4.png'
+import PerfectComplexionDetail from './ProductDetailsImages/PERFECTCOMPLEXIONRITUALPigmentControlSerum+TheDayCream+ComplexionCream+SmoothPerfectionSerum.png'
+import YourSimpleRoutineDetail from './ProductDetailsImages/YOURSIMPLE ROUTINETheDayCream+TheNightCream+LipButter.png'
+import TheNightCreamDetail from './ProductDetailsImages/TheNightCream.png'
+import SaffronEssentialOilDetail from './ProductDetailsImages/SaffronEssentialOil.png'
+import ComplexionCreamDetail from './ProductDetailsImages/ComplexionCream.png'
+import SuperGlowSerumDetail from './ProductDetailsImages/SuperGlowSerum.png'
+import PigmentControlSerumDetail from './ProductDetailsImages/PigmentControlSerum.png'
+import LinesWrinklesSerumDetail from './ProductDetailsImages/Lines&WrinklesSerum30ml.png'
+import ToneTextureSerumDetail from './ProductDetailsImages/Tone&TextureSerum30ml.png'
+import RadianceCreamDetail from './ProductDetailsImages/RadianceCream.png'
+import SmoothPerfectionSerumDetail from './ProductDetailsImages/alowedasmoothperfectionserum.png'
+
 // All products database
 const ALL_PRODUCTS = [
   // Skin Care Products
   { 
     id: 1, 
-    img: SC1, 
+    img: YourSimpleRoutineDetail, // Changed to new detail image
+    images: [YourSimpleRoutineDetail], // Only show new image
     name: 'YOUR SIMPLE ROUTINE: The Day Cream + The Night Cream + Lip Butter', 
     category: 'Combo', 
     keywords: 'day cream night cream lip butter routine combo kit summer care spf hyaluronic acid retinol niacinamide sun protection hydration', 
@@ -56,7 +72,8 @@ const ALL_PRODUCTS = [
   },
   { 
     id: 2, 
-    img: SC2, 
+    img: PerfectComplexionDetail, // Changed to new detail image
+    images: [PerfectComplexionDetail], // Only show new image
     name: 'PERFECT COMPLEXION RITUAL: Pigment Control Serum + The Day Cream + Complexion Cream + Smooth Perfection Serum', 
     category: 'Combo', 
     keywords: 'pigment control serum day cream complexion smooth perfection ritual combo kit alpha arbutin vitamin c dark spots even tone ceramides spf', 
@@ -68,7 +85,8 @@ const ALL_PRODUCTS = [
   },
   { 
     id: 3, 
-    img: SC3, 
+    img: RitualOfRadianceDetail, // Changed main image to new one
+    images: [RitualOfRadianceDetail], // Only show new image, no gallery
     name: 'RITUAL OF RADIANCE: Super Glow Serum 30 ml + The Day Cream + Radiance Cream 50 gram', 
     category: 'Combo', 
     keywords: 'super glow serum day cream radiance ritual combo kit glow vitamin c ferulic acid niacinamide kojic acid radiant skin 30 days brightening', 
@@ -80,7 +98,8 @@ const ALL_PRODUCTS = [
   },
   { 
     id: 4, 
-    img: SC4, 
+    img: DayCream4Detail, // Changed main image to new one
+    images: [DayCream4Detail], // Only show new image, no gallery
     name: 'Hyaluronic Acid, SPF 30 & Vitamin E : The Day Cream 50 G', 
     category: 'Cream', 
     keywords: 'hyaluronic acid spf vitamin e day cream moisturizer sunscreen protection hydrating revitalising uva uvb broad spectrum', 
@@ -93,7 +112,8 @@ const ALL_PRODUCTS = [
   },
   { 
     id: 5, 
-    img: SC5, 
+    img: TheNightCreamDetail, // Changed to new detail image
+    images: [TheNightCreamDetail], // Only show new image
     name: 'Retinol 1%, Niacinamide 10 %, Aloe Vera Extract & Carrot oil: The Night Cream 50 G', 
     category: 'Cream', 
     keywords: 'retinol niacinamide aloe vera carrot oil night cream anti aging restore brighten replenish argan vitamin e saffron fragrance', 
@@ -107,7 +127,8 @@ const ALL_PRODUCTS = [
   },
   { 
     id: 6, 
-    img: SC6, 
+    img: SaffronEssentialOilDetail, // Changed to new detail image
+    images: [SaffronEssentialOilDetail], // Only show new image
     name: 'Saffron Face Oil 30 ml: Saffron Essential Oil, Sweet Almond oil, Grape Seed Oil, Honey & Ghee', 
     category: 'Oil', 
     keywords: 'saffron face oil almond grape seed honey ghee natural glow hydrate tone luxurious nourish sesame jojoba no preservatives no chemicals', 
@@ -121,7 +142,8 @@ const ALL_PRODUCTS = [
   },
   { 
     id: 7, 
-    img: SC7, 
+    img: ComplexionCreamDetail, // Changed to new detail image
+    images: [ComplexionCreamDetail], // Only show new image
     name: 'Alpha Arbutin 2%, Vitamin C 15 % & Micro Crystalline Wax: Complexion Cream 50 G', 
     category: 'Cream', 
     keywords: 'alpha arbutin vitamin c complexion brightening pigmentation dark spots lighten brighten polish micro crystalline wax avocado argan calamine magnolia', 
@@ -135,7 +157,8 @@ const ALL_PRODUCTS = [
   },
   { 
     id: 8, 
-    img: SC8, 
+    img: SuperGlowSerumDetail, // Changed to new detail image
+    images: [SuperGlowSerumDetail], // Only show new image
     name: 'Vitamin C 15%, Ferulic Acid 1% & Niacinamide 5% : Super Glow Serum 30 ml', 
     category: 'Serum', 
     keywords: 'vitamin c ferulic acid niacinamide super glow serum brightening radiance texture smoothness advanced 3-o-ethyl ascorbic acid ceramide hyaluronate', 
@@ -149,7 +172,8 @@ const ALL_PRODUCTS = [
   },
   { 
     id: 9, 
-    img: SC9, 
+    img: PigmentControlSerumDetail, 
+    images: [PigmentControlSerumDetail], 
     name: 'Alpha Arbutin 2%, Aloe Vera Extract, Ceramides & Kojic Acid 1%: Pigment Control Serum 30 ml', 
     category: 'Serum', 
     keywords: 'alpha arbutin aloe vera ceramides kojic acid pigment control dark spots fades melasma blackheads blemishes clear skin brightening 45 days', 
@@ -164,6 +188,7 @@ const ALL_PRODUCTS = [
   { 
     id: 10, 
     img: SC10, 
+    images: [SC10], 
     name: 'Retinol 0.3%, Copper Tripeptide, Alpha Arbutin & Niacinamide: Wrinkles & Lines Cream 50 G', 
     category: 'Cream', 
     keywords: 'retinol copper tripeptide alpha arbutin niacinamide wrinkles lines anti aging youthful toned textured skin gotu kola avocado tuberose', 
@@ -176,7 +201,8 @@ const ALL_PRODUCTS = [
   },
   { 
     id: 11, 
-    img: SC11, 
+    img: LinesWrinklesSerumDetail, 
+    images: [LinesWrinklesSerumDetail], 
     name: 'Encapsulated Retinol 1 %, Grape Seed Extract, & Ceramides : Lines & Wrinkles Serum 30 ml', 
     category: 'Serum', 
     keywords: 'retinol grape seed ceramides lines wrinkles anti aging serum renews youthful soothing encapsulated kojic acid aloe vera minimal irritation', 
@@ -204,7 +230,8 @@ const ALL_PRODUCTS = [
   },
   { 
     id: 13, 
-    img: SC13, 
+    img: SmoothPerfectionSerumDetail, 
+    images: [SmoothPerfectionSerumDetail], 
     name: 'Salicylic Acid 2%, Witch Hazel Extract & Squalene: Smooth Perfection Serum 30 ml', 
     category: 'Serum', 
     keywords: 'salicylic acid witch hazel squalene smooth perfection acne pores bha skin perfecting exfoliate clarify kojic acid aloe vera ceramide', 
@@ -218,7 +245,8 @@ const ALL_PRODUCTS = [
   },
   { 
     id: 14, 
-    img: SC14, 
+    img: RadianceCreamDetail, 
+    images: [RadianceCreamDetail], 
     name: 'Vitamin C 20%, Kojic Acid, Avocado Extract & Argan Oil : Radiance Cream 50 G', 
     category: 'Cream', 
     keywords: 'vitamin c kojic acid avocado argan oil radiance brightening glow brighten moisturise clear complexion ascorbic acid aloe vera honey lactic acid', 

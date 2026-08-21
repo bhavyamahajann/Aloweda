@@ -14,7 +14,7 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
   const [viewMode, setViewMode] = useState('image') // 'image' or '3d'
   const [hoveredProduct, setHoveredProduct] = useState(null)
   const [load3DViewer, setLoad3DViewer] = useState(false) // Control when to load 3D viewer
-  
+
   const handleAddToCart = () => {
     onAddToCart(product, quantity)
     // Optional: Show success message or animation
@@ -47,6 +47,10 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
     setViewMode('3d')
   }
 
+  const handleBackToPhotos = () => {
+    setViewMode('image')
+  }
+
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
@@ -73,38 +77,11 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
       <div className="product-detail__container">
         {/* Left: Image Gallery / 3D Viewer */}
         <div className="product-gallery">
-          {/* View Mode Toggle - Only show if product has 3D model */}
-          {product.model3D && (
-            <div className="view-mode-toggle">
-              <button
-                className={`toggle-btn ${viewMode === 'image' ? 'active' : ''}`}
-                onClick={() => setViewMode('image')}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <polyline points="21 15 16 10 5 21" />
-                </svg>
-                Photos
-              </button>
-              <button
-                className={`toggle-btn ${viewMode === '3d' ? 'active' : ''}`}
-                onClick={handle3DViewClick}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-                  <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-                  <line x1="12" y1="22.08" x2="12" y2="12" />
-                </svg>
-                3D View
-              </button>
-            </div>
-          )}
-
           {viewMode === 'image' || !product.model3D ? (
             <>
               <div className="product-gallery__main">
                 <img src={images[currentImageIndex]} alt={product.name} />
+
                 {images.length > 1 && (
                   <>
                     <button className="gallery-arrow gallery-arrow--prev" onClick={prevImage}>
@@ -118,6 +95,18 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
                       </svg>
                     </button>
                   </>
+                )}
+
+                {/* 3D overlay button - only if this product has a 3D model */}
+                {product.model3D && (
+                  <button className="gallery-3d-overlay-btn" onClick={handle3DViewClick}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                      <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                      <line x1="12" y1="22.08" x2="12" y2="12" />
+                    </svg>
+                    View in 3D
+                  </button>
                 )}
               </div>
 
@@ -138,14 +127,24 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
             </>
           ) : (
             load3DViewer && (
-              <Suspense fallback={
-                <div className="model-loading-overlay">
-                  <div className="model-spinner"></div>
-                  <p>Loading 3D Viewer...</p>
-                </div>
-              }>
-                <Model3DViewer modelPath={product.model3D} />
-              </Suspense>
+              <div className="model-3d-wrapper">
+                <Suspense fallback={
+                  <div className="model-loading-overlay">
+                    <div className="model-spinner"></div>
+                    <p>Loading 3D Viewer...</p>
+                  </div>
+                }>
+                  <Model3DViewer modelPath={product.model3D} />
+                </Suspense>
+
+                {/* Back to photos overlay button */}
+                <button className="gallery-back-to-photos-btn" onClick={handleBackToPhotos}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M15 18l-6-6 6-6" />
+                  </svg>
+                  Photos
+                </button>
+              </div>
             )
           )}
         </div>
@@ -301,8 +300,8 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
                     setQuantity(Math.min(4, Math.max(1, val)))
                   }}
                 />
-                <button 
-                  onClick={() => setQuantity(Math.min(4, quantity + 1))} 
+                <button
+                  onClick={() => setQuantity(Math.min(4, quantity + 1))}
                   aria-label="Increase"
                   disabled={quantity >= 4}
                   style={{opacity: quantity >= 4 ? 0.5 : 1, cursor: quantity >= 4 ? 'not-allowed' : 'pointer'}}
@@ -347,7 +346,7 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
       <div className="product-reviews">
         <div className="product-reviews__container">
           <h2 className="reviews-title">Customer Reviews</h2>
-          
+
           {/* Reviews List */}
           <div className="reviews-list">
             <div className="review-card">
@@ -403,9 +402,9 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
           <h2 className="related-products__title">You may also like</h2>
           <div className="related-products__grid">
             {relatedProducts.map((p) => (
-              <div 
-                key={p.id} 
-                className="related-card" 
+              <div
+                key={p.id}
+                className="related-card"
                 onClick={(e) => handleNavigation(e, onNavigate, 'product', { productId: p.id })}
                 onAuxClick={(e) => e.button === 1 && handleNavigation(e, onNavigate, 'product', { productId: p.id })}
                 onMouseEnter={() => setHoveredProduct(p.id)}
