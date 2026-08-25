@@ -37,15 +37,15 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
   const totalItems = safeCart.reduce((sum, item) => sum + (item.quantity || 1), 0)
   const multiBuyDiscount = totalItems >= 3 ? 70 : 0
 
-  // COD payment discount (10% if COD payment selected)
-  const codPaymentDiscount = paymentMethod === 'cod' ? subtotal * 0.10 : 0
+  // Online payment discount (10% if online payment selected)
+  const onlinePaymentDiscount = paymentMethod === 'online' ? subtotal * 0.10 : 0
 
   // Coupon discount
   const couponDiscount = appliedCoupon ? parseFloat(appliedCoupon.discount) || 0 : 0
 
   const bundleDiscount = appliedBundle ? parseFloat(appliedBundle.discount) || 0 : 0
   const shipping = subtotal > 999 ? 0 : 50
-  const total = subtotal - bundleDiscount - multiBuyDiscount - codPaymentDiscount - couponDiscount + shipping
+  const total = subtotal - bundleDiscount - multiBuyDiscount - onlinePaymentDiscount - couponDiscount + shipping
 
   // Debug logs
   console.log('=== CART CALCULATION DEBUG ===');
@@ -54,7 +54,7 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
   console.log('Subtotal:', subtotal);
   console.log('Multi-buy Discount (3+ items):', multiBuyDiscount);
   console.log('Payment Method:', paymentMethod);
-  console.log('COD Payment Discount (10%):', codPaymentDiscount);
+  console.log('Online Payment Discount (10%):', onlinePaymentDiscount);
   console.log('Applied Bundle:', appliedBundle);
   console.log('Bundle Discount:', bundleDiscount);
   console.log('Shipping:', shipping);
@@ -251,11 +251,11 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
                 </div>
               )}
 
-              {/* COD Payment Discount */}
-              {codPaymentDiscount > 0 && (
+              {/* Online Payment Discount */}
+              {onlinePaymentDiscount > 0 && (
                 <div className="summary-row discount" style={{color: '#28a745', fontWeight: 'bold'}}>
-                  <span>Cash on Delivery Discount (10%)</span>
-                  <span style={{color: '#dc3545'}}>- ₹ {codPaymentDiscount.toFixed(2)}</span>
+                  <span>Online Payment Discount (10%)</span>
+                  <span style={{color: '#dc3545'}}>- ₹ {onlinePaymentDiscount.toFixed(2)}</span>
                 </div>
               )}
 
@@ -298,7 +298,7 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
                 <span>{shipping === 0 ? 'FREE' : `₹ ${shipping}`}</span>
               </div>
 
-              {(bundleDiscount > 0 || multiBuyDiscount > 0 || codPaymentDiscount > 0 || couponDiscount > 0) && (
+              {(bundleDiscount > 0 || multiBuyDiscount > 0 || onlinePaymentDiscount > 0 || couponDiscount > 0) && (
                 <div style={{
                   background: 'linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%)',
                   padding: '12px',
@@ -308,7 +308,7 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
                   border: '2px solid #28a745'
                 }}>
                   <strong style={{color: '#155724', fontSize: '14px'}}>
-                    🎉 You're saving ₹{(bundleDiscount + multiBuyDiscount + codPaymentDiscount + couponDiscount).toFixed(2)}!
+                    🎉 You're saving ₹{(bundleDiscount + multiBuyDiscount + onlinePaymentDiscount + couponDiscount).toFixed(2)}!
                   </strong>
                 </div>
               )}
@@ -465,7 +465,7 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
               <div style={{margin: '20px 0'}}>
                 <h3 style={{fontSize: '16px', marginBottom: '12px', fontWeight: '600'}}>Select Payment Method</h3>
                 
-                {/* COD Option with Discount Badge */}
+                {/* COD Option - No Discount */}
                 <div 
                   onClick={() => setPaymentMethod('cod')}
                   style={{
@@ -475,6 +475,43 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
                     marginBottom: '12px',
                     cursor: 'pointer',
                     background: paymentMethod === 'cod' ? '#f0f9f4' : '#fff',
+                    position: 'relative',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
+                    <div style={{
+                      width: '20px',
+                      height: '20px',
+                      borderRadius: '50%',
+                      border: '2px solid ' + (paymentMethod === 'cod' ? '#28a745' : '#999'),
+                      background: paymentMethod === 'cod' ? '#28a745' : '#fff',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      {paymentMethod === 'cod' && <span style={{color: '#fff', fontSize: '12px'}}>✓</span>}
+                    </div>
+                    <div style={{flex: 1}}>
+                      <div style={{fontWeight: '600', fontSize: '15px', marginBottom: '4px'}}>
+                        💵 Cash on Delivery
+                      </div>
+                      <div style={{fontSize: '13px', color: '#666'}}>
+                        Pay when you receive your order
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Online Payment Option with Discount Badge */}
+                <div 
+                  onClick={() => setPaymentMethod('online')}
+                  style={{
+                    border: paymentMethod === 'online' ? '2px solid #28a745' : '2px solid #e0e0e0',
+                    borderRadius: '8px',
+                    padding: '16px',
+                    cursor: 'pointer',
+                    background: paymentMethod === 'online' ? '#f0f9f4' : '#fff',
                     position: 'relative',
                     transition: 'all 0.2s'
                   }}
@@ -499,52 +536,6 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
                       width: '20px',
                       height: '20px',
                       borderRadius: '50%',
-                      border: '2px solid ' + (paymentMethod === 'cod' ? '#28a745' : '#999'),
-                      background: paymentMethod === 'cod' ? '#28a745' : '#fff',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}>
-                      {paymentMethod === 'cod' && <span style={{color: '#fff', fontSize: '12px'}}>✓</span>}
-                    </div>
-                    <div style={{flex: 1}}>
-                      <div style={{fontWeight: '600', fontSize: '15px', marginBottom: '4px'}}>
-                        💵 Cash on Delivery
-                      </div>
-                      <div style={{fontSize: '13px', color: '#666'}}>
-                        Pay when you receive your order
-                      </div>
-                      {paymentMethod === 'cod' && (
-                        <div style={{
-                          marginTop: '8px',
-                          color: '#28a745',
-                          fontSize: '13px',
-                          fontWeight: '600'
-                        }}>
-                          ✓ You save ₹{codPaymentDiscount.toFixed(2)} with Cash on Delivery!
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Online Payment Option */}
-                <div 
-                  onClick={() => setPaymentMethod('online')}
-                  style={{
-                    border: paymentMethod === 'online' ? '2px solid #28a745' : '2px solid #e0e0e0',
-                    borderRadius: '8px',
-                    padding: '16px',
-                    cursor: 'pointer',
-                    background: paymentMethod === 'online' ? '#f0f9f4' : '#fff',
-                    transition: 'all 0.2s'
-                  }}
-                >
-                  <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
-                    <div style={{
-                      width: '20px',
-                      height: '20px',
-                      borderRadius: '50%',
                       border: '2px solid ' + (paymentMethod === 'online' ? '#28a745' : '#999'),
                       background: paymentMethod === 'online' ? '#28a745' : '#fff',
                       display: 'flex',
@@ -560,6 +551,16 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
                       <div style={{fontSize: '13px', color: '#666'}}>
                         UPI, Cards, Net Banking
                       </div>
+                      {paymentMethod === 'online' && (
+                        <div style={{
+                          marginTop: '8px',
+                          color: '#28a745',
+                          fontSize: '13px',
+                          fontWeight: '600'
+                        }}>
+                          ✓ You save ₹{onlinePaymentDiscount.toFixed(2)} with Online Payment!
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

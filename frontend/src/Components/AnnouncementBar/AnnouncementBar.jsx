@@ -50,7 +50,7 @@ const AnnouncementBar = () => {
       },
       {
         _id: '3',
-        text: '🌿 Doctor Recommended Ayurvedic Products',
+        text: '🌿 Doctor Recommended Products',
         icon: '🌿',
         showIcon: true,
         link: '/about',

@@ -32,9 +32,9 @@ const slides = [
   {
     id: 1,
     image: Slide1,
-    tag: 'Ayurvedic',
+    tag: 'Science-Based',
     heading: 'What is Aloweda',
-    sub: 'Blend of Ayurveda with Modern Allopathy. We promise results, not miracles!',
+    sub: 'Modern dermatology meets proven ingredients. We promise results, not miracles!',
     cta: 'SHOP NOW',
     position: 'center',
     targetPage: 'shop', // Navigate to all products page
@@ -197,7 +197,7 @@ function HeroSlider({ onNavigate }) {
 /* ─────────────── MARQUEE STRIP ─────────────── */
 
 function MarqueeStrip() {
-  const items = ['Free Shipping Above ₹999', 'Ayurvedic Formulas', '100% Natural Ingredients', 'Dermatologist Tested', 'No Parabens · No Sulphates', 'Made in India ✦']
+  const items = ['Free Shipping Above ₹999', 'Science-Backed Formulas', 'Clinically Proven Ingredients', 'Dermatologist Tested', 'No Parabens · No Sulphates', 'Made in India ✦']
   return (
     <div className="marquee-strip">
       <div className="marquee-track">
@@ -234,7 +234,7 @@ function Categories() {
 
 function WhyAloweda() {
   const pillars = [
-    { icon: '🌿', title: 'Pure Ayurveda', desc: 'Time-tested herbs blended with modern science for real results.' },
+    { icon: '🌿', title: 'Proven Ingredients', desc: 'Evidence-based formulations blended with modern science for real results.' },
     { icon: '🧪', title: 'Dermatologist Tested', desc: 'Every formula is clinically evaluated for safety and efficacy.' },
     { icon: '✦', title: 'No Nasties', desc: 'Zero parabens, sulphates, or artificial fragrances. Ever.' },
     { icon: '📦', title: 'Sustainable Packaging', desc: 'Eco-conscious packaging that doesn\'t cost the planet.' },
@@ -264,8 +264,8 @@ function WhyAloweda() {
 /* ─────────────── ALOWEDA INTRO SECTION ─────────────── */
 
 function AlowedaIntro({ onNavigate }) {
-  const fullTitle = "Aloweda: Nature-Inspired Wellness and Skincare Solutions"
-  const fullDesc = "Aloweda is a wellness brand offering a diverse range of Ayurvedic and herbal products, including skincare, hair care, and dietary supplements. Their formulations emphasize natural ingredients like aloe vera, kokum butter, and turmeric, aiming to provide effective solutions for various health and beauty needs. With products such as lip butter, eyebrow serum, and turmeric curcumin capsules, Aloweda combines traditional wisdom with modern science to promote holistic well-being. All products are 100% cruelty-free, ensuring ethical and conscious self-care."
+  const fullTitle = "Aloweda: Science-Based Wellness and Skincare Solutions"
+  const fullDesc = "Aloweda is a wellness brand offering a diverse range of scientifically-formulated products, including skincare, hair care, and dietary supplements. Our formulations emphasize proven ingredients like aloe vera, kokum butter, and turmeric, aiming to provide effective solutions for various health and beauty needs. With products such as lip butter, eyebrow serum, and turmeric curcumin capsules, Aloweda combines evidence-based research with effective formulations to promote holistic well-being. All products are 100% cruelty-free, ensuring ethical and conscious self-care."
 
   // Check localStorage on mount
   const hasTypedBefore = localStorage.getItem('aloweda_hero_typed') === 'true'

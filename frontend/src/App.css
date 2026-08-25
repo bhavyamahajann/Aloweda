@@ -3,11 +3,33 @@
 /* Adjust main content for fixed navbar + announcement bar */
 body {
   padding-top: 128px; /* 40px announcement bar + 88px navbar */
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 /* When announcement bar is closed/hidden */
 body.no-announcement-bar {
   padding-top: 88px; /* Just navbar height */
+}
+
+/* Mobile viewport optimization */
+@media (max-width: 768px) {
+  body {
+    padding-top: 112px; /* Mobile navbar + announcement */
+  }
+  
+  body.no-announcement-bar {
+    padding-top: 72px; /* Mobile navbar only */
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 106px;
+  }
+  
+  body.no-announcement-bar {
+    padding-top: 72px;
+  }
 }
 
 /* Notification animation */

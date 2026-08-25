@@ -14,7 +14,7 @@ const products = [
     img: LC1, 
     name: 'Lip Butter 8 Gram: Butters, Oils & Honey.ZERO CHEMICALS, NO PRESERVATIVES', 
     category: 'Lip Butter',
-    keywords: 'lip butter butters oils honey natural organic chemical free preservative free',
+    keywords: 'lip butter butters oils honey organic chemical free preservative free',
     price: 'Rs. 75.00' 
   },
   { 
@@ -22,7 +22,7 @@ const products = [
     img: LC2, 
     name: 'Lip Butter 15 Gram: Butters, Oils & Honey. NO CHEMICALS, NO PRESERVATIVES. NOT LIP BALM', 
     category: 'Lip Butter',
-    keywords: 'lip butter butters oils honey natural organic chemical free preservative free balm',
+    keywords: 'lip butter butters oils honey organic chemical free preservative free balm',
     price: 'From Rs. 165.00' 
   },
 ]
@@ -151,7 +151,7 @@ export default function LipCarePage({ onNavigate, searchQuery, onLoginClick }) {
             <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
           </svg>
           <h3>No products found</h3>
-          <p>Try searching with different keywords like "lip butter", "natural", or "honey"</p>
+          <p>Try searching with different keywords like "lip butter", "honey", or "oils"</p>
           <button className="shop-page__quiz-btn" onClick={handleClearSearch}>Clear Search</button>
         </div>
       )}
@@ -159,8 +159,8 @@ export default function LipCarePage({ onNavigate, searchQuery, onLoginClick }) {
       <div className="shop-page__info">
         <h2 className="shop-page__info-title">Lip Care</h2>
         <p className="shop-page__info-desc">
-          Nourish, protect and beautify your lips with our range of natural lip care products.
-          Formulated with Shea Butter, Vitamin E and Ayurvedic botanicals for soft, supple lips every day.
+          Nourish, protect and beautify your lips with our range of effective lip care products.
+          Formulated with Shea Butter, Vitamin E and beneficial botanicals for soft, supple lips every day.
         </p>
         <button className="shop-page__quiz-btn">Start Quiz</button>
       </div>

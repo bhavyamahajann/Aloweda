@@ -26,7 +26,7 @@ export default function ProductReviews({ productId, productName }) {
       userName: 'Anita Desai',
       rating: 5,
       date: '2024-01-05',
-      comment: 'Best serum I have used! Natural ingredients and no side effects.',
+      comment: 'Best serum I have used! Effective ingredients and no side effects.',
       verified: true,
       helpful: 18
     }

@@ -345,6 +345,12 @@
     overflow: hidden;
   }
 
+  .product-card__footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
   .product-card__price {
     font-size: 15px;
   }
@@ -384,6 +390,12 @@
     padding: 10px 8px;
   }
 
+  .product-card__footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
   .product-card__name {
     font-size: 12px;
     margin-bottom: 6px;
@@ -391,6 +403,10 @@
 
   .product-card__price {
     font-size: 14px;
+  }
+
+  .product-card__mrp {
+    font-size: 12px;
   }
 
   .product-card__btn {

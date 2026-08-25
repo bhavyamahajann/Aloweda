@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import AlowedaLogo from '../assets/AlowedaLogo.png'
 import './Footer.css'
 
@@ -36,7 +37,7 @@ export default function Footer({ onLoginClick }) {
           {/* Col 3 — Quick Links */}
           <div className="footer__col">
             <h4 className="footer__col-title">Quick Links</h4>
-            <a href="#" className="footer__link">About Us</a>
+            <Link to="/about" className="footer__link">About Us</Link>
             <a href="#" className="footer__link">Blogs</a>
             <a href="#" className="footer__link">Contact us</a>
             <a href="#" className="footer__link">Shipping Policy</a>

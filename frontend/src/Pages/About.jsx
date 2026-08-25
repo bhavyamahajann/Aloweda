@@ -12,23 +12,43 @@ export default function About({ onNavigate, onLoginClick, cartCount }) {
   const doctors = [
     {
       id: 1,
-      name: 'Dr. Ajay',
+      name: 'Dr. Ajay Patwardhan',
       title: 'Chief Dermatologist & Founder',
       specialization: 'MD, Dermatology | 15+ Years Experience',
       image: drAjayImage,
-      badge: 'Founder',
-      bio: 'Dr. Ajay is a renowned dermatologist with over 15 years of experience in treating skin conditions and developing Ayurvedic skincare solutions. His expertise lies in combining modern dermatology with traditional Ayurvedic practices.',
+      badge: 'Founder and CEO',
+      bio: 'Dr. Ajay Patwardhan is a renowned dermatologist with over 15 years of experience in treating skin conditions and developing scientifically-backed skincare solutions. His expertise lies in combining modern dermatology with evidence-based formulations.',
       experience: '15+ Years',
-      patients: '10,000+',
       education: 'MD (Dermatology), MBBS',
       expertise: [
         'Acne & Pigmentation',
         'Anti-Aging Solutions',
         'Sensitive Skin Care',
-        'Ayurvedic Dermatology',
-        'Clinical Research'
+        'Evidence-Based Dermatology',
+        'Clinical Research Methodology'
       ],
       availability: 'Mon - Fri, 10 AM - 6 PM',
+      languages: 'English, Hindi'
+    },
+    {
+      id: 2,
+      name: 'Dr. Chitra Phadnis',
+      title: 'Skincare Expert',
+      specialization: '40+ Years Experience',
+      image: drAjayImage, // Replace with actual image
+      badge: 'Skincare Expert',
+      bio: 'Dr. Chitra Phadnis is an experienced skincare expert with over 40 years of clinical practice. She has treated more than 5000+ patients and specializes in holistic skincare solutions.',
+      experience: '40+ Years',
+      patients: '5,000+',
+      education: 'Skincare Specialist',
+      expertise: [
+        'Holistic Skincare',
+        'Skin Health Management',
+        'Traditional Treatments',
+        'Patient Care',
+        'Wellness Solutions'
+      ],
+      availability: 'Mon - Fri, 10 AM - 5 PM',
       languages: 'English, Hindi'
     }
   ];
@@ -48,8 +68,8 @@ export default function About({ onNavigate, onLoginClick, cartCount }) {
       <section className="about-hero">
         <h1>About Aloweda</h1>
         <p>
-          Bringing the ancient wisdom of Ayurveda to modern skincare. 
-          We believe in natural, effective, and science-backed solutions for your skin.
+          Bringing evidence-based skincare to modern consumers. 
+          We believe in effective, scientifically-backed solutions for your skin.
         </p>
       </section>
 
@@ -62,17 +82,17 @@ export default function About({ onNavigate, onLoginClick, cartCount }) {
               Aloweda was born from a simple belief: that everyone deserves healthy, 
               radiant skin without compromising on safety or efficacy. Founded by 
               Dr. Ajay, our journey began with a mission to bridge the 
-              gap between traditional Ayurvedic wisdom and modern dermatological science.
+              gap between proven ingredients and modern dermatological science.
             </p>
             <p>
-              With over 15 years of experience in dermatology and Ayurvedic 
+              With over 15 years of experience in dermatology and evidence-based 
               skincare, Dr. Ajay recognized that most skincare products either 
               relied too heavily on harsh chemicals or lacked the scientific backing 
               to deliver real results.
             </p>
             <p>
-              Today, Aloweda stands as a testament to what's possible when ancient 
-              wisdom meets modern science. Every product is carefully formulated, 
+              Today, Aloweda stands as a testament to what's possible when proven 
+              ingredients meet modern science. Every product is carefully formulated, 
               clinically tested, and crafted with love for your skin.
             </p>
           </div>
@@ -85,9 +105,9 @@ export default function About({ onNavigate, onLoginClick, cartCount }) {
         <div className="values-grid">
           <div className="value-card">
             <div className="value-icon">🌿</div>
-            <h3>100% Natural</h3>
+            <h3>100% Effective</h3>
             <p>
-              We use only natural, sustainably sourced ingredients that are 
+              We use only proven, clinically-tested ingredients that are 
               safe for your skin and the environment.
             </p>
           </div>
@@ -233,7 +253,7 @@ export default function About({ onNavigate, onLoginClick, cartCount }) {
             </div>
             <div className="process-step">
               <div className="step-number">4</div>
-              <h4>Personalized Plan</h4>
+              <h4>Personalize Plan</h4>
               <p>Receive your customized skincare regimen</p>
             </div>
           </div>

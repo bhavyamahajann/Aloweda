@@ -149,8 +149,8 @@ export default function HairCarePage({ onNavigate, searchQuery, onLoginClick }) 
       <div className="shop-page__info">
         <h2 className="shop-page__info-title">Hair Care</h2>
         <p className="shop-page__info-desc">
-          Strengthen, nourish and revive your hair with our Ayurvedic hair care range.
-          Powered by Biotin, Argan Oil and natural botanicals for healthy, lustrous hair.
+          Strengthen, nourish and revive your hair with our scientifically-formulated hair care range.
+          Enhanced by Biotin, Argan Oil and proven botanicals for healthy, lustrous hair.
         </p>
         <button className="shop-page__quiz-btn">Start Quiz</button>
       </div>

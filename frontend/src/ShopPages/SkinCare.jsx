@@ -28,7 +28,7 @@ const products = [
   { id:3,  img:SC3,  name:'RITUAL OF RADIANCE: Super Glow Serum 30 ml + The Day Cream + Radiance Cream 50 gram', category: 'Combo', keywords: 'super glow serum day cream radiance ritual combo kit glow', price:'₹ 999' },
   { id:4,  img:SC4,  name:'Hyaluronic Acid, SPF 30 & Vitamin E : The Day Cream 50 G', category: 'Cream', keywords: 'hyaluronic acid spf vitamin e day cream moisturizer sunscreen protection', price:'₹ 249' },
   { id:5,  img:SC5,  name:'Retinol 1%, Niacinamide 10 %, Aloe Vera Extract & Carrot oil: The Night Cream 50 G', category: 'Cream', keywords: 'retinol niacinamide aloe vera carrot oil night cream anti aging', price:'₹ 399', model3D: '/models/TheNightCream.glb' },
-  { id:6,  img:SC6,  name:'Saffron Face Oil 30 ml: Saffron Essential Oil, Sweet Almond oil, Grape Seed Oil, Honey & Ghee', category: 'Oil', keywords: 'saffron face oil almond grape seed honey ghee natural glow', price:'₹ 799' },
+  { id:6,  img:SC6,  name:'Saffron Face Oil 30 ml: Saffron Essential Oil, Sweet Almond oil, Grape Seed Oil, Honey & Ghee', category: 'Oil', keywords: 'saffron face oil almond grape seed honey ghee radiant glow', price:'₹ 799' },
   { id:7,  img:SC7,  name:'Alpha Arbutin 2%, Vitamin C 15 % & Micro Crystalline Wax: Complexion Cream 50 G', category: 'Cream', keywords: 'alpha arbutin vitamin c complexion brightening pigmentation dark spots', price:'₹ 399' },
   { id:8,  img:SC8,  name:'Vitamin C 15%, Ferulic Acid 1% & Niacinamide 5% : Super Glow Serum 30 ml', category: 'Serum', keywords: 'vitamin c ferulic acid niacinamide super glow serum brightening radiance', price:'₹ 549' },
   { id:9,  img:SC9,  name:'Alpha Arbutin 2%, Aloe Vera Extract, Ceramides & Kojic Acid 1%: Pigment Control Serum 30 ml', category: 'Serum', keywords: 'alpha arbutin aloe vera ceramides kojic acid pigment control dark spots', price:'₹ 399' },
@@ -202,11 +202,11 @@ export default function SkinCarePage({ onNavigate, searchQuery, categoryFilter, 
       <div className="shop-page__info">
         <h2 className="shop-page__info-title">Smart Skincare</h2>
         <p className="shop-page__info-desc">
-          We believe skincare should be simple, effective, and powered by nature.
-          Our smart skincare range combines ancient Ayurvedic wisdom with modern science
-          to target your skin's unique needs. Whether it's hydration, acne care, or
+          We believe skincare should be simple, effective, and enhanced by science.
+          Our smart skincare range combines proven ingredients with modern research
+          to target your skin's unique needs. Whether it's hydration, dullness, acne care, or
           anti-aging, our formulations are designed to help you achieve long-lasting
-          glow and confidence, naturally.
+          glow and confidence.
         </p>
         <button className="shop-page__quiz-btn">Start Quiz</button>
       </div>

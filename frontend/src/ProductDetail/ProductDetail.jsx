@@ -207,7 +207,7 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
               </button>
               {expandedSection === 'description' && (
                 <div className="pd-section-content">
-                  <p>{product.description || product.desc || 'This premium product is formulated with the finest natural ingredients to give you visible results. Experience the Aloweda difference with our sensible, simple, and synergistic skincare approach.'}</p>
+                  <p>{product.description || product.desc || 'This premium product is formulated with the finest scientifically-proven ingredients to give you visible results. Experience the Aloweda difference with our sensible, simple, and synergistic skincare approach.'}</p>
                 </div>
               )}
             </div>
@@ -230,7 +230,7 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
               </button>
               {expandedSection === 'ingredients' && (
                 <div className="pd-section-content">
-                  <p>{product.ingredients || 'Premium natural and scientifically-proven ingredients including botanical extracts, vitamins, and active compounds. All ingredients are ethically sourced and cruelty-free.'}</p>
+                  <p>{product.ingredients || 'Premium scientifically-proven and effective ingredients including botanical extracts, vitamins, and active compounds. All ingredients are ethically sourced and cruelty-free.'}</p>
                 </div>
               )}
             </div>
@@ -336,7 +336,7 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                 <polyline points="22 4 12 14.01 9 11.01" />
               </svg>
-              <span>Natural Ingredients</span>
+              <span>Effective Ingredients</span>
             </div>
           </div>
         </div>
@@ -357,7 +357,7 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
                 <span className="review-date">2 weeks ago</span>
               </div>
               <p className="review-author">Priya M.</p>
-              <p className="review-text">Amazing product! My skin feels so much softer and more radiant. Highly recommend this to everyone looking for natural skincare solutions.</p>
+              <p className="review-text">Amazing product! My skin feels so much softer and more radiant. Highly recommend this to everyone looking for effective skincare solutions.</p>
             </div>
 
             <div className="review-card">
@@ -379,7 +379,7 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
                 <span className="review-date">1 month ago</span>
               </div>
               <p className="review-author">Anjali S.</p>
-              <p className="review-text">Love it! Natural ingredients, no harsh chemicals. My skin has never looked better. Worth every penny.</p>
+              <p className="review-text">Love it! Proven ingredients, no harsh chemicals. My skin has never looked better. Worth every penny.</p>
             </div>
 
             <div className="review-card">

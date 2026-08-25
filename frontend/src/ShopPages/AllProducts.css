@@ -375,6 +375,12 @@
     -webkit-line-clamp: 3;
   }
 
+  .all-products-page .product-card__footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
   .all-products-page .product-card__price {
     font-size: 0.95rem;
   }
@@ -410,8 +416,18 @@
     font-size: 0.8rem;
   }
 
+  .all-products-page .product-card__footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
   .all-products-page .product-card__price {
     font-size: 0.9rem;
+  }
+
+  .all-products-page .product-card__mrp {
+    font-size: 0.8rem;
   }
 }
 

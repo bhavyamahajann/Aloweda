@@ -18,6 +18,7 @@ import Login from './Auth/Login'
 import NotFound from './Pages/NotFound'
 import AnnouncementBar from './Components/AnnouncementBar/AnnouncementBar'
 import About from './Pages/About'
+import Consultation from './Pages/Consultation'
 
 // Import all products
 import SC1  from './SkinCareImg/SkinCare1.png'
@@ -524,6 +525,12 @@ function AppContent() {
         <Route 
           path="/about" 
           element={<About onNavigate={handleNavigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} />} 
+        />
+
+        {/* Consultation Route */}
+        <Route 
+          path="/consultation" 
+          element={<Consultation onNavigate={handleNavigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} />} 
         />
 
         {/* Cart Route */}
