@@ -13,6 +13,11 @@ import HairCareImg from '../assets/HairCare.png'
 import LipCareImg from '../assets/LipCare.png'
 import SmartSkinCare from '../assets/SmartSkinCare.png'
 
+// LookBook Images
+import SmartSkinCareLookBook from '../assets/SmartSkinCareLookBook.png'
+import FaceWashBG from '../assets/FaceWashBG.png'
+import HairCareLookBook from '../assets/HairCareLookBook.png'
+
 import { handleNavigation } from '../utils/navigation'
 import SC1 from '../SkinCareImg/SkinCare1.png'
 import SC2 from '../SkinCareImg/SkinCare2.png'

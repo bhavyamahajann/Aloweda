@@ -53,7 +53,7 @@ class ShippingLabelGenerator {
       .text('ALOWEDA', margin, margin, { align: 'center' })
       .fontSize(8)
       .font('Helvetica')
-      .text('Premium Ayurvedic Skincare', { align: 'center' })
+      .text('Premium Dermatologist-Tested Skincare', { align: 'center' })
       .moveDown(0.5);
 
     // Order ID prominently displayed

@@ -52,7 +52,7 @@ class InvoiceGenerator {
       .text('ALOWEDA', { align: 'left' })
       .font('Helvetica')
       .fontSize(8)
-      .text('Premium Ayurvedic Skincare', { align: 'left' })
+      .text('Premium Dermatologist-Tested Skincare', { align: 'left' })
       .text('GST: [YOUR_GST_NUMBER]', { align: 'left' })
       .text('Email: support@aloweda.com', { align: 'left' })
       .text('Phone: +91-XXXXXXXXXX', { align: 'left' })
