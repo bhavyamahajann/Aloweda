@@ -44,7 +44,7 @@ export const productDatabase = {
     routine: 'morning'
   },
   'day-cream': {
-    id: 2, // The Day Cream SPF 30
+    id: 4, // The Day Cream SPF 30 - CORRECTED ID
     name: 'The Day Cream SPF 30',
     size: '50 G',
     ingredients: 'Hyaluronic Acid, SPF 30, Vitamin E',
@@ -52,7 +52,7 @@ export const productDatabase = {
     routine: 'morning'
   },
   'super-glow': {
-    id: 3, // Super Glow Face Serum
+    id: 8, // Super Glow Face Serum - CORRECTED ID
     name: 'Super Glow Face Serum',
     size: '30 ml',
     ingredients: 'Hyaluronic Acid & Peptide blend',
@@ -60,19 +60,19 @@ export const productDatabase = {
     routine: 'morning'
   },
   'tone-texture': {
-    id: 4, // Tone & Texture Serum
+    id: 12, // Tone & Texture Serum - CORRECTED ID
     name: 'Tone & Texture Serum',
     size: '30 ml',
-    ingredients: 'Alpha Arbutin & AHA formula',
+    ingredients: 'Niacinamide & Acetyl Glucosamine',
     purpose: 'Smooth, even-toned skin - uneven tone, texture',
     routine: 'morning'
   },
   'radiance-cream': {
-    id: 5, // Radiance Night Cream
-    name: 'Radiance Night Cream',
+    id: 14, // Radiance Cream - CORRECTED ID
+    name: 'Radiance Cream',
     size: '50 G',
-    ingredients: 'Retinol & Squalane',
-    purpose: 'Night repair cream for youthful, glowing skin',
+    ingredients: 'Vitamin C 20% & Kojic Acid',
+    purpose: 'Night brightening cream for radiant, glowing skin',
     routine: 'evening'
   },
   'moisture-lotion': {
@@ -92,19 +92,19 @@ export const productDatabase = {
     routine: 'special'
   },
   'lip-butter': {
-    id: 8, // Velvet Lip Butter
-    name: 'Velvet Lip Butter',
-    size: '15 G',
-    ingredients: 'Shea butter & Vitamin E',
+    id: 17, // Lip Butter 8g - CORRECTED ID
+    name: 'Lip Butter',
+    size: '8-15 G',
+    ingredients: 'Shea butter, Cocoa butter & Vitamin E',
     purpose: 'Lip treatment - heals, softens, protects',
     routine: 'special'
   },
   'hair-serum': {
-    id: 9, // Hair Repair Serum
-    name: 'Hair Repair Serum',
+    id: 16, // Hair Therapy Serum - CORRECTED ID
+    name: 'Total Hair Therapy Serum',
     size: '50 ml',
-    ingredients: 'Keratin & Argan Oil',
-    purpose: 'Frizz control and shine boost',
+    ingredients: 'Redensyl 5%, Anagain 5% & Biotin',
+    purpose: 'Hair growth, strength and healthy shine',
     routine: 'special'
   },
   'glow-ritual-kit': {
@@ -116,7 +116,7 @@ export const productDatabase = {
     routine: 'optional'
   },
   'saffron-oil': {
-    id: 11, // Saffron Face Oil
+    id: 6, // Saffron Face Oil - CORRECTED ID
     name: 'Saffron Face Oil',
     size: '30 ml',
     ingredients: 'Pure Saffron & Vitamin E',
