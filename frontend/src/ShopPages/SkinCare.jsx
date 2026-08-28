@@ -202,11 +202,11 @@ export default function SkinCarePage({ onNavigate, searchQuery, categoryFilter, 
       <div className="shop-page__info">
         <h2 className="shop-page__info-title">Smart Skincare</h2>
         <p className="shop-page__info-desc">
-          We believe skincare should be simple, effective, and enhanced by science.
-          Our smart skincare range combines proven ingredients with modern research
-          to target your skin's unique needs. Whether it's hydration, dullness, acne care, or
+          We believe skincare should be simple, effective, and powered by nature. Our 
+          smart skincare range combines proven ingredients with modern research 
+          to target your skin's unique needs. Whether it's addressing dullness, acne care, or
           anti-aging, our formulations are designed to help you achieve long-lasting
-          glow and confidence.
+          glow and confidence, naturally.
         </p>
         <button className="shop-page__quiz-btn">Start Quiz</button>
       </div>
