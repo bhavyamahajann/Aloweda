@@ -1,13 +1,18 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import AlowedaLogo from '../assets/AlowedaLogo.png'
-import Slide1 from '../assets/HomeSlider1.png'
-import Slide2 from '../assets/HomeSlider2.png'
-import Slide3 from '../assets/HomeSlider3.png'
-// import Slide4 from '../assets/HomeSlider4.png'
-import Slide5 from '../assets/HomeSlider5.png'
-import SmartSkinCareLookBook from '../assets/SmartSkinCareLookBook.png'
-import HairCareLookBook from '../assets/HairCareLookBook.png'
-import FaceWashBG from '../assets/FaceWashBG.png'
+
+// Product Images from ProductDetailsImages folder
+import SuperGlowSerum from '../ProductDetailsImages/SuperGlowSerum.png'
+import TheNightCream from '../ProductDetailsImages/TheNightCream.png'
+import PigmentControlSerum from '../ProductDetailsImages/PigmentControlSerum.png'
+import DayCream from '../ProductDetailsImages/DayCream4.png'
+import SmoothPerfectionSerum from '../ProductDetailsImages/alowedasmoothperfectionserum.png'
+
+// Category Images
+import HairCareImg from '../assets/HairCare.png'
+import LipCareImg from '../assets/LipCare.png'
+import SmartSkinCare from '../assets/SmartSkinCare.png'
+
 import { handleNavigation } from '../utils/navigation'
 import SC1 from '../SkinCareImg/SkinCare1.png'
 import SC2 from '../SkinCareImg/SkinCare2.png'
@@ -15,7 +20,6 @@ import SC3 from '../SkinCareImg/SkinCare3.jpg'
 import SC10 from '../SkinCareImg/SkinCare10.jpg'
 import SC11 from '../SkinCareImg/SkinCare11.jpg'
 import LC2 from '../LipCareImg/LipCare2.jpg'
-import HairCareImg from '../assets/HairCare.png'
 import Navbar from '../Navbar/navbar'
 import BestSellers from './BestSeller'
 import BuildRegimenCTA from './BuildRegimenCTA'
@@ -31,52 +35,48 @@ import './HomePage.css'
 const slides = [
   {
     id: 1,
-    image: Slide1,
-    tag: 'Science-Based',
-    heading: 'What is Aloweda',
-    sub: 'Modern dermatology meets proven ingredients. We promise results, not miracles!',
+    image: SuperGlowSerum,
+    tag: 'Best Seller',
+    heading: 'Super Glow Serum',
+    sub: 'Advanced brightening formula with niacinamide and vitamin C for radiant, glowing skin',
     cta: 'SHOP NOW',
-    position: 'center',
-    targetPage: 'shop', // Navigate to all products page
+    targetPage: 'shop',
   },
   {
     id: 2,
-    image: Slide2,
-    tag: 'Best Seller',
-    heading: 'Lip Care',
-    sub: 'Day & Night Ritual',
+    image: TheNightCream,
+    tag: 'Night Care',
+    heading: 'The Night Cream',
+    sub: 'Deep nourishing night treatment for skin repair and rejuvenation while you sleep',
     cta: 'SHOP NOW',
-    position: 'center',
-    targetPage: 'shop', // Navigate to all products page
+    targetPage: 'shop',
   },
-    {
+  {
     id: 3,
-    image: Slide3,
-    tag: 'New Launch',
-    heading: 'Hair Care',
-    sub: 'Glow Essence',
+    image: PigmentControlSerum,
+    tag: 'Targeted Treatment',
+    heading: 'Pigment Control Serum',
+    sub: 'Scientifically-backed formula to reduce dark spots and even out skin tone',
     cta: 'SHOP NOW',
-    position: 'center',
-    targetPage: 'shop', // Navigate to all products page
+    targetPage: 'shop',
   },
-//   {
-//     id: 4,
-//     image: Slide4,
-//     tag: 'Trending',
-//     heading: 'Dietary Supplements',
-//     sub: 'Advanced Formula',
-//     cta: 'Shop Now',
-//     position: 'right center',
-//   },
+  {
+    id: 4,
+    image: DayCream,
+    tag: 'Daily Essential',
+    heading: 'The Day Cream',
+    sub: 'Lightweight daily moisturizer with SPF protection for all-day hydration',
+    cta: 'SHOP NOW',
+    targetPage: 'shop',
+  },
   {
     id: 5,
-    image: Slide5,
-    tag: 'Bestseller',
-    heading: 'Smart Skin Care',
-    sub: 'Anti-Aging Range',
-    cta: 'Shop Now',
-    position: 'top center',
-    targetPage: 'shop', // Navigate to all products page
+    image: SmoothPerfectionSerum,
+    tag: 'New Launch',
+    heading: 'Smooth Perfection Serum',
+    sub: 'Anti-aging powerhouse with retinol and peptides for smoother, younger-looking skin',
+    cta: 'SHOP NOW',
+    targetPage: 'shop',
   },
 ]
 
@@ -91,18 +91,17 @@ const categories = [
 
 /* ─────────────── HERO SLIDER ─────────────── */
 /* Full-bleed background-image slides with text overlay (matches aloweda.com reference) */
-
 function HeroSlider({ onNavigate }) {
   const [current, setCurrent] = useState(0)
   const [animating, setAnimating] = useState(false)
   const timerRef = useRef(null)
 
   const goTo = useCallback((index) => {
-    if (animating) return
+    if (animating || index === current) return
     setAnimating(true)
     setCurrent(index)
-    setTimeout(() => setAnimating(false), 700)
-  }, [animating])
+    setTimeout(() => setAnimating(false), 800)
+  }, [animating, current])
 
   const next = useCallback(() => {
     goTo((current + 1) % slides.length)
@@ -113,19 +112,17 @@ function HeroSlider({ onNavigate }) {
   }, [current, goTo])
 
   useEffect(() => {
-    timerRef.current = setInterval(next, 5000)
+    timerRef.current = setInterval(next, 6000)
     return () => clearInterval(timerRef.current)
   }, [next])
 
   const resetTimer = () => {
     clearInterval(timerRef.current)
-    timerRef.current = setInterval(next, 5000)
+    timerRef.current = setInterval(next, 6000)
   }
 
   const handleShopNowClick = (targetPage) => {
-    if (targetPage && onNavigate) {
-      onNavigate(targetPage)
-    }
+    if (targetPage && onNavigate) onNavigate(targetPage)
   }
 
   return (
@@ -136,24 +133,24 @@ function HeroSlider({ onNavigate }) {
             key={slide.id}
             className={`hero__slide ${i === current ? 'hero__slide--active' : ''}`}
           >
-            <div
-              className="hero__bg"
-              style={{
-                backgroundImage: `url(${slide.image})`,
-                backgroundPosition: slide.position || 'center',
-              }}
-            />
-            <div className="hero__overlay" />
             <div className="hero__content">
               <span className="hero__tag">{slide.tag}</span>
               <h1 className="hero__heading">{slide.heading}</h1>
               <p className="hero__sub">{slide.sub}</p>
-              <button 
+              <button
                 className="btn btn--dark"
                 onClick={() => handleShopNowClick(slide.targetPage)}
               >
                 {slide.cta}
               </button>
+            </div>
+            <div className="hero__image-container">
+              <div
+                className="hero__bg"
+                style={{
+                  backgroundImage: `url(${slide.image})`,
+                }}
+              />
             </div>
           </div>
         ))}
@@ -165,7 +162,7 @@ function HeroSlider({ onNavigate }) {
         onClick={() => { prev(); resetTimer() }}
         aria-label="Previous"
       >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
           <polyline points="15 18 9 12 15 6" />
         </svg>
       </button>
@@ -174,7 +171,7 @@ function HeroSlider({ onNavigate }) {
         onClick={() => { next(); resetTimer() }}
         aria-label="Next"
       >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
           <polyline points="9 18 15 12 9 6" />
         </svg>
       </button>
@@ -193,7 +190,6 @@ function HeroSlider({ onNavigate }) {
     </section>
   )
 }
-
 /* ─────────────── MARQUEE STRIP ─────────────── */
 
 function MarqueeStrip() {
