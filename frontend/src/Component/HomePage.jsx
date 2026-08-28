@@ -198,7 +198,7 @@ function HeroSlider({ onNavigate }) {
 /* ─────────────── MARQUEE STRIP ─────────────── */
 
 function MarqueeStrip() {
-  const items = ['Free Shipping Above ₹999', 'Science-Backed Formulas', 'Clinically Proven Ingredients', 'Dermatologist Tested', 'No Parabens · No Sulphates', 'Made in India ✦']
+  const items = ['Free Shipping Above ₹999', 'Science-Backed Formulas', 'Clinically Proven Ingredients', 'Suitable for all skin types', 'No Parabens · No Sulphates', 'Made in India ✦']
   return (
     <div className="marquee-strip">
       <div className="marquee-track">
@@ -236,7 +236,7 @@ function Categories() {
 function WhyAloweda() {
   const pillars = [
     { icon: '🌿', title: 'Proven Ingredients', desc: 'Evidence-based formulations blended with modern science for real results.' },
-    { icon: '🧪', title: 'Dermatologist Tested', desc: 'Every formula is clinically evaluated for safety and efficacy.' },
+    { icon: '🧪', title: 'Suitable for all skin types', desc: 'Every formula is clinically evaluated for safety and efficacy.' },
     { icon: '✦', title: 'No Nasties', desc: 'Zero parabens, sulphates, or artificial fragrances. Ever.' },
     { icon: '📦', title: 'Sustainable Packaging', desc: 'Eco-conscious packaging that doesn\'t cost the planet.' },
   ]
