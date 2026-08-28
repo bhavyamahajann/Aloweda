@@ -234,26 +234,47 @@ function Categories() {
 /* ─────────────── WHY ALOWEDA ─────────────── */
 
 function WhyAloweda() {
-  const pillars = [
+  return (
+    <section className="section why-section">
+      <div className="why-section__inner">
+        <div className="section__header section__header--center">
+          <span className="section__eyebrow">Our Promise</span>
+          <h2 className="section__title">Why Aloweda?</h2>
+          <p className="section__desc" style={{ maxWidth: '800px', margin: '0 auto' }}>
+            Sensible. Simple. Synergy. — That's not just a tagline, it's our formula. 
+            We believe skincare should be simple, effective, and powered by nature. 
+            Our formulations combine proven ingredients with modern research to deliver 
+            real results for your skin's unique needs.
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─────────────── OUR VALUES ─────────────── */
+
+function OurValues() {
+  const values = [
     { icon: '🌿', title: 'Proven Ingredients', desc: 'Evidence-based formulations blended with modern science for real results.' },
     { icon: '🧪', title: 'Suitable for all skin types', desc: 'Every formula is clinically evaluated for safety and efficacy.' },
+    { icon: '✓', title: 'Skin Safe', desc: 'Gentle, non-irritating formulas designed to protect and nourish your skin barrier.' },
     { icon: '✦', title: 'No Nasties', desc: 'Zero parabens, sulphates, or artificial fragrances. Ever.' },
     { icon: '📦', title: 'Sustainable Packaging', desc: 'Eco-conscious packaging that doesn\'t cost the planet.' },
   ]
   return (
-    <section className="section why-section">
-      <div className="why-section__inner">
-        <div className="section__header section__header--left">
-          <span className="section__eyebrow">Our Promise</span>
-          <h2 className="section__title">Why Aloweda?</h2>
-          <p className="section__desc">Sensible. Simple. Synergy. — That's not just a tagline, it's our formula.</p>
+    <section className="section values-section">
+      <div className="container">
+        <div className="section__header section__header--center">
+          <span className="section__eyebrow">What We Stand For</span>
+          <h2 className="section__title">Our Values</h2>
         </div>
         <div className="pillars-grid">
-          {pillars.map((p) => (
-            <div key={p.title} className="pillar-card">
-              <div className="pillar-card__icon">{p.icon}</div>
-              <h3 className="pillar-card__title">{p.title}</h3>
-              <p className="pillar-card__desc">{p.desc}</p>
+          {values.map((v) => (
+            <div key={v.title} className="pillar-card">
+              <div className="pillar-card__icon">{v.icon}</div>
+              <h3 className="pillar-card__title">{v.title}</h3>
+              <p className="pillar-card__desc">{v.desc}</p>
             </div>
           ))}
         </div>
@@ -517,6 +538,7 @@ export default function HomePage({ onNavigate, onLoginClick, cartCount, onAddToC
         <CategorySlider onNavigate={onNavigate} />
         <Categories />
         <WhyAloweda />
+        <OurValues />
         <FeatureList onNavigate={onNavigate} />
         <Testimonials />
       </main>

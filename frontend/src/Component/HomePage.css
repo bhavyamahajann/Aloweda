@@ -706,6 +706,35 @@
   line-height: 1.7; 
 }
 
+/* ─── OUR VALUES SECTION ─── */
+.values-section {
+  background: var(--warm-white);
+  padding: 80px 48px;
+}
+
+.values-section .container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.values-section .section__header--center {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.values-section .pillars-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.values-section .pillar-card {
+  background: white;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
 /* Tablet */
 @media (max-width: 1024px) { 
   .why-section {
@@ -748,6 +777,19 @@
   
   .why-section .section__title {
     font-size: clamp(28px, 6vw, 36px);
+  }
+  
+  .values-section {
+    padding: 60px 16px;
+  }
+
+  .values-section .section__header--center {
+    margin-bottom: 40px;
+  }
+
+  .values-section .pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
   
   .why-grid {
