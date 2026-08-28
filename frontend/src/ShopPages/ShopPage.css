@@ -210,7 +210,7 @@
 
   .shop-page__grid { 
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 16px;
     padding: 20px 16px 40px;
   }
 
@@ -229,27 +229,49 @@
     padding: 50px 20px;
   }
 
+  .sp-card {
+    background: white;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
   .sp-card__body {
-    padding: 10px 4px 6px;
+    padding: 12px 8px 8px;
   }
 
   .sp-card__footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 8px;
   }
 
   .sp-card__name {
-    font-size: 12px;
-    margin-bottom: 8px;
+    font-size: 11.5px;
+    margin-bottom: 6px;
+    line-height: 1.4;
+    min-height: 32px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .sp-card__price {
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 600;
   }
 
   .sp-card__mrp {
     font-size: 12px;
+  }
+
+  .sp-add-btn {
+    font-size: 9px;
+    padding: 6px 10px;
+    white-space: nowrap;
   }
 
   /* Disable hover popup on mobile */
@@ -259,6 +281,7 @@
 
   .sp-card:hover {
     z-index: 1;
+    transform: none;
   }
 }
 
