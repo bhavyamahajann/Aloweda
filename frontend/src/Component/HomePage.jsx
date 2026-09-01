@@ -236,15 +236,15 @@ function Categories() {
 function WhyAloweda() {
   return (
     <section className="section why-section">
-      <div className="why-section__inner">
+      <div className="container">
         <div className="section__header section__header--center">
           <span className="section__eyebrow">Our Promise</span>
           <h2 className="section__title">Why Aloweda?</h2>
           <p className="section__desc" style={{ maxWidth: '800px', margin: '0 auto' }}>
             Sensible. Simple. Synergy. — That's not just a tagline, it's our formula. 
-            We believe skincare should be simple, effective, and powered by nature. 
-            Our formulations combine proven ingredients with modern research to deliver 
-            real results for your skin's unique needs.
+            We believe skincare should be simple, effective, and backed by science. 
+            Our formulations blend proven ingredients with modern research to deliver 
+            real, visible results for your skin's unique needs.
           </p>
         </div>
       </div>
@@ -286,8 +286,8 @@ function OurValues() {
 /* ─────────────── ALOWEDA INTRO SECTION ─────────────── */
 
 function AlowedaIntro({ onNavigate }) {
-  const fullTitle = "Aloweda: Science-Based Wellness and Skincare Solutions"
-  const fullDesc = "Aloweda is a wellness brand offering a diverse range of scientifically-formulated products, including skincare, hair care, and dietary supplements. Our formulations emphasize proven ingredients like aloe vera, kokum butter, and turmeric, aiming to provide effective solutions for various health and beauty needs. With products such as lip butter, eyebrow serum, and turmeric curcumin capsules, Aloweda combines evidence-based research with effective formulations to promote holistic well-being. All products are 100% cruelty-free, ensuring ethical and conscious self-care."
+  const fullTitle = "Aloweda: The Skincare Experts"
+  const fullDesc = "Aloweda is a 'Cuticle Care' brand which offers a range of scientifically-formulated products for your Skin, Hair, Lips, Tattoos & more. Our formulations use proven ingredients like aloe vera, kokum butter and turmeric with Vitamins & safe Synthetics, aiming to provide effective solutions for various skincare and beauty needs."
 
   // Check localStorage on mount
   const hasTypedBefore = localStorage.getItem('aloweda_hero_typed') === 'true'

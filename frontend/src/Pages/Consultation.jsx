@@ -13,13 +13,13 @@ export default function Consultation({ onNavigate, onLoginClick, cartCount }) {
     {
       id: 1,
       name: 'Dr. Ajay Patwardhan',
-      title: 'Chief Dermatologist & Founder',
+      title: 'Senior Skincare Consultant',
       badge: 'Founder & CEO',
-      specialization: 'MD Dermatology | Board Certified',
-      credentials: 'MBBS, MD (Dermatology)',
+      specialization: '',
+      credentials: 'M.B.B.S, D.I.M.',
       image: drAjayImage,
-      bio: 'A visionary leader in dermatological science, Dr. Patwardhan has pioneered innovative skincare solutions that bridge clinical excellence with cutting-edge research.',
-      experience: '15+ Years',
+      bio: 'Dr. Patwardhan has pioneered innovative skincare products that blend Ayurveda with modern Allopathy.',
+      experience: '35+ Years',
       patients: '1,000+',
       education: 'MD (Dermatology), MBBS',
       achievements: '1000+ Successful Treatments · Published Research · Clinical Excellence Award',
@@ -69,8 +69,8 @@ export default function Consultation({ onNavigate, onLoginClick, cartCount }) {
 
       {/* Hero Section */}
       <section className="aw-consultation-hero">
-        <span className="aw-hero-eyebrow">Consultation</span>
-        <h1>Talk to a Dermatologist</h1>
+        <span className="aw-hero-eyebrow">Talk to our Specialist</span>
+        <h1>Talk to our Specialist</h1>
         <p>
           Get personalized, evidence-based skincare guidance from our
           in-house specialists.

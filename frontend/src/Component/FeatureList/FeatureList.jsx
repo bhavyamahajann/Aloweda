@@ -43,7 +43,6 @@ export default function FeatureList({ onNavigate }) {
 
         {/* Right: Feature List */}
         <div className="feature-list-content">
-          <p className="feature-list-eyebrow">Sensible &middot; Simple &middot; Synergy</p>
           <h2 className="feature-list-title">Discover Your Ritual</h2>
 
           <div className="feature-items">

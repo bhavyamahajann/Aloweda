@@ -68,8 +68,7 @@ export default function About({ onNavigate, onLoginClick, cartCount }) {
       <section className="about-hero">
         <h1>About Aloweda</h1>
         <p>
-          Bringing evidence-based skincare to modern consumers. 
-          We believe in effective, scientifically-backed solutions for your skin.
+          We bring scientific & evidence-based products which blend best of ancient Ayurveda. We promise effect, not miracles!
         </p>
       </section>
 
@@ -79,21 +78,20 @@ export default function About({ onNavigate, onLoginClick, cartCount }) {
         <div className="story-content">
           <div className="story-text">
             <p>
-              Aloweda was born from a simple belief: that everyone deserves healthy, 
-              radiant skin without compromising on safety or efficacy. Founded by 
-              Dr. Ajay, our journey began with a mission to bridge the 
-              gap between proven ingredients and modern dermatological science.
+              Aloweda was born from a strong belief the Founder, Dr. Ajay Patwardhan, 
+              developed when he used Wheat Grass and Turmeric Curcumin for his medical 
+              conditions. Being a practicing Allopath & an expert in Chemical Toxicology, 
+              he devoted the 'Covid Years' to Research and extensive Study of Globally 
+              recognised best in class Skincare products.
             </p>
             <p>
-              With over 15 years of experience in dermatology and evidence-based 
-              skincare, Dr. Ajay recognized that most skincare products either 
-              relied too heavily on harsh chemicals or lacked the scientific backing 
-              to deliver real results.
+              He realised that the best way forward was to blend ancient Ayurveda with 
+              modern Allopathy. Not anecdotes but hard scientific facts.
             </p>
             <p>
-              Today, Aloweda stands as a testament to what's possible when proven 
-              ingredients meet modern science. Every product is carefully formulated, 
-              clinically tested, and crafted with love for your skin.
+              Today, Aloweda stands for no nonsense products made out of scientifically 
+              proven ingredients, careful formulations, feedback from Dermatologists and 
+              Cosmetologists and crafted with love for your skin.
             </p>
           </div>
         </div>
