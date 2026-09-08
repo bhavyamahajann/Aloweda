@@ -4,19 +4,46 @@ import Footer from '../Footer/Footer'
 import './ShopPage.css'
 import './SkinCare.css'
 import { handleNavigation } from '../utils/navigation'
-import { PRODUCTS } from '../data/products'
 
-// Format product data for display
-const products = PRODUCTS.map(p => ({
-  id: p.id,
-  img: p.img,
-  name: p.name,
-  category: p.category.charAt(0).toUpperCase() + p.category.slice(1),
-  keywords: `${p.name} ${p.category} ${p.tag || ''} ${p.desc}`.toLowerCase(),
-  price: `₹ ${p.price}`,
-  mrp: p.mrp ? `₹ ${p.mrp}` : null,
-  model3D: p.model3D
-}))
+import SC1  from '../SkinCareImg/SkinCare1.png'
+import SC2  from '../SkinCareImg/SkinCare2.png'
+import SC3  from '../SkinCareImg/SkinCare3.jpg'
+import SC4  from '../SkinCareImg/SkinCare4.jpg'
+import SC5  from '../SkinCareImg/SkinCare5.jpg'
+import SC6  from '../SkinCareImg/SkinCare6.jpg'
+import SC7  from '../SkinCareImg/SkinCare7.jpg'
+import SC8  from '../SkinCareImg/SkinCare8.jpg'
+import SC9  from '../SkinCareImg/SkinCare9.jpg'
+import SC10 from '../SkinCareImg/SkinCare10.jpg'
+import SC11 from '../SkinCareImg/SkinCare11.jpg'
+import SC12 from '../SkinCareImg/SkinCare12.jpg'
+import SC13 from '../SkinCareImg/SkinCare13.jpg'
+import SC14 from '../SkinCareImg/SkinCare14.jpg'
+import SC15 from '../SkinCareImg/SkinCare15.jpg'
+import HairCareImg from '../assets/HairCare.png'
+import TattooCleanser from '../assets/TattooCleanser.png'
+import TattooButter from '../assets/TattooButter.png'
+
+const products = [
+  { id:1,  img:SC1,  name:'YOUR SIMPLE ROUTINE: The Day Cream + The Night Cream + Lip Butter', category: 'Combo', keywords: 'day cream night cream lip butter routine combo kit', price:'₹ 799' },
+  { id:2,  img:SC2,  name:'PERFECT COMPLEXION RITUAL: Pigment Control Serum + The Day Cream + Complexion Cream + Smooth Perfection Serum', category: 'Combo', keywords: 'pigment control serum day cream complexion smooth perfection ritual combo kit', price:'₹ 999' },
+  { id:3,  img:SC3,  name:'RITUAL OF RADIANCE: Super Glow Serum 30 ml + The Day Cream + Radiance Cream 50 gram', category: 'Combo', keywords: 'super glow serum day cream radiance ritual combo kit glow', price:'₹ 999' },
+  { id:4,  img:SC4,  name:'Hyaluronic Acid, SPF 30 & Vitamin E : The Day Cream 50 G', category: 'Cream', keywords: 'hyaluronic acid spf vitamin e day cream moisturizer sunscreen protection', price:'₹ 249' },
+  { id:5,  img:SC5,  name:'Retinol 1%, Niacinamide 10 %, Aloe Vera Extract & Carrot oil: The Night Cream 50 G', category: 'Cream', keywords: 'retinol niacinamide aloe vera carrot oil night cream anti aging', price:'₹ 399', model3D: '/models/TheNightCream.glb' },
+  { id:6,  img:SC6,  name:'Saffron Face Oil 30 ml: Saffron Essential Oil, Sweet Almond oil, Grape Seed Oil, Honey & Ghee', category: 'Oil', keywords: 'saffron face oil almond grape seed honey ghee radiant glow', price:'₹ 799' },
+  { id:7,  img:SC7,  name:'Alpha Arbutin 2%, Vitamin C 15 % & Micro Crystalline Wax: Complexion Cream 50 G', category: 'Cream', keywords: 'alpha arbutin vitamin c complexion brightening pigmentation dark spots', price:'₹ 399' },
+  { id:8,  img:SC8,  name:'Vitamin C 15%, Ferulic Acid 1% & Niacinamide 5% : Super Glow Serum 30 ml', category: 'Serum', keywords: 'vitamin c ferulic acid niacinamide super glow serum brightening radiance', price:'₹ 549' },
+  { id:9,  img:SC9,  name:'Alpha Arbutin 2%, Aloe Vera Extract, Ceramides & Kojic Acid 1%: Pigment Control Serum 30 ml', category: 'Serum', keywords: 'alpha arbutin aloe vera ceramides kojic acid pigment control dark spots', price:'₹ 399' },
+  { id:10, img:SC10, name:'Retinol 0.3%, Copper Tripeptide, Alpha Arbutin & Niacinamide: Wrinkles & Lines Cream 50 G', category: 'Cream', keywords: 'retinol copper tripeptide alpha arbutin niacinamide wrinkles lines anti aging', price:'₹ 449' },
+  { id:11, img:SC11, name:'Encapsulated Retinol 1 %, Grape Seed Extract, & Ceramides : Lines & Wrinkles Serum 30 ml', category: 'Serum', keywords: 'retinol grape seed ceramides lines wrinkles anti aging serum', price:'₹ 499' },
+  { id:12, img:SC12, name:'Niacinamide 10 %, Acetyl Glucosamine & Ceramides: Tone & Texture Serum 30 ml', category: 'Serum', keywords: 'niacinamide acetyl glucosamine ceramides tone texture smooth skin', price:'₹ 375', mrp:'₹ 545' },
+  { id:13, img:SC13, name:'Salicylic Acid 2%, Witch Hazel Extract & Squalene: Smooth Perfection Serum 30 ml', category: 'Serum', keywords: 'salicylic acid witch hazel squalene smooth perfection acne pores', price:'₹ 449' },
+  { id:14, img:SC14, name:'Vitamin C 20%, Kojic Acid, Avocado Extract & Argan Oil : Radiance Cream 50 G', category: 'Cream', keywords: 'vitamin c kojic acid avocado argan oil radiance brightening glow', price:'₹ 399' },
+  { id:15, img:SC15, name:'Anti Acne Face wash: 100 ml, Salicylic Acid 2% for Oily & Acne Prone Skin', category: 'Face Wash', keywords: 'anti acne face wash salicylic acid oily acne prone cleanser', price:'₹ 185' },
+  { id:16, img:HairCareImg, name:'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', category: 'Serum', keywords: 'redensyl anagain rice water biotin hair therapy serum growth hair fall', price:'₹ 575' },
+  { id:17, img:TattooCleanser, name:'Tattoo Cleanser 100 ml', category: 'Tattoo', keywords: 'tattoo cleanser citrus fruit wash gentle sulphate free aloe vera vitamin e', price:'₹ 195', mrp:'₹ 245' },
+  { id:18, img:TattooButter, name:'Tattoo Butter 50 Grams', category: 'Tattoo', keywords: 'tattoo butter natural butters oils shea cocoa mango kokum protection', price:'₹ 799', mrp:'₹ 899' },
+]
 
 export default function SkinCarePage({ onNavigate, searchQuery, categoryFilter, pageTitle, showAllProducts, onLoginClick }) {
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery || '')
@@ -32,14 +59,17 @@ export default function SkinCarePage({ onNavigate, searchQuery, categoryFilter, 
         const productCategory = product.category.toLowerCase()
         const filter = categoryFilter.toLowerCase()
         
-        // Map categories to match filter
-        if (filter === 'serums') return productCategory === 'serum'
-        if (filter === 'creams') return productCategory === 'cream'
-        if (filter === 'moisturisers') return productCategory === 'moisturizer' || productCategory === 'moisturiser'
-        if (filter === 'tattoo') return productCategory.includes('tattoo')
-        if (filter === 'rituals') return productCategory === 'combo' || productCategory.includes('ritual')
+        // Direct match first
+        if (productCategory === filter) return true
         
-        return productCategory === filter
+        // Map categories to match filter (handle singular/plural variations)
+        if (filter === 'serums') return productCategory === 'serums' || productCategory === 'serum'
+        if (filter === 'creams') return productCategory === 'creams' || productCategory === 'cream'
+        if (filter === 'moisturisers') return productCategory === 'moisturisers' || productCategory === 'moisturiser' || productCategory === 'moisturizer'
+        if (filter === 'tattoo') return productCategory.includes('tattoo')
+        if (filter === 'rituals') return productCategory === 'rituals' || productCategory === 'combo' || productCategory.includes('ritual')
+        
+        return false
       })
     }
 
