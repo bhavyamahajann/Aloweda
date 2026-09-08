@@ -2,7 +2,6 @@ import { useState, useMemo, useEffect } from 'react'
 import Navbar from '../Navbar/navbar'
 import Footer from '../Footer/Footer'
 import { handleNavigation } from '../utils/navigation'
-import { PRODUCTS } from '../data/products'
 import './ShopPage.css'
 import './SkinCare.css'
 import './AllProducts.css'
@@ -24,12 +23,11 @@ import SC13 from '../SkinCareImg/SkinCare13.jpg'
 import SC14 from '../SkinCareImg/SkinCare14.jpg'
 import SC15 from '../SkinCareImg/SkinCare15.jpg'
 import HairCareImg from '../assets/HairCare.png'
-import LC1 from '../LipCareImg/LipCare1.jpg'
-import LC2 from '../LipCareImg/LipCare2.jpg'
+import TattooCleanser from '../assets/TattooCleanser.png'
+import TattooButter from '../assets/TattooButter.png'
 
-// Legacy hardcoded products - keeping for backward compatibility
-const legacyProducts = [
-  // Skin Care Products
+// All products - same as SkinCare.jsx
+const allProducts = [
   { id:1,  img:SC1,  name:'YOUR SIMPLE ROUTINE: The Day Cream + The Night Cream + Lip Butter', category: 'Combo', keywords: 'day cream night cream lip butter routine combo kit', price:'₹ 799' },
   { id:2,  img:SC2,  name:'PERFECT COMPLEXION RITUAL: Pigment Control Serum + The Day Cream + Complexion Cream + Smooth Perfection Serum', category: 'Combo', keywords: 'pigment control serum day cream complexion smooth perfection ritual combo kit', price:'₹ 999' },
   { id:3,  img:SC3,  name:'RITUAL OF RADIANCE: Super Glow Serum 30 ml + The Day Cream + Radiance Cream 50 gram', category: 'Combo', keywords: 'super glow serum day cream radiance ritual combo kit glow', price:'₹ 999' },
@@ -45,24 +43,10 @@ const legacyProducts = [
   { id:13, img:SC13, name:'Salicylic Acid 2%, Witch Hazel Extract & Squalene: Smooth Perfection Serum 30 ml', category: 'Serum', keywords: 'salicylic acid witch hazel squalene smooth perfection acne pores', price:'₹ 449' },
   { id:14, img:SC14, name:'Vitamin C 20%, Kojic Acid, Avocado Extract & Argan Oil : Radiance Cream 50 G', category: 'Cream', keywords: 'vitamin c kojic acid avocado argan oil radiance brightening glow', price:'₹ 399' },
   { id:15, img:SC15, name:'Anti Acne Face wash: 100 ml, Salicylic Acid 2% for Oily & Acne Prone Skin', category: 'Face Wash', keywords: 'anti acne face wash salicylic acid oily acne prone cleanser', price:'₹ 185' },
-  
-  // Hair Care Products
-  { id:16, img:HairCareImg, name:'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', category: 'Hair Serum', keywords: 'redensyl anagain rice water biotin hair therapy serum growth hair fall', price:'₹ 575' },
-  
-  // Lip Care Products
-  { id:17, img:LC1, name:'Lip Butter 8 Gram: Butters, Oils & Honey. ZERO CHEMICALS, NO PRESERVATIVES', category: 'Lip Butter', keywords: 'lip butter butters oils honey organic chemical free preservative free', price:'Rs. 75.00' },
-  { id:18, img:LC2, name:'Lip Butter 15 Gram: Butters, Oils & Honey. NO CHEMICALS, NO PRESERVATIVES. NOT LIP BALM', category: 'Lip Butter', keywords: 'lip butter butters oils honey organic chemical free preservative free balm', price:'From Rs. 165.00' },
+  { id:16, img:HairCareImg, name:'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', category: 'Serum', keywords: 'redensyl anagain rice water biotin hair therapy serum growth hair fall', price:'₹ 575' },
+  { id:17, img:TattooCleanser, name:'Tattoo Cleanser 100 ml', category: 'Tattoo', keywords: 'tattoo cleanser citrus fruit wash gentle sulphate free aloe vera vitamin e', price:'₹ 195', mrp:'₹ 245' },
+  { id:18, img:TattooButter, name:'Tattoo Butter 50 Grams', category: 'Tattoo', keywords: 'tattoo butter natural butters oils shea cocoa mango kokum protection', price:'₹ 799', mrp:'₹ 899' },
 ]
-
-// Combine PRODUCTS from data file with legacy products
-const allProducts = [...PRODUCTS.map(p => ({
-  id: p.id,
-  img: p.img,
-  name: p.name,
-  category: p.category,
-  keywords: p.desc,
-  price: `₹ ${p.price}`
-})), ...legacyProducts]
 
 export default function AllProductsPage({ onNavigate, searchQuery, onLoginClick }) {
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery || '')
