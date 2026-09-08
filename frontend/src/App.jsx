@@ -39,6 +39,8 @@ import SC15 from './SkinCareImg/SkinCare15.jpg'
 import HairCareImg from './assets/HairCare.png'
 import LC1 from './LipCareImg/LipCare1.jpg'
 import LC2 from './LipCareImg/LipCare2.jpg'
+import TattooCleanser from './assets/TattooCleanser.png'
+import TattooButter from './assets/TattooButter.png'
 
 // Product Detail Images
 import RitualOfRadianceDetail from './ProductDetailsImages/RITUALOFRADIANCESuperGlowSerum30ml+TheDayCream+RadianceCream50gram.png'
@@ -315,6 +317,39 @@ const ALL_PRODUCTS = [
     howToUse: 'Wipe lips with wet tissue. Apply generously with fingers and gently massage for about 30 seconds. No harm if swallowed. You may want to apply twice a day. Tip: Best before going to bed. Leave overnight for best results.',
     shipping: 'We process all domestic orders within 1 business day. Delivery typically takes 5–7 business days, while remote or interior locations may require 7–10 business days.',
     packaging: '15 gram in a recyclable, eco-friendly HDPE container'
+  },
+  
+  // Tattoo Care Products
+  { 
+    id: 19, 
+    img: TattooCleanser, 
+    images: [TattooCleanser],
+    name: 'Tattoo Cleanser 100 ml', 
+    category: 'Tattoo', 
+    keywords: 'tattoo cleanser citrus fruit wash gentle sulphate free aloe vera vitamin e orange lemon tangerine tattoo care healed fresh', 
+    price: 'Rs. 195.00',
+    mrp: 'Rs. 245.00',
+    tag: 'New',
+    description: 'A gentle, sulphate-free tattoo cleanser specially formulated to cleanse tattooed skin without stripping away essential moisture. Infused with Aloe Vera, Vitamin E, and natural citrus extracts of Orange, Lemon, and Tangerine, it helps remove impurities while keeping skin feeling refreshed, hydrated, and comfortable. Mild plant-derived cleansing agents effectively cleanse the skin while supporting the natural skin barrier, making it ideal for both fresh and healed tattoos. The fragrance-free formula is designed to minimize irritation and leave tattooed skin clean, soft, and well cared for.',
+    freeFrom: 'Sulphates, Parabens, Phthalates, Soap Gel, Alcohol & Fragrance',
+    ingredients: 'Ingredients: Aqua, Orange Extract, Lemon Extract, Tangerine Extract, Aloe Vera Extract, Lauryl Glucoside, Coco Glucoside, CocomideDiethanolamine (CDEA), Sodium Cocoyl Glutamate, Carbopool, Ultrez 20,Polyquaternium-7, Tocopherol, Acetate (Vitamin E Acetate), Glycerine,Phenoxyethanol, Disodium EDTA, No added Fragrance.',
+    howToUse: 'How to Use:\n\nThis formulation is very concentrated & thick. Apply a very small amount to wet tattooed skin & gently massage in circular motions to create a soft lather. Rinse thoroughly with water & pat dry. Follow with tattoo butter or moisturizer to help keep skin hydrated & comfortable. Suitable for daily use on healed tattoos & surrounding skin. Use once or twice a day. Always use after sweating, exposure to sunlight & contact with grime.',
+    shipping: 'We process all domestic orders within 1 business day. Delivery typically takes 5-7 business days, while remote or interior locations may require 7-10 business days.'
+  },
+  { 
+    id: 20, 
+    img: TattooButter, 
+    images: [TattooButter],
+    name: 'Tattoo Butter 50 Grams', 
+    category: 'Tattoo', 
+    keywords: 'tattoo butter natural butters oils shea cocoa mango kokum protection vibrant tattoo care chemical free nourish protect hydrate', 
+    price: 'Rs. 799.00',
+    mrp: 'Rs. 899.00',
+    tag: 'Best Seller',
+    description: 'NO CHEMICALS, NATURAL BUTTERS & OILS. A deeply restorative Tattoo Butter crafted to nourish, protect, and enhance the vibrancy of tattooed skin. This rich blend of shea, cocoa, mango, kokum, and clarified butter delivers intense hydration and supports faster skin recovery, while forming a protective barrier to lock in moisture. Enriched with fig honey, almond oil, and rosehip oil, it helps soften the skin, improve elasticity, and maintain a healthy appearance.',
+    ingredients: 'Aqua, Shea Butter, Cocoa Butter, Mango Butter, Kokum Butter, Clarified Butter (Ghee), Fig Honey, Sweet Almond Oil, Rosehip Oil, Vitamin E, Glycerin, Cetyl Alcohol, Emulsifying Wax, Phenoxyethanol, Xanthan Gum',
+    howToUse: 'How to Use:\n\nApply a small amount to clean, dry tattooed skin and gently massage until absorbed. Use 2-3 times daily, or as needed to keep skin moisturized and protected. Ideal for use during the healing process and for ongoing tattoo maintenance.',
+    shipping: 'We process all domestic orders within 1 business day. Delivery typically takes 5-7 business days, while remote or interior locations may require 7-10 business days.'
   },
 ]
 

@@ -44,8 +44,8 @@ const allProducts = [
   { id:14, img:SC14, name:'Vitamin C 20%, Kojic Acid, Avocado Extract & Argan Oil : Radiance Cream 50 G', category: 'Cream', keywords: 'vitamin c kojic acid avocado argan oil radiance brightening glow', price:'₹ 399' },
   { id:15, img:SC15, name:'Anti Acne Face wash: 100 ml, Salicylic Acid 2% for Oily & Acne Prone Skin', category: 'Face Wash', keywords: 'anti acne face wash salicylic acid oily acne prone cleanser', price:'₹ 185' },
   { id:16, img:HairCareImg, name:'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', category: 'Serum', keywords: 'redensyl anagain rice water biotin hair therapy serum growth hair fall', price:'₹ 575' },
-  { id:17, img:TattooCleanser, name:'Tattoo Cleanser 100 ml', category: 'Tattoo', keywords: 'tattoo cleanser citrus fruit wash gentle sulphate free aloe vera vitamin e', price:'₹ 195', mrp:'₹ 245' },
-  { id:18, img:TattooButter, name:'Tattoo Butter 50 Grams', category: 'Tattoo', keywords: 'tattoo butter natural butters oils shea cocoa mango kokum protection', price:'₹ 799', mrp:'₹ 899' },
+  { id:19, img:TattooCleanser, name:'Tattoo Cleanser 100 ml', category: 'Tattoo', keywords: 'tattoo cleanser citrus fruit wash gentle sulphate free aloe vera vitamin e', price:'₹ 195', mrp:'₹ 245' },
+  { id:20, img:TattooButter, name:'Tattoo Butter 50 Grams', category: 'Tattoo', keywords: 'tattoo butter natural butters oils shea cocoa mango kokum protection', price:'₹ 799', mrp:'₹ 899' },
 ]
 
 export default function AllProductsPage({ onNavigate, searchQuery, onLoginClick }) {
