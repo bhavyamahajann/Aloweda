@@ -537,6 +537,19 @@
   box-shadow: none;
 }
 
+.out-of-stock-btn {
+  background: #e7e2d8 !important;
+  color: #6f6a5f !important;
+  border-color: #e7e2d8 !important;
+  cursor: not-allowed !important;
+}
+
+.out-of-stock-btn:hover {
+  background: #e7e2d8 !important;
+  border-color: #e7e2d8 !important;
+  transform: none !important;
+}
+
 /* ==========================================
    FEATURES
    ========================================== */
