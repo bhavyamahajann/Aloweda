@@ -13,6 +13,12 @@ import HairCareImg from '../assets/HairCare.png'
 import LipCareImg from '../assets/LipCare.png'
 import SmartSkinCare from '../assets/SmartSkinCare.png'
 
+// What's Aloweda Videos
+import AyurvedaVideo from '../assets/Ayurveda.mp4'
+import AllopathyVideo from '../assets/Allopathy.mp4'
+import SafeSyntheticsVideo from '../assets/SafeSynthetics.mp4'
+import KnowledgeInnovationVideo from '../assets/Knowledge&Innovation.mp4'
+
 // LookBook Images
 import SmartSkinCareLookBook from '../assets/SmartSkinCareLookBook.png'
 import FaceWashBG from '../assets/FaceWashBG.png'
@@ -40,6 +46,18 @@ import './HomePage.css'
 const slides = [
   {
     id: 1,
+    type: 'whats-aloweda',
+    heading: "What's Aloweda?",
+    sub: 'Another Skincare? No, Cuticle care!',
+    graphics: [
+      { video: AyurvedaVideo, label: 'Ayurveda' },
+      { video: AllopathyVideo, label: 'Allopathy' },
+      { video: SafeSyntheticsVideo, label: 'Safe Synthetics' },
+      { video: KnowledgeInnovationVideo, label: 'Knowledge & Innovation' }
+    ]
+  },
+  {
+    id: 2,
     image: SuperGlowSerum,
     tag: 'Best Seller',
     heading: 'Super Glow Serum',
@@ -48,7 +66,7 @@ const slides = [
     targetPage: 'shop',
   },
   {
-    id: 2,
+    id: 3,
     image: TheNightCream,
     tag: 'Night Care',
     heading: 'The Night Cream',
@@ -57,7 +75,7 @@ const slides = [
     targetPage: 'shop',
   },
   {
-    id: 3,
+    id: 4,
     image: PigmentControlSerum,
     tag: 'Targeted Treatment',
     heading: 'Pigment Control Serum',
@@ -66,7 +84,7 @@ const slides = [
     targetPage: 'shop',
   },
   {
-    id: 4,
+    id: 5,
     image: DayCream,
     tag: 'Daily Essential',
     heading: 'The Day Cream',
@@ -75,7 +93,7 @@ const slides = [
     targetPage: 'shop',
   },
   {
-    id: 5,
+    id: 6,
     image: SmoothPerfectionSerum,
     tag: 'New Launch',
     heading: 'Smooth Perfection Serum',
@@ -136,27 +154,63 @@ function HeroSlider({ onNavigate }) {
         {slides.map((slide, i) => (
           <div
             key={slide.id}
-            className={`hero__slide ${i === current ? 'hero__slide--active' : ''}`}
+            className={`hero__slide ${i === current ? 'hero__slide--active' : ''} ${slide.type === 'whats-aloweda' ? 'hero__slide--whats-aloweda' : ''}`}
           >
-            <div className="hero__content">
-              <span className="hero__tag">{slide.tag}</span>
-              <h1 className="hero__heading">{slide.heading}</h1>
-              <p className="hero__sub">{slide.sub}</p>
-              <button
-                className="btn btn--dark"
-                onClick={() => handleShopNowClick(slide.targetPage)}
-              >
-                {slide.cta}
-              </button>
-            </div>
-            <div className="hero__image-container">
-              <div
-                className="hero__bg"
-                style={{
-                  backgroundImage: `url(${slide.image})`,
-                }}
-              />
-            </div>
+            {slide.type === 'whats-aloweda' ? (
+              // What's Aloweda Slide
+              <div className="hero__whats-aloweda">
+                <div className="hero__whats-aloweda-left">
+                  <h1 className="hero__heading">{slide.heading}</h1>
+                  <p className="hero__sub">{slide.sub}</p>
+                  <p className="hero__description">
+                    We blend ancient Ayurvedic wisdom with modern Allopathic science, 
+                    safe synthetics, and cutting-edge innovation to create skincare 
+                    that truly works. Not just another brand—a complete cuticle care revolution.
+                  </p>
+                </div>
+                <div className="hero__whats-aloweda-right">
+                  <div className="hero__graphics-grid">
+                    {slide.graphics.map((graphic, idx) => (
+                      <div key={idx} className="hero__graphic-item">
+                        <div className="hero__graphic-video">
+                          <video
+                            src={graphic.video}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                          />
+                        </div>
+                        <span className="hero__graphic-label-top">{graphic.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              // Regular Product Slides
+              <>
+                <div className="hero__content">
+                  <span className="hero__tag">{slide.tag}</span>
+                  <h1 className="hero__heading">{slide.heading}</h1>
+                  <p className="hero__sub">{slide.sub}</p>
+                  <button
+                    className="btn btn--dark"
+                    onClick={() => handleShopNowClick(slide.targetPage)}
+                  >
+                    {slide.cta}
+                  </button>
+                </div>
+                <div className="hero__image-container">
+                  <div
+                    className="hero__bg"
+                    style={{
+                      backgroundImage: `url(${slide.image})`,
+                    }}
+                  />
+                </div>
+              </>
+            )}
           </div>
         ))}
       </div>
