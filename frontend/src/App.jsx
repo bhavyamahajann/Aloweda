@@ -490,7 +490,8 @@ function AppContent() {
               onLoginClick={() => setShowLogin(true)} 
               cartCount={cartCount} 
               onAddToCart={addToCart} 
-              allProducts={ALL_PRODUCTS} 
+              allProducts={ALL_PRODUCTS}
+              cart={cart}
             />
           } 
         />

@@ -507,7 +507,7 @@ function AlowedaIntro({ onNavigate }) {
 
 /* ─────────────── LOOK BOOK SLIDER ─────────────── */
 
-function LookBookSlider({ onNavigate, onAddToCart, allProducts }) {
+function LookBookSlider({ onNavigate, onAddToCart, allProducts, cart = [] }) {
   const [currentSlide, setCurrentSlide] = useState(0)
 
   const lookBookSlides = [
@@ -564,6 +564,11 @@ function LookBookSlider({ onNavigate, onAddToCart, allProducts }) {
     }
   }
 
+  // Check if product is in cart
+  const isInCart = (productId) => {
+    return cart.some(item => item.id === productId)
+  }
+
   return (
     <section className="lookbook-section">
       <div className="lookbook-container">
@@ -611,7 +616,12 @@ function LookBookSlider({ onNavigate, onAddToCart, allProducts }) {
                   >{product.name}</h3>
                   <div className="lookbook-product__footer">
                     <p className="lookbook-product__price">{product.price}</p>
-                    <button className="btn btn--outline-dark btn--sm" onClick={(e) => handleAddToCart(e, product)}>Add to Cart</button>
+                    <button 
+                      className="btn btn--outline-dark btn--sm" 
+                      onClick={(e) => handleAddToCart(e, product)}
+                    >
+                      {isInCart(product.id) ? 'Add Again' : 'Add to Cart'}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -655,7 +665,7 @@ function Testimonials() {
 
 /* ─────────────── ROOT ─────────────── */
 
-export default function HomePage({ onNavigate, onLoginClick, cartCount, onAddToCart, allProducts }) {
+export default function HomePage({ onNavigate, onLoginClick, cartCount, onAddToCart, allProducts, cart = [] }) {
   return (
     <div className="page">
       <Navbar onNavigate={onNavigate} onLoginClick={onLoginClick} cartCount={cartCount} />
@@ -665,7 +675,7 @@ export default function HomePage({ onNavigate, onLoginClick, cartCount, onAddToC
         <BestSellers onNavigate={onNavigate} onAddToCart={onAddToCart} allProducts={allProducts} />
         <BuildRegimenCTA onNavigate={onNavigate} />
         <ImageCarousel />
-        <LookBookSlider onNavigate={onNavigate} onAddToCart={onAddToCart} allProducts={allProducts} />
+        <LookBookSlider onNavigate={onNavigate} onAddToCart={onAddToCart} allProducts={allProducts} cart={cart} />
         <AlowedaIntro onNavigate={onNavigate} />
         <CategorySlider onNavigate={onNavigate} />
         <Categories />
