@@ -15,6 +15,10 @@ import SmartSkinCare from '../assets/SmartSkinCare.png'
 import FaceWashImg from '../assets/FaceWash.png'
 import TattooButterImg from '../assets/TattooButter.png'
 
+// For Creams slide - using Day/Night cream images
+// For Lips slide - using Lip Care image
+// For Hair slide - using Hair Care image
+
 // What's Aloweda Videos
 import AyurvedaVideo from '../assets/Ayurveda.mp4'
 import AllopathyVideo from '../assets/Allopathy.mp4'
@@ -26,6 +30,12 @@ import SerumVideo from '../assets/serum.mp4'
 
 // Face Wash Video
 import FaceWashVideo from '../assets/FaceWash.mp4'
+
+// Product Category Floater Videos
+import FaceSerumFloaterVideo from '../assets/FaceSerumFloater.mp4'
+import FaceCareFloaterVideo from '../assets/FaceCareFloater.mp4'
+import LipCareFloaterVideo from '../assets/LipCareFloater.mp4'
+import TattooCareFloaterVideo from '../assets/TattooCareFloater.mp4'
 
 // LookBook Images
 import SmartSkinCareLookBook from '../assets/SmartSkinCareLookBook.png'
@@ -72,12 +82,24 @@ const slides = [
     sub: 'Spread & Tap! They vanish in 5 minutes!',
     description: 'Our highly concentrated serums are designed to penetrate deep into your skin, delivering powerful active ingredients exactly where they\'re needed. Lightweight, fast-absorbing, and incredibly effective.',
     image: SuperGlowSerum,
-    video: SerumVideo,
+    video: FaceSerumFloaterVideo,
     cta: 'SHOP NOW',
     targetPage: 'shop',
   },
   {
     id: 3,
+    type: 'creams-slide',
+    tag: 'DAILY ESSENTIAL',
+    heading: 'Creams',
+    sub: 'Do not massage, they melt!',
+    description: 'Our creams are designed to melt into your skin effortlessly. Rich, nourishing formulas that provide deep hydration without feeling heavy. Just apply and let them work their magic.',
+    image: TheNightCream,
+    video: FaceCareFloaterVideo,
+    cta: 'SHOP NOW',
+    targetPage: 'shop',
+  },
+  {
+    id: 4,
     type: 'facewash-slide',
     tag: 'BEST SELLER',
     heading: 'Face Wash',
@@ -89,51 +111,40 @@ const slides = [
     targetPage: 'shop',
   },
   {
-    id: 4,
-    type: 'tattoo-slide',
-    tag: 'TATTOO CARE',
-    heading: 'Tattoo Care',
-    sub: 'Keep your ink vibrant and protected',
-    description: 'Specially formulated products to heal, protect, and maintain your tattoos. Our tattoo care range keeps your body art looking fresh and vibrant for years to come.',
-    image: TattooButterImg,
-    cta: 'SHOP NOW',
-    targetPage: 'shop',
-  },
-  {
     id: 5,
-    image: TheNightCream,
-    tag: 'Night Care',
-    heading: 'The Night Cream',
-    sub: 'Deep nourishing night treatment for skin repair and rejuvenation while you sleep',
+    type: 'lips-slide',
+    tag: 'LIP CARE',
+    heading: 'Lips',
+    sub: 'No to Chemicals. Yes to Botanical butters, oils & Vitamins',
+    description: 'Pure, natural lip care with botanical butters and nourishing oils. Zero chemicals, zero preservatives. Just nature\'s best ingredients to keep your lips soft, smooth, and healthy.',
+    image: LipCareImg,
+    video: LipCareFloaterVideo,
     cta: 'SHOP NOW',
     targetPage: 'shop',
   },
   {
     id: 6,
-    image: PigmentControlSerum,
-    tag: 'Targeted Treatment',
-    heading: 'Pigment Control Serum',
-    sub: 'Scientifically-backed formula to reduce dark spots and even out skin tone',
+    type: 'tattoo-slide',
+    tag: 'TATTOO CARE',
+    heading: 'Tattoo Care',
+    sub: 'Flaunt your identity with vibrant inks!',
+    description: 'Specially formulated products to heal, protect, and maintain your tattoos. Our tattoo care range keeps your body art looking fresh and vibrant for years to come.',
+    image: TattooButterImg,
+    video: TattooCareFloaterVideo,
     cta: 'SHOP NOW',
-    targetPage: 'shop',
+    targetPage: 'tattoo',
   },
   {
     id: 7,
-    image: DayCream,
-    tag: 'Daily Essential',
-    heading: 'The Day Cream',
-    sub: 'Lightweight daily moisturizer with SPF protection for all-day hydration',
+    type: 'hair-slide',
+    tag: 'HAIR LINE',
+    heading: 'Hair Line',
+    sub: 'Health, Growth & Lustre...assured',
+    description: 'Complete hair care solutions for stronger, healthier, more lustrous hair. From root to tip, our formulas work to restore vitality, promote growth, and bring back natural shine.',
+    image: HairCareImg,
+    video: SerumVideo,
     cta: 'SHOP NOW',
-    targetPage: 'shop',
-  },
-  {
-    id: 8,
-    image: SmoothPerfectionSerum,
-    tag: 'New Launch',
-    heading: 'Smooth Perfection Serum',
-    sub: 'Anti-aging powerhouse with retinol and peptides for smoother, younger-looking skin',
-    cta: 'SHOP NOW',
-    targetPage: 'shop',
+    targetPage: 'hair',
   },
 ]
 
@@ -188,7 +199,7 @@ function HeroSlider({ onNavigate }) {
         {slides.map((slide, i) => (
           <div
             key={slide.id}
-            className={`hero__slide ${i === current ? 'hero__slide--active' : ''} ${slide.type === 'whats-aloweda' ? 'hero__slide--whats-aloweda' : ''} ${slide.type === 'serums-slide' || slide.type === 'facewash-slide' ? 'hero__slide--serums' : ''}`}
+            className={`hero__slide ${i === current ? 'hero__slide--active' : ''} ${slide.type === 'whats-aloweda' ? 'hero__slide--whats-aloweda' : ''} ${slide.type === 'serums-slide' || slide.type === 'facewash-slide' || slide.type === 'creams-slide' || slide.type === 'lips-slide' || slide.type === 'tattoo-slide' || slide.type === 'hair-slide' ? 'hero__slide--serums' : ''}`}
           >
             {slide.type === 'whats-aloweda' ? (
               // What's Aloweda Slide
@@ -221,8 +232,8 @@ function HeroSlider({ onNavigate }) {
                   </div>
                 </div>
               </div>
-            ) : slide.type === 'serums-slide' || slide.type === 'facewash-slide' ? (
-              // Serums & Face Wash Slide
+            ) : slide.type === 'serums-slide' || slide.type === 'facewash-slide' || slide.type === 'creams-slide' || slide.type === 'lips-slide' || slide.type === 'tattoo-slide' || slide.type === 'hair-slide' ? (
+              // Serums, Face Wash, Creams, Lips, Tattoo, Hair Slides
               <div className="hero__serums">
                 <div className="hero__serums-left">
                   <span className="hero__tag">{slide.tag}</span>

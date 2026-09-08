@@ -26,8 +26,6 @@ import SC15 from '../SkinCareImg/SkinCare15.jpg'
 import HairCareImg from '../assets/HairCare.png'
 import LC1 from '../LipCareImg/LipCare1.jpg'
 import LC2 from '../LipCareImg/LipCare2.jpg'
-import TattooCleanser from '../assets/TattooCleanser.png'
-import TattooButter from '../assets/TattooButter.png'
 
 // Legacy hardcoded products - keeping for backward compatibility
 const legacyProducts = [
@@ -50,10 +48,6 @@ const legacyProducts = [
   
   // Hair Care Products
   { id:16, img:HairCareImg, name:'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', category: 'Hair Serum', keywords: 'redensyl anagain rice water biotin hair therapy serum growth hair fall', price:'₹ 575' },
-  
-  // Tattoo Care Products
-  { id:19, img:TattooCleanser, name:'Tattoo Cleanser 100 ml: Gentle Citrus Fruit wash for your Timeless Tattoo', category: 'Tattoo Care', keywords: 'tattoo cleanser citrus wash gentle sulphate free aloe vera vitamin e', price:'₹ 195' },
-  { id:20, img:TattooButter, name:'Tattoo Butter 50 Grams: NO CHEMICALS, NATURAL BUTTERS & OILS', category: 'Tattoo Care', keywords: 'tattoo butter natural butters oils shea cocoa mango kokum aftercare', price:'₹ 799' },
   
   // Lip Care Products
   { id:17, img:LC1, name:'Lip Butter 8 Gram: Butters, Oils & Honey. ZERO CHEMICALS, NO PRESERVATIVES', category: 'Lip Butter', keywords: 'lip butter butters oils honey organic chemical free preservative free', price:'Rs. 75.00' },
