@@ -107,6 +107,7 @@ export const PRODUCTS = [
   {
     id: 7,
     name: 'Tattoo Cleanser 100 ml',
+    subtitle: 'Concentrate: Gentle Citrus Fruit wash for your Timeless Tattoo',
     category: 'tattoo',
     price: 195,
     mrp: 245,
@@ -114,7 +115,20 @@ export const PRODUCTS = [
     rating: 4.8,
     reviews: 89,
     img: TattooCleanser,
-    desc: 'Concentrate: Gentle Citrus Fruit wash for your Timeless Tattoo. A gentle, sulphate-free tattoo cleanser specially formulated to cleanse tattooed skin without stripping away essential moisture. Infused with Aloe Vera, Vitamin E, and natural citrus extracts of Orange, Lemon, and Tangerine, it helps remove impurities while keeping skin feeling refreshed, hydrated, and comfortable.',
+    desc: 'A gentle, sulphate-free tattoo cleanser specially formulated to cleanse tattooed skin without stripping away essential moisture. Infused with Aloe Vera, Vitamin E, and natural citrus extracts of Orange, Lemon, and Tangerine, it helps remove impurities while keeping skin feeling refreshed, hydrated, and comfortable. Mild plant-derived cleansing agents effectively cleanse the skin while supporting the natural skin barrier, making it ideal for both fresh and healed tattoos. The fragrance-free formula is designed to minimize irritation and leave tattooed skin clean, soft, and well cared for.',
+    freeFrom: 'Sulphates, Parabens, Phthalates, Soap Gel, Alcohol & Fragrance',
+    keyIngredients: {
+      title: 'KEY INGREDIENTS',
+      list: 'Aqua, Orange Extract, Lemon Extract, Tangerine Extract, Aloe Vera Extract, Lauryl Glucoside, Coco Glucoside, CocomideDiethanolamine (CDEA), Sodium Cocoyl Glutamate, Carbopool, Ultrez 20,Polyquaternium-7, Tocopherol, Acetate (Vitamin E Acetate), Glycerine,Phenoxyethanol, Disodium EDTA, No added Fragrance.'
+    },
+    howToUse: {
+      title: 'HOW TO USE',
+      steps: 'This formulation is very concentrated & thick. Apply a very small amount to wet tattooed skin & gently massage in circular motions to create a soft lather. Rinse thoroughly with water & pat dry. Follow with tattoo butter or moisturizer to help keep skin hydrated & comfortable. Suitable for daily use on healed tattoos & surrounding skin. Use once or twice a day. Always use after sweating, exposure to sunlight & contact with grime.'
+    },
+    shippingReturns: {
+      title: 'SHIPPING & RETURNS',
+      info: 'We process all domestic orders within 1 business day. Delivery typically takes 5-7 business days, while remote or interior locations may require 7-10 business days.'
+    },
     bestSeller: false,
   },
   {
