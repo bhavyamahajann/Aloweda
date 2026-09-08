@@ -10,6 +10,8 @@ import Slide5 from '../assets/HomeSlider5.png'
 import SkinCare4 from '../SkinCareImg/SkinCare4.jpg'
 import SkinCare6 from '../SkinCareImg/SkinCare6.jpg'
 import SkinCare12 from '../SkinCareImg/SkinCare12.jpg'
+import TattooCleanser from '../assets/TattooCleanser.png'
+import TattooButter from '../assets/TattooButter.png'
 
 export const CATEGORIES = [
   { id: 'skincare',     label: 'Smart Skincare', hasSubmenu: true },
@@ -104,19 +106,32 @@ export const PRODUCTS = [
   },
   {
     id: 7,
-    name: 'Tattoo Protect Balm',
+    name: 'Tattoo Cleanser 100 ml',
     category: 'tattoo',
-    price: 549,
-    mrp: 699,
-    tag: 'Specialist',
-    rating: 4.6,
-    reviews: 77,
-    img: Slide2,
-    desc: 'Keeps ink vibrant and skin moisturised. Petroleum-free formula.',
+    price: 195,
+    mrp: 245,
+    tag: 'New',
+    rating: 4.8,
+    reviews: 89,
+    img: TattooCleanser,
+    desc: 'Concentrate: Gentle Citrus Fruit wash for your Timeless Tattoo. A gentle, sulphate-free tattoo cleanser specially formulated to cleanse tattooed skin without stripping away essential moisture. Infused with Aloe Vera, Vitamin E, and natural citrus extracts of Orange, Lemon, and Tangerine, it helps remove impurities while keeping skin feeling refreshed, hydrated, and comfortable.',
     bestSeller: false,
   },
   {
     id: 8,
+    name: 'Tattoo Butter 50 Grams',
+    category: 'tattoo',
+    price: 799,
+    mrp: 899,
+    tag: 'Best Seller',
+    rating: 4.9,
+    reviews: 156,
+    img: TattooButter,
+    desc: 'NO CHEMICALS, NATURAL BUTTERS & OILS. A deeply restorative Tattoo Butter crafted to nourish, protect, and enhance the vibrancy of tattooed skin. This rich blend of shea, cocoa, mango, kokum, and clarified butter delivers intense hydration and supports faster skin recovery, while forming a protective barrier to lock in moisture. Enriched with fig honey, almond oil, and rosehip oil, it helps soften the skin, improve elasticity, and maintain a healthy appearance.',
+    bestSeller: true,
+  },
+  {
+    id: 9,
     name: 'Velvet Lip Butter',
     category: 'lip',
     price: 299,
@@ -129,7 +144,7 @@ export const PRODUCTS = [
     bestSeller: false,
   },
   {
-    id: 9,
+    id: 10,
     name: 'Hair Repair Serum',
     category: 'hair',
     price: 699,
@@ -142,7 +157,7 @@ export const PRODUCTS = [
     bestSeller: false,
   },
   {
-    id: 10,
+    id: 11,
     name: 'Glow Ritual Kit',
     category: 'rituals',
     price: 1499,
@@ -155,7 +170,7 @@ export const PRODUCTS = [
     bestSeller: false,
   },
   {
-    id: 11,
+    id: 12,
     name: 'Saffron Face Oil',
     category: 'serums',
     price: 1299,

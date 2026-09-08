@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react'
 import Navbar from '../Navbar/navbar'
 import Footer from '../Footer/Footer'
 import { handleNavigation } from '../utils/navigation'
+import { PRODUCTS } from '../data/products'
 import './ShopPage.css'
 import './SkinCare.css'
 import './AllProducts.css'
@@ -25,9 +26,11 @@ import SC15 from '../SkinCareImg/SkinCare15.jpg'
 import HairCareImg from '../assets/HairCare.png'
 import LC1 from '../LipCareImg/LipCare1.jpg'
 import LC2 from '../LipCareImg/LipCare2.jpg'
+import TattooCleanser from '../assets/TattooCleanser.png'
+import TattooButter from '../assets/TattooButter.png'
 
-// All products from all categories
-const allProducts = [
+// Legacy hardcoded products - keeping for backward compatibility
+const legacyProducts = [
   // Skin Care Products
   { id:1,  img:SC1,  name:'YOUR SIMPLE ROUTINE: The Day Cream + The Night Cream + Lip Butter', category: 'Combo', keywords: 'day cream night cream lip butter routine combo kit', price:'₹ 799' },
   { id:2,  img:SC2,  name:'PERFECT COMPLEXION RITUAL: Pigment Control Serum + The Day Cream + Complexion Cream + Smooth Perfection Serum', category: 'Combo', keywords: 'pigment control serum day cream complexion smooth perfection ritual combo kit', price:'₹ 999' },
@@ -48,10 +51,24 @@ const allProducts = [
   // Hair Care Products
   { id:16, img:HairCareImg, name:'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', category: 'Hair Serum', keywords: 'redensyl anagain rice water biotin hair therapy serum growth hair fall', price:'₹ 575' },
   
+  // Tattoo Care Products
+  { id:19, img:TattooCleanser, name:'Tattoo Cleanser 100 ml: Gentle Citrus Fruit wash for your Timeless Tattoo', category: 'Tattoo Care', keywords: 'tattoo cleanser citrus wash gentle sulphate free aloe vera vitamin e', price:'₹ 195' },
+  { id:20, img:TattooButter, name:'Tattoo Butter 50 Grams: NO CHEMICALS, NATURAL BUTTERS & OILS', category: 'Tattoo Care', keywords: 'tattoo butter natural butters oils shea cocoa mango kokum aftercare', price:'₹ 799' },
+  
   // Lip Care Products
   { id:17, img:LC1, name:'Lip Butter 8 Gram: Butters, Oils & Honey. ZERO CHEMICALS, NO PRESERVATIVES', category: 'Lip Butter', keywords: 'lip butter butters oils honey organic chemical free preservative free', price:'Rs. 75.00' },
   { id:18, img:LC2, name:'Lip Butter 15 Gram: Butters, Oils & Honey. NO CHEMICALS, NO PRESERVATIVES. NOT LIP BALM', category: 'Lip Butter', keywords: 'lip butter butters oils honey organic chemical free preservative free balm', price:'From Rs. 165.00' },
 ]
+
+// Combine PRODUCTS from data file with legacy products
+const allProducts = [...PRODUCTS.map(p => ({
+  id: p.id,
+  img: p.img,
+  name: p.name,
+  category: p.category,
+  keywords: p.desc,
+  price: `₹ ${p.price}`
+})), ...legacyProducts]
 
 export default function AllProductsPage({ onNavigate, searchQuery, onLoginClick }) {
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery || '')

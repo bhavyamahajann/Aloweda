@@ -12,12 +12,20 @@ import SmoothPerfectionSerum from '../ProductDetailsImages/alowedasmoothperfecti
 import HairCareImg from '../assets/HairCare.png'
 import LipCareImg from '../assets/LipCare.png'
 import SmartSkinCare from '../assets/SmartSkinCare.png'
+import FaceWashImg from '../assets/FaceWash.png'
+import TattooButterImg from '../assets/TattooButter.png'
 
 // What's Aloweda Videos
 import AyurvedaVideo from '../assets/Ayurveda.mp4'
 import AllopathyVideo from '../assets/Allopathy.mp4'
 import SafeSyntheticsVideo from '../assets/SafeSynthetics.mp4'
 import KnowledgeInnovationVideo from '../assets/Knowledge&Innovation.mp4'
+
+// Serums Video
+import SerumVideo from '../assets/serum.mp4'
+
+// Face Wash Video
+import FaceWashVideo from '../assets/FaceWash.mp4'
 
 // LookBook Images
 import SmartSkinCareLookBook from '../assets/SmartSkinCareLookBook.png'
@@ -58,15 +66,41 @@ const slides = [
   },
   {
     id: 2,
+    type: 'serums-slide',
+    tag: 'BEST SELLER',
+    heading: 'Serums',
+    sub: 'Spread & Tap! They vanish in 5 minutes!',
+    description: 'Our highly concentrated serums are designed to penetrate deep into your skin, delivering powerful active ingredients exactly where they\'re needed. Lightweight, fast-absorbing, and incredibly effective.',
     image: SuperGlowSerum,
-    tag: 'Best Seller',
-    heading: 'Super Glow Serum',
-    sub: 'Advanced brightening formula with niacinamide and vitamin C for radiant, glowing skin',
+    video: SerumVideo,
     cta: 'SHOP NOW',
     targetPage: 'shop',
   },
   {
     id: 3,
+    type: 'facewash-slide',
+    tag: 'BEST SELLER',
+    heading: 'Face Wash',
+    sub: 'Gentle but serious cleansers',
+    description: 'Our face washes are formulated to deeply cleanse without stripping your skin\'s natural moisture. Perfect pH balance, gentle on skin, tough on dirt and impurities.',
+    image: FaceWashImg,
+    video: FaceWashVideo,
+    cta: 'SHOP NOW',
+    targetPage: 'shop',
+  },
+  {
+    id: 4,
+    type: 'tattoo-slide',
+    tag: 'TATTOO CARE',
+    heading: 'Tattoo Care',
+    sub: 'Keep your ink vibrant and protected',
+    description: 'Specially formulated products to heal, protect, and maintain your tattoos. Our tattoo care range keeps your body art looking fresh and vibrant for years to come.',
+    image: TattooButterImg,
+    cta: 'SHOP NOW',
+    targetPage: 'shop',
+  },
+  {
+    id: 5,
     image: TheNightCream,
     tag: 'Night Care',
     heading: 'The Night Cream',
@@ -75,7 +109,7 @@ const slides = [
     targetPage: 'shop',
   },
   {
-    id: 4,
+    id: 6,
     image: PigmentControlSerum,
     tag: 'Targeted Treatment',
     heading: 'Pigment Control Serum',
@@ -84,7 +118,7 @@ const slides = [
     targetPage: 'shop',
   },
   {
-    id: 5,
+    id: 7,
     image: DayCream,
     tag: 'Daily Essential',
     heading: 'The Day Cream',
@@ -93,7 +127,7 @@ const slides = [
     targetPage: 'shop',
   },
   {
-    id: 6,
+    id: 8,
     image: SmoothPerfectionSerum,
     tag: 'New Launch',
     heading: 'Smooth Perfection Serum',
@@ -154,7 +188,7 @@ function HeroSlider({ onNavigate }) {
         {slides.map((slide, i) => (
           <div
             key={slide.id}
-            className={`hero__slide ${i === current ? 'hero__slide--active' : ''} ${slide.type === 'whats-aloweda' ? 'hero__slide--whats-aloweda' : ''}`}
+            className={`hero__slide ${i === current ? 'hero__slide--active' : ''} ${slide.type === 'whats-aloweda' ? 'hero__slide--whats-aloweda' : ''} ${slide.type === 'serums-slide' || slide.type === 'facewash-slide' ? 'hero__slide--serums' : ''}`}
           >
             {slide.type === 'whats-aloweda' ? (
               // What's Aloweda Slide
@@ -185,6 +219,39 @@ function HeroSlider({ onNavigate }) {
                       </div>
                     ))}
                   </div>
+                </div>
+              </div>
+            ) : slide.type === 'serums-slide' || slide.type === 'facewash-slide' ? (
+              // Serums & Face Wash Slide
+              <div className="hero__serums">
+                <div className="hero__serums-left">
+                  <span className="hero__tag">{slide.tag}</span>
+                  <h1 className="hero__heading">{slide.heading}</h1>
+                  <p className="hero__sub">{slide.sub}</p>
+                  <p className="hero__description">{slide.description}</p>
+                  <button
+                    className="btn btn--dark"
+                    onClick={() => handleShopNowClick(slide.targetPage)}
+                  >
+                    {slide.cta}
+                  </button>
+                </div>
+                <div className="hero__image-container">
+                  <div className="hero__serums-icon">
+                    <video
+                      src={slide.video}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    />
+                  </div>
+                  <div
+                    className="hero__bg"
+                    style={{
+                      backgroundImage: `url(${slide.image})`,
+                    }}
+                  />
                 </div>
               </div>
             ) : (
