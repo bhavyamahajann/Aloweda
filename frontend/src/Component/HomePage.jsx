@@ -177,6 +177,12 @@ function HeroSlider({ onNavigate }) {
                     safe synthetics, and cutting-edge innovation to create skincare 
                     that truly works. Not just another brand—a complete cuticle care revolution.
                   </p>
+                  <button
+                    className="btn btn--dark"
+                    onClick={() => handleShopNowClick('shop')}
+                  >
+                    SHOP NOW
+                  </button>
                 </div>
                 <div className="hero__whats-aloweda-right">
                   <div className="hero__graphics-grid">
