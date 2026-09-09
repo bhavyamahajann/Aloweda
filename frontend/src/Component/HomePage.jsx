@@ -32,7 +32,6 @@ import Navbar from '../Navbar/navbar'
 import BestSellers from './BestSeller'
 import BuildRegimenCTA from './BuildRegimenCTA'
 import ImageCarousel from './ImageCarousel'
-import CategorySlider from './CategorySlider'
 import FeatureList from './FeatureList/FeatureList'
 import Footer from '../Footer/Footer'
 import './HomePage.css'
@@ -550,7 +549,7 @@ function LookBookSlider({ onNavigate, onAddToCart, allProducts, cart = [] }) {
 
         {/* Right side - Products list */}
         <div className="lookbook-right">
-          <h2 className="lookbook-title">Look Book</h2>
+          <h2 className="lookbook-title">Previously Ordered</h2>
           <div className="lookbook-products">
             {currentData.products.map((product) => (
               <div 
@@ -576,7 +575,7 @@ function LookBookSlider({ onNavigate, onAddToCart, allProducts, cart = [] }) {
                       className="btn btn--outline-dark btn--sm" 
                       onClick={(e) => handleAddToCart(e, product)}
                     >
-                      {isInCart(product.id) ? 'Add Again' : 'Add to Cart'}
+                      Buy Again
                     </button>
                   </div>
                 </div>
@@ -633,7 +632,6 @@ export default function HomePage({ onNavigate, onLoginClick, cartCount, onAddToC
         <ImageCarousel />
         <LookBookSlider onNavigate={onNavigate} onAddToCart={onAddToCart} allProducts={allProducts} cart={cart} />
         <AlowedaIntro onNavigate={onNavigate} />
-        <CategorySlider onNavigate={onNavigate} />
         <Categories />
         <WhyAloweda />
         <OurValues />

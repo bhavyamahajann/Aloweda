@@ -21,7 +21,6 @@ export const CATEGORIES = [
   { id: 'tattoo',       label: 'Tattoo Care',    parent: 'skincare' },
   { id: 'lip',          label: 'Lip Care',       parent: 'skincare' },
   { id: 'hair',         label: 'Hair Care',      parent: 'skincare' },
-  { id: 'rituals',      label: 'Skin Rituals',   parent: 'skincare' },
 ]
 
 export const PRODUCTS = [
