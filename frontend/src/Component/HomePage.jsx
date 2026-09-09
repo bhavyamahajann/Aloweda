@@ -9,6 +9,7 @@ import SerumSlider from '../assets/SECRUMslider.png'
 import CreamSlider from '../assets/CreamSlider.png'
 import LipsSlider from '../assets/lipsslider.png'
 import TattooCareSlider from '../assets/TattooCareSlider.png'
+import HairCareSlider from '../assets/HairCareslider.png'
 
 // Category Images
 import HairCareImg from '../assets/HairCare.png'
@@ -113,7 +114,7 @@ const slides = [
     heading: 'Hair Line',
     sub: 'Health, Growth & Lustre...assured',
     description: 'Complete hair care solutions for stronger, healthier, more lustrous hair. From root to tip, our formulas work to restore vitality, promote growth, and bring back natural shine.',
-    image: HairCareImg,
+    image: HairCareSlider,
     cta: 'SHOP NOW',
     targetPage: 'hair',
   },
