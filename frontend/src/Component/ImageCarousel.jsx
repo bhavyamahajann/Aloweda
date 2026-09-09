@@ -1,4 +1,3 @@
-import Aloweda26 from '../assets/Aloweda_26.png'
 import CrueltyFree from '../assets/CrueltyFree.png'
 import GMP from '../assets/GMP.png'
 import GoFast from '../assets/GoFast.png'
@@ -7,7 +6,6 @@ import ISOcertified from '../assets/ISOcertified.png'
 import './ImageCarousel.css'
 
 const carouselItems = [
-  { id: 1, img: Aloweda26,     alt: '100% Natural',      label: '100% Natural Ingredients' },
   { id: 2, img: GoFast,        alt: 'Fast Delivery',     label: 'Earn Gift on first order' },
   { id: 3, img: ShopNow,       alt: 'Shop Now',          label: 'Shop Now. Glow Forever.' },
   { id: 4, img: CrueltyFree,   alt: 'Cruelty Free',      label: '100% Cruelty Free' },
