@@ -8,7 +8,7 @@ import TheNightCream from '../ProductDetailsImages/TheNightCream.png'
 import SerumSlider from '../assets/SECRUMslider.png'
 import CreamSlider from '../assets/CreamSlider.png'
 import LipsSlider from '../assets/LipsSlider.png'
-import TattooCareSlider from '../assets/TattooCareSlider.png'
+import TattooCareSlider from '../assets/TattooButterslider.png'
 import HairCareSlider from '../assets/HairCareslider.png'
 
 // Category Images
