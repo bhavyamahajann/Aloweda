@@ -4,6 +4,12 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import SuperGlowSerum from '../ProductDetailsImages/SuperGlowSerum.png'
 import TheNightCream from '../ProductDetailsImages/TheNightCream.png'
 
+// Slider Images
+import SerumSlider from '../assets/SECRUMslider.png'
+import CreamSlider from '../assets/CreamSlider.png'
+import LipsSlider from '../assets/lipsslider.png'
+import TattooCareSlider from '../assets/TattooCareSlider.png'
+
 // Category Images
 import HairCareImg from '../assets/HairCare.png'
 import LipCareImg from '../assets/LipCare.png'
@@ -57,9 +63,9 @@ const slides = [
     heading: 'Serums',
     sub: 'Spread & Tap! They vanish in 5 minutes!',
     description: 'Our highly concentrated serums are designed to penetrate deep into your skin, delivering powerful active ingredients exactly where they\'re needed. Lightweight, fast-absorbing, and incredibly effective.',
-    image: SuperGlowSerum,
+    image: SerumSlider,
     cta: 'SHOP NOW',
-    targetPage: 'shop',
+    targetPage: 'serums',
   },
   {
     id: 3,
@@ -67,9 +73,9 @@ const slides = [
     heading: 'Creams',
     sub: 'Do not massage, they melt!',
     description: 'Our creams are designed to melt into your skin effortlessly. Rich, nourishing formulas that provide deep hydration without feeling heavy. Just apply and let them work their magic.',
-    image: TheNightCream,
+    image: CreamSlider,
     cta: 'SHOP NOW',
-    targetPage: 'shop',
+    targetPage: 'moisturisers',
   },
   {
     id: 4,
@@ -79,7 +85,7 @@ const slides = [
     description: 'Our face washes are formulated to deeply cleanse without stripping your skin\'s natural moisture. Perfect pH balance, gentle on skin, tough on dirt and impurities.',
     image: FaceWashImg,
     cta: 'SHOP NOW',
-    targetPage: 'shop',
+    targetPage: 'facewash',
   },
   {
     id: 5,
@@ -87,9 +93,9 @@ const slides = [
     heading: 'Lips',
     sub: 'No to Chemicals. Yes to Botanical butters, oils & Vitamins',
     description: 'Pure, natural lip care with botanical butters and nourishing oils. Zero chemicals, zero preservatives. Just nature\'s best ingredients to keep your lips soft, smooth, and healthy.',
-    image: LipCareImg,
+    image: LipsSlider,
     cta: 'SHOP NOW',
-    targetPage: 'shop',
+    targetPage: 'lipcare',
   },
   {
     id: 6,
@@ -97,7 +103,7 @@ const slides = [
     heading: 'Tattoo Care',
     sub: 'Flaunt your identity with vibrant inks!',
     description: 'Specially formulated products to heal, protect, and maintain your tattoos. Our tattoo care range keeps your body art looking fresh and vibrant for years to come.',
-    image: TattooButterImg,
+    image: TattooCareSlider,
     cta: 'SHOP NOW',
     targetPage: 'tattoo',
   },

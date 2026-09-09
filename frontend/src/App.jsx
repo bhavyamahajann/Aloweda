@@ -352,6 +352,19 @@ const ALL_PRODUCTS = [
     howToUse: 'Spread a thin layer of this butter on your tattoo. DO NOT MASSAGE. Allow it to be absorbed by the skin. You can apply twice a day. Ideally give your tattoo a thick layer before going to bed.',
     shipping: 'We process all domestic orders within 1 business day. Delivery typically takes 5-7 business days, while remote or interior locations may require 7-10 business days.'
   },
+  { 
+    id: 21, 
+    img: SC6, 
+    images: [SC6],
+    name: 'Hyaluronic Acid 2%, Ceramides & Vitamin B5: Hydration Boost Serum 30 ml', 
+    category: 'Serum', 
+    keywords: 'hyaluronic acid ceramides vitamin b5 hydration moisture plump dewy skin hydrating serum face serum skincare', 
+    price: '₹ 425',
+    description: 'HYDRATION BOOST SERUM\n\nA deeply hydrating serum formulated with 2% Hyaluronic Acid to deliver intense moisture and help plump the appearance of dehydrated skin. Enriched with Ceramides and Vitamin B5 (Panthenol), this lightweight formula helps restore the skin barrier, lock in hydration, and support a smooth, supple complexion.\n\nHyaluronic Acid attracts and retains moisture, helping to visibly reduce the appearance of fine lines and improve skin texture. Ceramides work to strengthen the skin barrier and prevent moisture loss, while Vitamin B5 soothes and conditions the skin for a soft, comfortable feel.\n\nIdeal for all skin types, especially dry or dehydrated skin, this serum absorbs quickly and layers beautifully under moisturizers and sunscreen. Use daily for visibly plumper, more radiant-looking skin.',
+    ingredients: 'Aqua, Hyaluronic Acid 2%, Panthenol (Vitamin B5), Ceramide NP, Glycerin, Propanediol, Sodium Hyaluronate, Allantoin, Phenoxyethanol, Ethylhexylglycerin.',
+    howToUse: 'Apply 2-3 drops to clean, dry skin morning and evening. Gently massage into face and neck until fully absorbed. Follow with your favorite moisturizer and sunscreen (in the morning). For best results, use consistently as part of your daily skincare routine.',
+    shipping: 'We process all domestic orders within 1 business day. Delivery typically takes 5-7 business days, while remote or interior locations may require 7-10 business days.'
+  },
 ]
 
 export default function App() {
