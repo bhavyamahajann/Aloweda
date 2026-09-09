@@ -16,7 +16,7 @@ export default function BuildRegimenCTA({ onNavigate }) {
             Answer a few simple questions and discover a skincare routine tailored to your skin's needs
           </p>
           <button className="regimen-cta-btn" onClick={handleClick}>
-            Build My Regimen →
+            Build My Routine →
           </button>
         </div>
       </div>

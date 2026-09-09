@@ -4,6 +4,8 @@ import Footer from '../Footer/Footer'
 import SkinCareStep from './SkinCareStep'
 import BundleStep from './BundleStep'
 import SkinTypeStep from './SkinTypeStep'
+import HairCareStep from './HairCareStep'
+import LipCareStep from './LipCareStep'
 import PhotoUploadStep from './PhotoUploadStep'
 import ConsultationStep from './ConsultationStep'
 import RecommendationResults from './RecommendationResults'
@@ -13,8 +15,10 @@ const STEPS = [
   { id: 1, label: 'Skin Concerns', title: 'What are your skin concerns?', subtitle: 'Select all that apply' },
   { id: 2, label: 'Routine Type', title: 'Choose your routine type', subtitle: 'What kind of skincare routine are you looking for?' },
   { id: 3, label: 'Skin Type', title: "What's your skin type?", subtitle: 'Select the one that best describes your skin' },
-  { id: 4, label: 'Photo (Optional)', title: 'Upload a photo', subtitle: 'Optional — helps us understand your skin better' },
-  { id: 5, label: 'Contact Details', title: 'Your contact details', subtitle: "We'll send your personalized regimen to your email" }
+  { id: 4, label: 'Hair Care', title: 'Do you need hair care products?', subtitle: 'Select your hair concerns' },
+  { id: 5, label: 'Lip Care', title: 'Do you need lip care products?', subtitle: 'Select your lip concerns' },
+  { id: 6, label: 'Photo (Optional)', title: 'Upload a photo', subtitle: 'Optional — helps us understand your skin better' },
+  { id: 7, label: 'Contact Details', title: 'Your contact details', subtitle: "We'll send your personalized routine to your email" }
 ]
 
 function CheckIcon() {
@@ -32,6 +36,8 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount, on
     skinConcerns: [],
     bundle: '',
     skinType: '',
+    hairConcerns: [],
+    lipConcerns: [],
     photo: null,
     consultation: {
       name: '',
@@ -103,8 +109,12 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount, on
       case 3:
         return formData.skinType !== ''
       case 4:
-        return true
+        return true // Hair care is optional
       case 5:
+        return true // Lip care is optional
+      case 6:
+        return true // Photo is optional
+      case 7:
         return (
           formData.consultation.name &&
           formData.consultation.email &&
@@ -194,13 +204,27 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount, on
             )}
 
             {currentStep === 4 && (
+              <HairCareStep
+                selected={formData.hairConcerns}
+                onSelect={(concerns) => updateFormData('hairConcerns', concerns)}
+              />
+            )}
+
+            {currentStep === 5 && (
+              <LipCareStep
+                selected={formData.lipConcerns}
+                onSelect={(concerns) => updateFormData('lipConcerns', concerns)}
+              />
+            )}
+
+            {currentStep === 6 && (
               <PhotoUploadStep
                 photo={formData.photo}
                 onPhotoChange={(photo) => updateFormData('photo', photo)}
               />
             )}
 
-            {currentStep === 5 && (
+            {currentStep === 7 && (
               <ConsultationStep
                 data={formData.consultation}
                 onChange={updateConsultation}
@@ -213,7 +237,7 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount, on
               onClick={handleNext}
               disabled={!canProceed()}
             >
-              {currentStep === totalSteps ? 'Get My Regimen' : 'Continue'}
+              {currentStep === totalSteps ? 'Get My Routine' : 'Continue'}
             </button>
           </div>
         </div>

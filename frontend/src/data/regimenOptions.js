@@ -59,3 +59,24 @@ export const skinTypes = [
   { id: 'sensitive', label: 'Sensitive' },
   { id: 'notsure', label: 'Not Sure' }
 ]
+
+export const hairConcerns = [
+  { id: 'hairfall', label: 'Hair Fall & Thinning' },
+  { id: 'dandruff', label: 'Dandruff & Flakes' },
+  { id: 'dryness', label: 'Dry & Damaged Hair' },
+  { id: 'frizz', label: 'Frizz & Unmanageable Hair' },
+  { id: 'oilyscalp', label: 'Oily Scalp' },
+  { id: 'splitends', label: 'Split Ends' },
+  { id: 'lackofgrowth', label: 'Lack of Growth' },
+  { id: 'dullhair', label: 'Dull & Lifeless Hair' },
+  { id: 'none', label: 'No Hair Concerns' }
+]
+
+export const lipConcerns = [
+  { id: 'dryness', label: 'Dry & Chapped Lips' },
+  { id: 'darkening', label: 'Dark & Pigmented Lips' },
+  { id: 'peeling', label: 'Peeling & Cracked Lips' },
+  { id: 'lackofmoisture', label: 'Lack of Moisture' },
+  { id: 'finelines', label: 'Fine Lines on Lips' },
+  { id: 'none', label: 'No Lip Concerns' }
+]
