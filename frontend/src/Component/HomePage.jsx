@@ -114,12 +114,12 @@ const slides = [
 ]
 
 const categories = [
-  { label: 'Face Serums', icon: '✦' },
-  { label: 'Moisturisers', icon: '✦' },
-  { label: 'Face Wash', icon: '✦' },
-  { label: 'Eye Care', icon: '✦' },
-  { label: 'Sunscreen', icon: '✦' },
-  { label: 'Hair Care', icon: '✦' },
+  { label: 'Face Serums', icon: '✦', page: 'serums' },
+  { label: 'Moisturisers', icon: '✦', page: 'moisturisers' },
+  { label: 'Face Wash', icon: '✦', page: 'shop' },
+  { label: 'Eye Care', icon: '✦', page: 'shop' },
+  { label: 'Sunscreen', icon: '✦', page: 'shop' },
+  { label: 'Hair Care', icon: '✦', page: 'hair' },
 ]
 
 /* ─────────────── HERO SLIDER ─────────────── */
@@ -305,7 +305,13 @@ function MarqueeStrip() {
 
 /* ─────────────── CATEGORIES ─────────────── */
 
-function Categories() {
+function Categories({ onNavigate }) {
+  const handleCategoryClick = (page) => {
+    if (page && onNavigate) {
+      onNavigate(page)
+    }
+  }
+
   return (
     <section className="section categories-section">
       <div className="section__header">
@@ -314,10 +320,14 @@ function Categories() {
       </div>
       <div className="categories-grid">
         {categories.map((c) => (
-          <a key={c.label} href="#" className="category-card">
+          <button 
+            key={c.label} 
+            className="category-card"
+            onClick={() => handleCategoryClick(c.page)}
+          >
             <div className="category-card__icon">{c.icon}</div>
             <span className="category-card__label">{c.label}</span>
-          </a>
+          </button>
         ))}
       </div>
     </section>
@@ -638,7 +648,7 @@ export default function HomePage({ onNavigate, onLoginClick, cartCount, onAddToC
         <ImageCarousel />
         <LookBookSlider onNavigate={onNavigate} onAddToCart={onAddToCart} allProducts={allProducts} cart={cart} />
         <AlowedaIntro onNavigate={onNavigate} />
-        <Categories />
+        <Categories onNavigate={onNavigate} />
         <WhyAloweda />
         <OurValues />
         <FeatureList onNavigate={onNavigate} />
