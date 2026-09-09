@@ -1,41 +1,20 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import AlowedaLogo from '../assets/AlowedaLogo.png'
 
 // Product Images from ProductDetailsImages folder
 import SuperGlowSerum from '../ProductDetailsImages/SuperGlowSerum.png'
 import TheNightCream from '../ProductDetailsImages/TheNightCream.png'
-import PigmentControlSerum from '../ProductDetailsImages/PigmentControlSerum.png'
-import DayCream from '../ProductDetailsImages/DayCream4.png'
-import SmoothPerfectionSerum from '../ProductDetailsImages/alowedasmoothperfectionserum.png'
 
 // Category Images
 import HairCareImg from '../assets/HairCare.png'
 import LipCareImg from '../assets/LipCare.png'
-import SmartSkinCare from '../assets/SmartSkinCare.png'
 import FaceWashImg from '../assets/FaceWash.png'
 import TattooButterImg from '../assets/TattooButter.png'
-
-// For Creams slide - using Day/Night cream images
-// For Lips slide - using Lip Care image
-// For Hair slide - using Hair Care image
 
 // What's Aloweda Videos
 import AyurvedaVideo from '../assets/Ayurveda.mp4'
 import AllopathyVideo from '../assets/Allopathy.mp4'
 import SafeSyntheticsVideo from '../assets/SafeSynthetics.mp4'
 import KnowledgeInnovationVideo from '../assets/Knowledge&Innovation.mp4'
-
-// Serums Video
-import SerumVideo from '../assets/serum.mp4'
-
-// Face Wash Video
-import FaceWashVideo from '../assets/FaceWash.mp4'
-
-// Product Category Floater Videos
-import FaceSerumFloaterVideo from '../assets/FaceSerumFloater.mp4'
-import FaceCareFloaterVideo from '../assets/FaceCareFloater.mp4'
-import LipCareFloaterVideo from '../assets/LipCareFloater.mp4'
-import TattooCareFloaterVideo from '../assets/TattooCareFloater.mp4'
 
 // LookBook Images
 import SmartSkinCareLookBook from '../assets/SmartSkinCareLookBook.png'
@@ -54,7 +33,6 @@ import BestSellers from './BestSeller'
 import BuildRegimenCTA from './BuildRegimenCTA'
 import ImageCarousel from './ImageCarousel'
 import CategorySlider from './CategorySlider'
-import ShopByCategory from './ShopBYCategory'
 import FeatureList from './FeatureList/FeatureList'
 import Footer from '../Footer/Footer'
 import './HomePage.css'
@@ -77,72 +55,60 @@ const slides = [
   {
     id: 2,
     type: 'serums-slide',
-    tag: 'BEST SELLER',
     heading: 'Serums',
     sub: 'Spread & Tap! They vanish in 5 minutes!',
     description: 'Our highly concentrated serums are designed to penetrate deep into your skin, delivering powerful active ingredients exactly where they\'re needed. Lightweight, fast-absorbing, and incredibly effective.',
     image: SuperGlowSerum,
-    video: FaceSerumFloaterVideo,
     cta: 'SHOP NOW',
     targetPage: 'shop',
   },
   {
     id: 3,
     type: 'creams-slide',
-    tag: 'DAILY ESSENTIAL',
     heading: 'Creams',
     sub: 'Do not massage, they melt!',
     description: 'Our creams are designed to melt into your skin effortlessly. Rich, nourishing formulas that provide deep hydration without feeling heavy. Just apply and let them work their magic.',
     image: TheNightCream,
-    video: FaceCareFloaterVideo,
     cta: 'SHOP NOW',
     targetPage: 'shop',
   },
   {
     id: 4,
     type: 'facewash-slide',
-    tag: 'BEST SELLER',
     heading: 'Face Wash',
     sub: 'Gentle but serious cleansers',
     description: 'Our face washes are formulated to deeply cleanse without stripping your skin\'s natural moisture. Perfect pH balance, gentle on skin, tough on dirt and impurities.',
     image: FaceWashImg,
-    video: FaceWashVideo,
     cta: 'SHOP NOW',
     targetPage: 'shop',
   },
   {
     id: 5,
     type: 'lips-slide',
-    tag: 'LIP CARE',
     heading: 'Lips',
     sub: 'No to Chemicals. Yes to Botanical butters, oils & Vitamins',
     description: 'Pure, natural lip care with botanical butters and nourishing oils. Zero chemicals, zero preservatives. Just nature\'s best ingredients to keep your lips soft, smooth, and healthy.',
     image: LipCareImg,
-    video: LipCareFloaterVideo,
     cta: 'SHOP NOW',
     targetPage: 'shop',
   },
   {
     id: 6,
     type: 'tattoo-slide',
-    tag: 'TATTOO CARE',
     heading: 'Tattoo Care',
     sub: 'Flaunt your identity with vibrant inks!',
     description: 'Specially formulated products to heal, protect, and maintain your tattoos. Our tattoo care range keeps your body art looking fresh and vibrant for years to come.',
     image: TattooButterImg,
-    video: TattooCareFloaterVideo,
     cta: 'SHOP NOW',
     targetPage: 'tattoo',
   },
   {
     id: 7,
     type: 'hair-slide',
-    tag: 'HAIR LINE',
     heading: 'Hair Line',
     sub: 'Health, Growth & Lustre...assured',
     description: 'Complete hair care solutions for stronger, healthier, more lustrous hair. From root to tip, our formulas work to restore vitality, promote growth, and bring back natural shine.',
     image: HairCareImg,
-    video: SerumVideo,
     cta: 'SHOP NOW',
     targetPage: 'hair',
   },
@@ -236,7 +202,6 @@ function HeroSlider({ onNavigate }) {
               // Serums, Face Wash, Creams, Lips, Tattoo, Hair Slides
               <div className="hero__serums">
                 <div className="hero__serums-left">
-                  <span className="hero__tag">{slide.tag}</span>
                   <h1 className="hero__heading">{slide.heading}</h1>
                   <p className="hero__sub">{slide.sub}</p>
                   <p className="hero__description">{slide.description}</p>
@@ -248,15 +213,6 @@ function HeroSlider({ onNavigate }) {
                   </button>
                 </div>
                 <div className="hero__image-container">
-                  <div className="hero__serums-icon">
-                    <video
-                      src={slide.video}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                    />
-                  </div>
                   <div
                     className="hero__bg"
                     style={{
@@ -516,9 +472,9 @@ function LookBookSlider({ onNavigate, onAddToCart, allProducts, cart = [] }) {
       background: SmartSkinCareLookBook,
       category: 'Smart Skincare',
       products: [
-        { id: 1, img: SC1, name: 'YOUR SIMPLE ROUTINE: The Day Cream + The Night Cream + Lip Butter', price: 'Rs. 799.00' },
-        { id: 2, img: SC2, name: 'PERFECT COMPLEXION RITUAL: Pigment Control Serum + The Day Cream+ Complexion Cream + Smooth Perfection Serum', price: 'Rs. 999.00' },
-        { id: 3, img: SC3, name: 'RITUAL OF RADIANCE: Super Glow Serum 30 ml + The Day Cream + Radiance Cream 50 gram', price: 'Rs. 999.00' },
+        { id: 1, img: SC1, name: 'YOUR SIMPLE ROUTINE: The Day Cream + The Night Cream + Lip Butter', price: '₹ 799' },
+        { id: 2, img: SC2, name: 'PERFECT COMPLEXION RITUAL: Pigment Control Serum + The Day Cream+ Complexion Cream + Smooth Perfection Serum', price: '₹ 999' },
+        { id: 3, img: SC3, name: 'RITUAL OF RADIANCE: Super Glow Serum 30 ml + The Day Cream + Radiance Cream 50 gram', price: '₹ 999' },
       ]
     },
     {
@@ -526,9 +482,9 @@ function LookBookSlider({ onNavigate, onAddToCart, allProducts, cart = [] }) {
       background: FaceWashBG,
       category: 'Face Wash',
       products: [
-        { id: 10, img: SC10, name: 'Retinol 0.3%, Copper Tripeptide, Alpha Arbutin & Niacinamide: Wrinkles & Lines Cream 50 G', price: 'Rs. 449.00' },
-        { id: 11, img: SC11, name: 'Encapsulated Retinol 1.9%, Grape Seed Extract, & Ceramides : Lines & Wrinkles Serum 30 ml', price: 'Rs. 499.00' },
-        { id: 17, img: LC2, name: 'Lip Butter 15 Gram: Butters, Oils & Honey. NO CHEMICALS, NO PRESERVATIVES. NOT LIP BALM', price: 'From Rs. 165.00' },
+        { id: 10, img: SC10, name: 'Retinol 0.3%, Copper Tripeptide, Alpha Arbutin & Niacinamide: Wrinkles & Lines Cream 50 G', price: '₹ 449' },
+        { id: 11, img: SC11, name: 'Encapsulated Retinol 1.9%, Grape Seed Extract, & Ceramides : Lines & Wrinkles Serum 30 ml', price: '₹ 499' },
+        { id: 17, img: LC2, name: 'Lip Butter 15 Gram: Butters, Oils & Honey. NO CHEMICALS, NO PRESERVATIVES. NOT LIP BALM', price: 'From ₹ 165' },
       ]
     },
     {
@@ -536,9 +492,9 @@ function LookBookSlider({ onNavigate, onAddToCart, allProducts, cart = [] }) {
       background: HairCareLookBook,
       category: 'Hair Care',
       products: [
-        { id: 16, img: HairCareImg, name: 'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', price: 'Rs. 575.00' },
-        { id: 1, img: SC1, name: 'YOUR SIMPLE ROUTINE: The Day Cream + The Night Cream + Lip Butter', price: 'Rs. 799.00' },
-        { id: 3, img: SC3, name: 'RITUAL OF RADIANCE: Super Glow Serum 30 ml + The Day Cream + Radiance Cream 50 gram', price: 'Rs. 999.00' },
+        { id: 16, img: HairCareImg, name: 'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', price: '₹ 575' },
+        { id: 1, img: SC1, name: 'YOUR SIMPLE ROUTINE: The Day Cream + The Night Cream + Lip Butter', price: '₹ 799' },
+        { id: 3, img: SC3, name: 'RITUAL OF RADIANCE: Super Glow Serum 30 ml + The Day Cream + Radiance Cream 50 gram', price: '₹ 999' },
       ]
     },
   ]
