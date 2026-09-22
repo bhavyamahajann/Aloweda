@@ -5,7 +5,7 @@ import SuperGlowSerum from '../ProductDetailsImages/SuperGlowSerum.png'
 import TheNightCream from '../ProductDetailsImages/TheNightCream.png'
 
 // Slider Images
-import SerumSlider from '../assets/SECRUMslider.png'
+import SerumSlider from '../assets/serumSliderImage.png'
 import CreamSlider from '../assets/CreamSlider.png'
 import LipsSlider from '../assets/LipsSlider.png'
 import TattooCareSlider from '../assets/TattooButterslider.png'
