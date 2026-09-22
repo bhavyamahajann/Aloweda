@@ -13,7 +13,7 @@ export default function BuildRegimenCTA({ onNavigate }) {
         <div className="regimen-cta-content">
           <h2 className="regimen-cta-heading">Build Your Personalized Routine</h2>
           <p className="regimen-cta-description">
-            Answer a few simple questions and discover a skincare routine tailored to your skin's needs
+            Answer a few simple questions and discover a routine tailored to your skin's needs
           </p>
           <button className="regimen-cta-btn" onClick={handleClick}>
             Build My Routine →

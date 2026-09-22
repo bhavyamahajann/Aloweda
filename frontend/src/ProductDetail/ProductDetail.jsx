@@ -77,9 +77,8 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
       <div className="product-detail__container">
         {/* Left: Image Gallery / 3D Viewer */}
         <div className="product-gallery">
-          {viewMode === 'image' || !product.model3D ? (
-            <>
-              <div className="product-gallery__main">
+          {/* Image Gallery */}
+          <div className="product-gallery__main">
                 <img src={images[currentImageIndex]} alt={product.name} />
 
                 {images.length > 1 && (
@@ -97,17 +96,7 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
                   </>
                 )}
 
-                {/* 3D overlay button - only if this product has a 3D model */}
-                {product.model3D && (
-                  <button className="gallery-3d-overlay-btn" onClick={handle3DViewClick}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-                      <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-                      <line x1="12" y1="22.08" x2="12" y2="12" />
-                    </svg>
-                    View in 3D
-                  </button>
-                )}
+                {/* 3D View button removed */}
               </div>
 
               {/* Thumbnail Navigation */}
@@ -124,29 +113,6 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
                   ))}
                 </div>
               )}
-            </>
-          ) : (
-            load3DViewer && (
-              <div className="model-3d-wrapper">
-                <Suspense fallback={
-                  <div className="model-loading-overlay">
-                    <div className="model-spinner"></div>
-                    <p>Loading 3D Viewer...</p>
-                  </div>
-                }>
-                  <Model3DViewer modelPath={product.model3D} />
-                </Suspense>
-
-                {/* Back to photos overlay button */}
-                <button className="gallery-back-to-photos-btn" onClick={handleBackToPhotos}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M15 18l-6-6 6-6" />
-                  </svg>
-                  Photos
-                </button>
-              </div>
-            )
-          )}
         </div>
 
         {/* Right: Product Info */}

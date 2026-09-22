@@ -313,22 +313,37 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
                 </div>
               )}
 
-              {subtotal < 999 && (
-                <p className="free-shipping-note">
-                  Add ₹ {(999 - subtotal).toFixed(2)} more for FREE shipping!
-                </p>
-              )}
-
-              {totalItems === 2 && (
-                <p className="free-shipping-note" style={{color: '#ff6b6b'}}>
-                  🎁 Add 1 more item to get ₹70 Multi-Buy Discount!
-                </p>
+              {/* Buy More Save More Banner */}
+              {totalItems < 3 && (
+                <div className="buy-more-banner">
+                  <div className="buy-more-top">
+                    <span className="buy-more-icon">🛍️</span>
+                    <span className="buy-more-text">
+                      {totalItems === 0 && 'Add 3 items to get ₹70 off!'}
+                      {totalItems === 1 && 'Add 2 more items to get ₹70 off!'}
+                      {totalItems === 2 && 'Add 1 more item to get ₹70 off!'}
+                    </span>
+                    <span className="buy-more-badge">SAVE ₹70</span>
+                  </div>
+                  <div className="buy-more-progress-track">
+                    <div
+                      className="buy-more-progress-fill"
+                      style={{ width: `${Math.min((totalItems / 3) * 100, 100)}%` }}
+                    />
+                  </div>
+                  <div className="buy-more-steps">
+                    {[1, 2, 3].map(n => (
+                      <span key={n} className={`buy-more-step ${totalItems >= n ? 'reached' : ''}`}>{n} item{n > 1 ? 's' : ''}</span>
+                    ))}
+                  </div>
+                </div>
               )}
 
               {totalItems >= 3 && multiBuyDiscount > 0 && (
-                <p className="free-shipping-note" style={{color: '#28a745'}}>
-                  ✅ Multi-Buy Discount Applied! You saved ₹{multiBuyDiscount}
-                </p>
+                <div className="buy-more-unlocked">
+                  <span>✅</span>
+                  <span>Multi-Buy Discount Unlocked! You saved ₹{multiBuyDiscount}</span>
+                </div>
               )}
 
               {/* Premium Coupon Code Section */}
