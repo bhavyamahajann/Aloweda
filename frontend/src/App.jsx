@@ -31,7 +31,7 @@ import SC7  from './SkinCareImg/SkinCare7.jpg'
 import SC8  from './SkinCareImg/SkinCare8.jpg'
 import SC9  from './SkinCareImg/SkinCare9.jpg'
 import SC10 from './SkinCareImg/SkinCare10.jpg'
-import SC11 from './SkinCareImg/SkinCare11.jpg'
+import SC11 from './assets/lineandwrinkleserum.png'
 import SC12 from './SkinCareImg/SkinCare12.jpg'
 import SC13 from './SkinCareImg/SkinCare13.jpg'
 import SC14 from './SkinCareImg/SkinCare14.jpg'
@@ -52,9 +52,19 @@ import SaffronEssentialOilDetail from './ProductDetailsImages/SaffronEssentialOi
 import ComplexionCreamDetail from './ProductDetailsImages/ComplexionCream.png'
 import SuperGlowSerumDetail from './ProductDetailsImages/SuperGlowSerum.png'
 import PigmentControlSerumDetail from './ProductDetailsImages/PigmentControlSerum.png'
-import LinesWrinklesSerumDetail from './ProductDetailsImages/Lines&WrinklesSerum30ml.png'
+import PigmentSerum1Detail from './ProductDetailsImages/PigmentSerum1.png'
+import PigmentSerum2Detail from './ProductDetailsImages/PigmentSerum2.png'
+import PigmentSerum3Detail from './ProductDetailsImages/PigmentSerum3.png'
+import PigmentSerum4Detail from './ProductDetailsImages/PigmentSerum4.png'
+import PigmentSerum5Detail from './ProductDetailsImages/PigmentSerum5.png'
+import LinesWrinklesSerumDetail from './assets/lineandwrinkleserum.png'
 import ToneTextureSerumDetail from './ProductDetailsImages/Tone&TextureSerum30ml.png'
 import RadianceCreamDetail from './ProductDetailsImages/RadianceCream.png'
+import RadianceCream1Detail from './ProductDetailsImages/RadianceCream1.png'
+import RadianceCream2Detail from './ProductDetailsImages/RadianceCream2.png'
+import RadianceCream3Detail from './ProductDetailsImages/RadianceCream3.png'
+import RadianceCream4Detail from './ProductDetailsImages/RadianceCream4.png'
+import RadianceCream5Detail from './ProductDetailsImages/RadianceCream5.png'
 import SmoothPerfectionSerumDetail from './ProductDetailsImages/alowedasmoothperfectionserum.png'
 
 // All products database
@@ -176,7 +186,7 @@ const ALL_PRODUCTS = [
   { 
     id: 9, 
     img: PigmentControlSerumDetail, 
-    images: [PigmentControlSerumDetail], 
+    images: [PigmentControlSerumDetail, PigmentSerum1Detail, PigmentSerum2Detail, PigmentSerum3Detail, PigmentSerum4Detail, PigmentSerum5Detail], 
     name: 'Alpha Arbutin 2%, Aloe Vera Extract, Ceramides & Kojic Acid 1%: Pigment Control Serum 30 ml', 
     category: 'Serum', 
     keywords: 'alpha arbutin aloe vera ceramides kojic acid pigment control dark spots fades melasma blackheads blemishes clear skin brightening 45 days', 
@@ -195,7 +205,8 @@ const ALL_PRODUCTS = [
     name: 'Retinol 0.3%, Copper Tripeptide, Alpha Arbutin & Niacinamide: Wrinkles & Lines Cream 50 G', 
     category: 'Cream', 
     keywords: 'retinol copper tripeptide alpha arbutin niacinamide wrinkles lines anti aging youthful toned textured skin gotu kola avocado tuberose', 
-    price: '₹ 449', 
+    price: '₹ 549',
+    mrp: '₹ 599', 
     description: "Aloweda's Wrinkles & Lines Cream: For YOUTHFUL, TONED & TEXTURED SKIN.\n\nA high-performance advanced skin-correcting cream formulated to visibly reduce wrinkles, improve skin tone, and enhance overall radiance. Powered by retinol, it promotes cell turnover and helps smooth fine lines, while copper tripeptide-1 supports skin repair and boosts firmness.\n\nBrightening actives like alpha arbutin, niacinamide, and hydroquinone work together to reduce pigmentation, dark spots, and uneven tone for a clearer complexion. Enriched with nourishing oils such as argan, carrot, and avocado, the cream deeply moisturizes and revitalizes the skin, while hyaluronic acid and glycerine provide intense hydration and a plumping effect. Gotu kola and cucumber extracts help soothe and calm, while vitamin E and a multi vitamin complex offer antioxidant protection against environmental stress.\n\nWith a rich yet smooth texture and a subtle tuberose fragrance, this cream leaves the skin softer, firmer, and more luminous with continued use, making it ideal for comprehensive anti-ageing and skin brightening care.\n\nHow to Use: Apply a small, pea-sized amount to clean, dry skin. Gently massage until absorbed. Avoid the eye and lip area.\n\nWhen to Use: Night use only. Start with 2–3 times a week, then increase frequency gradually as skin tolerance builds.\n\nTip to Improve Effect: Use our The Day Cream for broad-spectrum sunscreen every morning while using this product. Avoid layering with other retinol, exfoliating acids, or strong actives unless advised. Patch test before first use.", 
     ingredients: 'Aqua, Retinol, Copper Tripeptide-1, Alpha Arbutin, Niacinamide, Gotu Kola Extract, Cetyl alcohol, Glyceryl mono stearate, Stearic Acid, Sodium Metabisulfite, glycerine, Carbomer, Ceteareth-20, Isopropyl myristate, Disodium EDTA, Avocado Extract, Argan oil, Carrot oil, Cucumber Extract, Vitamin E, Hyaluronic Acid, Retinol, Niacinamide, Hydroquinone, Calamine, Xylitol, Multi Vitamin Complex, Phenoxyethanol & Tuberose fragrance', 
     howToUse: 'Wash face with cold water. Apply over entire face & neck with upward circular motions at night. Allow your skin to absorb cream. Initially apply thrice a week, later as required. Night use only. Start with 2–3 times a week, then increase frequency gradually as skin tolerance builds. Use our The Day Cream for broad-spectrum sunscreen every morning while using this product. Avoid layering with other retinol, exfoliating acids, or strong actives unless advised. Patch test before first use.',
@@ -209,7 +220,8 @@ const ALL_PRODUCTS = [
     name: 'Encapsulated Retinol 1 %, Grape Seed Extract, & Ceramides : Lines & Wrinkles Serum 30 ml', 
     category: 'Serum', 
     keywords: 'retinol grape seed ceramides lines wrinkles anti aging serum renews youthful soothing encapsulated kojic acid aloe vera minimal irritation', 
-    price: '₹ 499', 
+    price: '₹ 549',
+    mrp: '₹ 599',
     description: "RENEWS. YOUTHFUL. SOOTHING.\n\nA gentle yet effective encapsulated retinol renewal Serum designed to smooth, hydrate, and brighten the skin with minimal irritation. Encapsulated retinol delivers a slow, controlled release to help reduce fine lines, improve texture, and support skin renewal, while kojic acid works to visibly reduce pigmentation and uneven tone.\n\nHydration and barrier support come from glycerine, sodium hyaluronate, and sodium PCA, helping to keep the skin plump and moisturized. Ceramide NP strengthens the skin barrier, while aloe vera extract and allantoin soothe and calm, making the formula suitable for regular use. Antioxidant-rich grape seed extract helps protect against environmental stress and supports overall skin health.\n\nWith a lightweight, smooth texture and quick absorption, this serum leaves the skin softer, clearer, and more radiant over time, making it ideal for modern anti-ageing and brightening care.\n\nHow to Use: Wash face with warm water. Pump out 5 to 10 drops in your palm & spread on your facial skin evenly with fingertip. DO NOT MASSAGE. Allow skin to absorb it completely in about 5 minutes. TO BE USED ONLY AT NIGHT SINCE RETINOL BECOMES INEFFECTIVE WHEN EXPOSED TO LIGHT.\n\nWhen to Use: Use at night only. Begin with alternate-night schedule for two weeks. Increase frequency gradually to every night as your skin's tolerance builds.", 
     ingredients: 'Aqua, Encapsulated Retinol, Grape Seed Extract, Ceramide NP, Aloe Vera Extract, Glycerine, Propanediol, Allantoin, Kojic Acid, Phenoxyethanol, Ethylhexylglycerine, Sodium Hyaluronate, Propylene Glycol, Sodium PCA, Xanthan Gum, Carbomer, Potassium Sorbate, Sodium Citrate & fragrance', 
     howToUse: "Wash face with warm water. Pump out 5 to 10 drops in your palm & spread on your facial skin evenly with fingertip. DO NOT MASSAGE. Allow skin to absorb it completely in about 5 minutes. TO BE USED ONLY AT NIGHT SINCE RETINOL BECOMES INEFFECTIVE WHEN EXPOSED TO LIGHT. Use at night only. Begin with alternate-night schedule for two weeks. Increase frequency gradually to every night as your skin's tolerance builds.",
@@ -249,7 +261,7 @@ const ALL_PRODUCTS = [
   { 
     id: 14, 
     img: RadianceCreamDetail, 
-    images: [RadianceCreamDetail], 
+    images: [RadianceCreamDetail, RadianceCream1Detail, RadianceCream2Detail, RadianceCream3Detail, RadianceCream4Detail, RadianceCream5Detail], 
     name: 'Vitamin C 20%, Kojic Acid, Avocado Extract & Argan Oil : Radiance Cream 50 G', 
     category: 'Cream', 
     keywords: 'vitamin c kojic acid avocado argan oil radiance brightening glow brighten moisturise clear complexion ascorbic acid aloe vera honey lactic acid', 
