@@ -184,7 +184,15 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount, on
           {/* This heading is now OUTSIDE every per-step conditional below,
               so it renders unconditionally for currentStep 1 through 7. */}
           <div className="options-content">
-            <p className="bundle-step-question">What are you looking for?</p>
+            <p className="bundle-step-question">
+              {currentStep === 1 && 'What are you looking for?'}
+              {currentStep === 2 && "What's your skin type?"}
+              {currentStep === 3 && 'What are your skin concerns?'}
+              {currentStep === 4 && 'What are your hair care goals?'}
+              {currentStep === 5 && 'What do you need for your lips?'}
+              {currentStep === 6 && 'Upload your photo (optional)'}
+              {currentStep === 7 && 'How can we reach you?'}
+            </p>
 
             {currentStep === 1 && (
               <BundleStep
