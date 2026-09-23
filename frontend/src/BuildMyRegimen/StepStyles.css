@@ -614,3 +614,14 @@
   }
 }
 
+
+/* Bundle step question label */
+.bundle-step-question {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #a67c52;
+  margin: 0 0 14px 4px;
+  font-family: 'Comfortaa', sans-serif;
+}

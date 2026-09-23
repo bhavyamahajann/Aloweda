@@ -12,9 +12,9 @@ import RecommendationResults from './RecommendationResults'
 import './BuildMyRegimen.css'
 
 const STEPS = [
-  { id: 1, label: 'Skin Concerns', title: 'What are your skin concerns?', subtitle: 'Select all that apply' },
-  { id: 2, label: 'Routine Type', title: 'Choose your routine type', subtitle: 'What kind of skincare routine are you looking for?' },
-  { id: 3, label: 'Skin Type', title: "What's your skin type?", subtitle: 'Select the one that best describes your skin' },
+  { id: 1, label: 'Get Started', title: 'Choose your routine type', subtitle: 'What kind of skincare routine are you looking for?' },
+  { id: 2, label: 'Skin Type', title: "What's your skin type?", subtitle: 'Select the one that best describes your skin' },
+  { id: 3, label: 'Skin Concerns', title: 'What are your skin concerns?', subtitle: 'Select all that apply' },
   { id: 4, label: 'Hair Care', title: 'Do you need hair care products?', subtitle: 'Select your hair concerns' },
   { id: 5, label: 'Lip Care', title: 'Do you need lip care products?', subtitle: 'Select your lip concerns' },
   { id: 6, label: 'Photo (Optional)', title: 'Upload a photo', subtitle: 'Optional — helps us understand your skin better' },
@@ -103,11 +103,11 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount, on
   const canProceed = () => {
     switch (currentStep) {
       case 1:
-        return formData.skinConcerns.length > 0
-      case 2:
         return formData.bundle !== ''
-      case 3:
+      case 2:
         return formData.skinType !== ''
+      case 3:
+        return formData.skinConcerns.length > 0
       case 4:
         return true // Hair care is optional
       case 5:
@@ -181,25 +181,29 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount, on
 
         {/* Right Side - Options */}
         <div className="options-panel">
+          {/* This heading is now OUTSIDE every per-step conditional below,
+              so it renders unconditionally for currentStep 1 through 7. */}
           <div className="options-content">
-            {currentStep === 1 && (
-              <SkinCareStep
-                selected={formData.skinConcerns}
-                onSelect={(concerns) => updateFormData('skinConcerns', concerns)}
-              />
-            )}
+            <p className="bundle-step-question">What are you looking for?</p>
 
-            {currentStep === 2 && (
+            {currentStep === 1 && (
               <BundleStep
                 selected={formData.bundle}
                 onSelect={(bundle) => updateFormData('bundle', bundle)}
               />
             )}
 
-            {currentStep === 3 && (
+            {currentStep === 2 && (
               <SkinTypeStep
                 selected={formData.skinType}
                 onSelect={(skinType) => updateFormData('skinType', skinType)}
+              />
+            )}
+
+            {currentStep === 3 && (
+              <SkinCareStep
+                selected={formData.skinConcerns}
+                onSelect={(concerns) => updateFormData('skinConcerns', concerns)}
               />
             )}
 

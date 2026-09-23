@@ -111,7 +111,7 @@ const slides = [
   {
     id: 7,
     type: 'hair-slide',
-    heading: 'Hair Line',
+    heading: 'Hair Care',
     sub: 'Health, Growth & Lustre...assured',
     description: 'Complete hair care solutions for stronger, healthier, more lustrous hair. From root to tip, our formulas work to restore vitality, promote growth, and bring back natural shine.',
     image: HairCareSlider,
@@ -658,7 +658,6 @@ export default function HomePage({ onNavigate, onLoginClick, cartCount, onAddToC
         <Categories onNavigate={onNavigate} />
         <WhyAloweda />
         <OurValues />
-        <FeatureList onNavigate={onNavigate} />
         <Testimonials />
       </main>
       <Footer onLoginClick={onLoginClick} />

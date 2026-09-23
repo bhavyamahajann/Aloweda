@@ -311,6 +311,22 @@ export default function AllProductsPage({ onNavigate, searchQuery, onLoginClick 
         )}
       </div>
 
+      {/* Build Your Routine Banner */}
+      <div className="build-routine-banner">
+        <div className="build-routine-banner__inner">
+          <h2 className="build-routine-banner__title">Build Your Personalized Routine</h2>
+          <p className="build-routine-banner__subtitle">
+            Answer a few simple questions and discover a routine tailored to your needs
+          </p>
+          <button
+            className="build-routine-banner__btn"
+            onClick={() => onNavigate && onNavigate('build-my-regimen')}
+          >
+            Take the Quiz →
+          </button>
+        </div>
+      </div>
+
       <Footer onLoginClick={onLoginClick} />
     </div>
   )
