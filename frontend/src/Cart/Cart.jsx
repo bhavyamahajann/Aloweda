@@ -124,8 +124,8 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
 
   const handleCheckout = () => {
     // Check if total items exceed limit
-    if (totalItems > 4) {
-      alert('⚠️ Maximum 4 items allowed per order!\n\nYou currently have ' + totalItems + ' items in cart.\nPlease reduce the quantity to proceed to checkout.')
+    if (totalItems > 5) {
+      alert('⚠️ Maximum 5 items allowed per order!\n\nYou currently have ' + totalItems + ' items in cart.\nPlease reduce the quantity to proceed to checkout.')
       return
     }
     
@@ -141,7 +141,7 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
         <div className="cart-header">
           <h1 style={{ color: '#2c2416', fontSize: '2.5rem' }}>Shopping Cart</h1>
           <p style={{ color: '#6b5f4e' }}>{safeCart.length} {safeCart.length === 1 ? 'item' : 'items'} ({totalItems} total quantity)</p>
-          {totalItems > 4 && (
+          {totalItems > 5 && (
             <div style={{
               background: '#fff3cd',
               border: '1px solid #ffc107',
@@ -151,7 +151,7 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
               fontSize: '13px',
               color: '#856404'
             }}>
-              ⚠️ <strong>Maximum 4 items per order.</strong> Please reduce quantity to checkout.
+              ⚠️ <strong>Maximum 5 items per order.</strong> Please reduce quantity to checkout.
             </div>
           )}
         </div>
@@ -211,17 +211,17 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
                       <span>{item.quantity}</span>
                       <button 
                         onClick={() => {
-                          if (totalItems >= 4) {
-                            alert('⚠️ Maximum 4 items allowed per order!\n\nYou already have 4 items in cart.')
+                          if (totalItems >= 5) {
+                            alert('⚠️ Maximum 5 items allowed per order!\n\nYou already have 5 items in cart.')
                             return
                           }
                           onUpdateQuantity(item.id, item.quantity + 1)
                         }}
                         aria-label="Increase"
-                        disabled={totalItems >= 4}
+                        disabled={totalItems >= 5}
                         style={{
-                          opacity: totalItems >= 4 ? 0.5 : 1,
-                          cursor: totalItems >= 4 ? 'not-allowed' : 'pointer'
+                          opacity: totalItems >= 5 ? 0.5 : 1,
+                          cursor: totalItems >= 5 ? 'not-allowed' : 'pointer'
                         }}
                       >
                         +
@@ -525,7 +525,7 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
                 <span>₹ {total.toFixed(2)}</span>
               </div>
 
-              {totalItems > 4 && (
+              {totalItems > 5 && (
                 <div style={{
                   background: '#fff3cd',
                   border: '2px solid #ffc107',
@@ -538,7 +538,7 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
                     ⚠️ Order Limit Exceeded
                   </strong>
                   <span style={{color: '#856404', fontSize: '13px'}}>
-                    You have {totalItems} items. Maximum 4 items allowed per order.
+                    You have {totalItems} items. Maximum 5 items allowed per order.
                     <br />
                     Please reduce quantity to checkout.
                   </span>
@@ -653,13 +653,13 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
               <button 
                 className="checkout-btn" 
                 onClick={handleCheckout}
-                disabled={totalItems > 4}
+                disabled={totalItems > 5}
                 style={{
-                  opacity: totalItems > 4 ? 0.5 : 1,
-                  cursor: totalItems > 4 ? 'not-allowed' : 'pointer'
+                  opacity: totalItems > 5 ? 0.5 : 1,
+                  cursor: totalItems > 5 ? 'not-allowed' : 'pointer'
                 }}
               >
-                {totalItems > 4 ? '⚠️ Reduce Items to Checkout' : 'Proceed to Checkout'}
+                {totalItems > 5 ? '⚠️ Reduce Items to Checkout' : 'Proceed to Checkout'}
               </button>
 
               <button className="continue-shopping-btn" onClick={() => onNavigate('shop')}>
