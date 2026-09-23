@@ -33,9 +33,29 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
     }
   }, 0)
 
-  // Multi-buy discount (3+ items get ₹70 off)
+  // Total items
   const totalItems = safeCart.reduce((sum, item) => sum + (item.quantity || 1), 0)
-  const multiBuyDiscount = totalItems >= 3 ? 70 : 0
+
+  // Serum Multi-Pack Offer: 3 serums = ₹999, 4 = ₹1299, 5 = ₹1599
+  const SERUM_BUNDLE_PRICES = { 3: 999, 4: 1299, 5: 1599 }
+  const totalSerums = safeCart.reduce((sum, item) => {
+    if (item.category === 'Serum') return sum + (item.quantity || 1)
+    return sum
+  }, 0)
+  const serumSubtotal = safeCart.reduce((sum, item) => {
+    if (item.category === 'Serum') {
+      try {
+        const price = parseFloat(item.price.replace(/[^0-9.]/g, ''))
+        return sum + price * (item.quantity || 1)
+      } catch { return sum }
+    }
+    return sum
+  }, 0)
+  const serumBundlePrice = SERUM_BUNDLE_PRICES[totalSerums] || null
+  const serumBundleDiscount = serumBundlePrice !== null ? Math.max(0, serumSubtotal - serumBundlePrice) : 0
+
+  // Multi-buy discount (3+ items get ₹70 off) — only applies when serum bundle offer is NOT active
+  const multiBuyDiscount = totalItems >= 3 && serumBundleDiscount === 0 ? 70 : 0
 
   // Online payment discount (10% if online payment selected)
   const onlinePaymentDiscount = paymentMethod === 'online' ? subtotal * 0.10 : 0
@@ -45,7 +65,7 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
 
   const bundleDiscount = appliedBundle ? parseFloat(appliedBundle.discount) || 0 : 0
   const shipping = subtotal > 999 ? 0 : 50
-  const total = subtotal - bundleDiscount - multiBuyDiscount - onlinePaymentDiscount - couponDiscount + shipping
+  const total = subtotal - bundleDiscount - multiBuyDiscount - serumBundleDiscount - onlinePaymentDiscount - couponDiscount + shipping
 
   // Debug logs
   console.log('=== CART CALCULATION DEBUG ===');
@@ -243,6 +263,14 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
                 <span>₹ {subtotal.toFixed(2)}</span>
               </div>
 
+              {/* Serum Bundle Discount */}
+              {serumBundleDiscount > 0 && (
+                <div className="summary-row discount" style={{color: '#28a745', fontWeight: 'bold'}}>
+                  <span>🌿 Serum Pack Offer ({totalSerums} Serums @ ₹{serumBundlePrice})</span>
+                  <span style={{color: '#dc3545'}}>- ₹ {serumBundleDiscount.toFixed(2)}</span>
+                </div>
+              )}
+
               {/* Multi-buy Discount */}
               {multiBuyDiscount > 0 && (
                 <div className="summary-row discount" style={{color: '#28a745', fontWeight: 'bold'}}>
@@ -298,7 +326,7 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
                 <span>{shipping === 0 ? 'FREE' : `₹ ${shipping}`}</span>
               </div>
 
-              {(bundleDiscount > 0 || multiBuyDiscount > 0 || onlinePaymentDiscount > 0 || couponDiscount > 0) && (
+              {(bundleDiscount > 0 || multiBuyDiscount > 0 || onlinePaymentDiscount > 0 || couponDiscount > 0 || serumBundleDiscount > 0) && (
                 <div style={{
                   background: 'linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%)',
                   padding: '12px',
@@ -308,8 +336,49 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
                   border: '2px solid #28a745'
                 }}>
                   <strong style={{color: '#155724', fontSize: '14px'}}>
-                    🎉 You're saving ₹{(bundleDiscount + multiBuyDiscount + onlinePaymentDiscount + couponDiscount).toFixed(2)}!
+                    🎉 You're saving ₹{(bundleDiscount + multiBuyDiscount + serumBundleDiscount + onlinePaymentDiscount + couponDiscount).toFixed(2)}!
                   </strong>
+                </div>
+              )}
+
+              {/* Serum Multi-Pack Offer Banner */}
+              {totalSerums > 0 && totalSerums < 3 && (
+                <div className="buy-more-banner" style={{marginBottom: '10px'}}>
+                  <div className="buy-more-top">
+                    <span className="buy-more-icon">🌿</span>
+                    <span className="buy-more-text">
+                      {totalSerums === 1 && 'Add 2 more serums — get all 3 for ₹999!'}
+                      {totalSerums === 2 && 'Add 1 more serum — get all 3 for ₹999!'}
+                    </span>
+                    <span className="buy-more-badge">SERUM OFFER</span>
+                  </div>
+                  <div className="buy-more-progress-track">
+                    <div
+                      className="buy-more-progress-fill"
+                      style={{ width: `${Math.min((totalSerums / 3) * 100, 100)}%` }}
+                    />
+                  </div>
+                  <div className="buy-more-steps">
+                    {[1, 2, 3].map(n => (
+                      <span key={n} className={`buy-more-step ${totalSerums >= n ? 'reached' : ''}`}>{n} serum{n > 1 ? 's' : ''}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {serumBundleDiscount > 0 && (
+                <div className="buy-more-unlocked" style={{marginBottom: '10px'}}>
+                  <span>✅</span>
+                  <span>🌿 Serum Pack Offer Unlocked! {totalSerums} serums @ ₹{serumBundlePrice}</span>
+                </div>
+              )}
+              {totalSerums >= 3 && totalSerums < 5 && SERUM_BUNDLE_PRICES[totalSerums + 1] && (
+                <div className="buy-more-banner" style={{marginBottom: '10px', background: 'linear-gradient(135deg, #fff8f0 0%, #fdebd0 100%)', border: '1px dashed #e67e22'}}>
+                  <div className="buy-more-top">
+                    <span className="buy-more-icon">➕</span>
+                    <span className="buy-more-text" style={{color: '#e67e22'}}>
+                      Add 1 more serum — get {totalSerums + 1} for ₹{SERUM_BUNDLE_PRICES[totalSerums + 1]}!
+                    </span>
+                  </div>
                 </div>
               )}
 
