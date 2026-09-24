@@ -6,7 +6,7 @@ import TheNightCream from '../ProductDetailsImages/TheNightCream.png'
 
 // Slider Images
 import SerumSlider from '../assets/serumSliderImage.png'
-import CreamSlider from '../assets/CreamSlider.png'
+import CreamSlider from '../assets/CreamSliderImage.png'
 import LipsSlider from '../assets/LipsSlider.png'
 import TattooCareSlider from '../assets/TattooButterslider.png'
 import HairCareSlider from '../assets/HairCareslider.png'
