@@ -278,7 +278,7 @@ const ALL_PRODUCTS = [
     name: 'Anti Acne Face wash: 100 ml, Salicylic Acid 2% for Oily & Acne Prone Skin', 
     category: 'Face Wash', 
     keywords: 'anti acne face wash salicylic acid oily acne prone cleanser panthenol turmeric neem vitamin e glycerine pimples scarring ph balance', 
-    price: '₹ 185',
+    price: '₹ 225',
     model3D: '/models/AlowedaAntiAcneFac.glb', 
     description: "Description: This face wash has Salicylic Acid 2% with Panthenol (Vitamin B3), Turmeric and Neem extract with Vitamin E and Glycerine to help prevent bouts of pimples, treat pimples when active & help prevent scarring. It's good for all skin types particularly for those who have proneness for acne as it helps maintain skin pH, reduce oil, remove dead Cells and opens clogged pores. Its very gentle and will cause no irritation to the skin. However, you may want to do a skin test.\n\nIngredients: Salicylic acid 2%, Panthenol (B3), Turmeric Extract, Neem Extract, Citric Acid, Vitamin E and Glycerine in face wash base.\n\nTheir Role: Salicylic Acid 2% with Panthenol (Vitamin B3), Turmeric and Neem extract with Vitamin E and Glycerine help prevent bout of pimples, treat pimples quickly before scarring. It's good for all skin types particularly for those who have proneness for acne as it helps maintain skin pH, reduce oil, remove dead Cells and open clogged pores. Its very gentle and will cause no irritation to the skin.\n\nRecommended use: Squeeze small amount in your palm, lather with water and apply gently on your face. Allow it to act for 3-5 minutes. Rinse with water. Use twice or thrice a day.", 
     ingredients: 'Salicylic acid 2%, Turmeric Extract, Neem Extract, Citric Acid, Vitamin E and Glycerine in face wash base, Panthenol (Vitamin B3)', 
