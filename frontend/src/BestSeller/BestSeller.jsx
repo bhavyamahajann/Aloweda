@@ -10,17 +10,17 @@ import SC2 from '../SkinCareImg/SkinCare2.png'
 import SC3 from '../SkinCareImg/SkinCare3.jpg'
 import SC8 from '../SkinCareImg/SkinCare8.jpg'
 import SC12 from '../SkinCareImg/SkinCare12.jpg'
-import HairCareImg from '../assets/HairCare.png'
-import LipCareImg from '../assets/LipCare.png'
-import SmartSkinCareImg from '../assets/SmartSkinCare.png'
+import HairCareImg from '../assets/HairCareFeaturedList.png'
+import LipCareImg from '../assets/FeaturedListLipCare.jpg'
+import SmartSkinCareImg from '../assets/FeaturedListSkinCare.png'
 
 const BEST_SELLER_PRODUCTS = [
-  { id: 1, img: SC1, name: 'YOUR SIMPLE ROUTINE: The Day Cream + The Night Cream + Lip Butter', category: 'Combo', price: '₹ 799', tag: 'Best Seller' },
-  { id: 2, img: SC2, name: 'PERFECT COMPLEXION RITUAL: Pigment Control Serum + The Day Cream + Complexion Cream + Smooth Perfection Serum', category: 'Combo', price: '₹ 1,299', mrp: '₹ 1,599', tag: 'Best Seller' },
-  { id: 3, img: SC3, name: 'RITUAL OF RADIANCE: Super Glow Serum 30 ml + The Day Cream + Radiance Cream 50 gram', category: 'Combo', price: '₹ 999', tag: 'Best Seller' },
-  { id: 8, img: SC8, name: 'Vitamin C 15%, Niacinamide 5%, Hyaluronic Acid & Ferulic Acid 1% Serum 30 ml for Super Glow', category: 'Serum', price: '₹ 649', mrp: '₹ 699', tag: 'Best Seller' },
-  { id: 12, img: SC12, name: 'Niacinamide 10 %, Acetyl Glucosamine & Ceramides: Tone & Texture Serum 30 ml', category: 'Serum', price: '₹ 375', mrp: '₹ 545', tag: 'Best Seller' },
-  { id: 16, img: HairCareImg, name: 'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', category: 'Hair Serum', price: '₹ 575', tag: 'Best Seller' },
+  { id: 1,  img: SC1,  name: 'YOUR SIMPLE ROUTINE: The Day Cream + The Night Cream + Lip Butter', category: 'Combo', price: 'Rs. 899.00', mrp: 'Rs. 1,199.00', tag: 'Best Seller' },
+  { id: 2,  img: SC2,  name: 'PERFECT COMPLEXION RITUAL: Pigment Control Serum + The Day Cream + Complexion Cream + Smooth Perfection Serum', category: 'Combo', price: 'Rs. 1,299.00', mrp: 'Rs. 1,599.00', tag: 'Best Seller' },
+  { id: 3,  img: SC3,  name: 'RITUAL OF RADIANCE: Super Glow Serum 30 ml + The Day Cream + Radiance Cream 50 gram', category: 'Combo', price: 'Rs. 1,149.00', mrp: 'Rs. 1,299.00', tag: 'Best Seller' },
+  { id: 8,  img: SC8,  name: 'Vitamin C 15%, Niacinamide 5%, Hyaluronic Acid & Ferulic Acid 1% Serum 30 ml for Super Glow', category: 'Serum', price: 'Rs. 649.00', mrp: 'Rs. 699.00', tag: 'Best Seller' },
+  { id: 12, img: SC12, name: 'Niacinamide 10 %, Acetyl Glucosamine & Ceramides 30 ml Serum for Tone & Texture', category: 'Serum', price: 'Rs. 599.00', mrp: 'Rs. 649.00', tag: 'Best Seller' },
+  { id: 16, img: HairCareImg, name: 'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', category: 'Hair Serum', price: 'Rs. 875.00', mrp: 'Rs. 975.00', tag: 'Best Seller' },
 ]
 
 const HERO_ITEMS = [

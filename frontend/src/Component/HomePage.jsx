@@ -8,7 +8,7 @@ import TheNightCream from '../ProductDetailsImages/TheNightCream.png'
 import SerumSlider from '../assets/serumSliderImage.png'
 import CreamSlider from '../assets/CreamSliderImage.png'
 import LipsSlider from '../assets/LipsSlider.png'
-import TattooCareSlider from '../assets/TattooButterslider.png'
+import TattooCareSlider from '../assets/tattoobutterSliderImg.png'
 import HairCareSlider from '../assets/HairCareslider.png'
 
 // Category Images
@@ -73,6 +73,7 @@ const slides = [
     type: 'creams-slide',
     heading: 'Creams',
     sub: 'Do not massage, they melt!',
+    subLine: 'Allow them to melt into your skin',
     description: 'Our creams are designed to melt into your skin effortlessly. Rich, nourishing formulas that provide deep hydration without feeling heavy. Just apply and let them work their magic.',
     image: CreamSlider,
     cta: 'SHOP NOW',
@@ -91,7 +92,7 @@ const slides = [
   {
     id: 5,
     type: 'lips-slide',
-    heading: 'Lips',
+    heading: 'Lip Care',
     sub: 'No to Chemicals. Yes to Botanical butters, oils & Vitamins',
     description: 'Pure, natural lip care with botanical butters and nourishing oils. Zero chemicals, zero preservatives. Just nature\'s best ingredients to keep your lips soft, smooth, and healthy.',
     image: LipsSlider,
@@ -216,6 +217,7 @@ function HeroSlider({ onNavigate }) {
                 <div className="hero__serums-left">
                   <h1 className="hero__heading">{slide.heading}</h1>
                   <p className="hero__sub">{slide.sub}</p>
+                  {slide.subLine && <p className="hero__sub-line">{slide.subLine}</p>}
                   <p className="hero__description">{slide.description}</p>
                   <button
                     className="btn btn--dark"
@@ -229,6 +231,14 @@ function HeroSlider({ onNavigate }) {
                     className="hero__bg"
                     style={{
                       backgroundImage: `url(${slide.image})`,
+                      ...(slide.type === 'tattoo-slide' && {
+                        width: '60%',
+                        maxWidth: '400px',
+                        backgroundSize: 'contain',
+                        backgroundPosition: 'center',
+                        marginLeft: 'auto',
+                        marginRight: '40px',
+                      })
                     }}
                   />
                 </div>

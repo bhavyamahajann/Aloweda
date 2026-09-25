@@ -6,19 +6,21 @@ import BundleStep from './BundleStep'
 import SkinTypeStep from './SkinTypeStep'
 import HairCareStep from './HairCareStep'
 import LipCareStep from './LipCareStep'
+import TattooCareStep from './TattooCareStep'
 import PhotoUploadStep from './PhotoUploadStep'
 import ConsultationStep from './ConsultationStep'
 import RecommendationResults from './RecommendationResults'
 import './BuildMyRegimen.css'
 
 const STEPS = [
-  { id: 1, label: 'Get Started', title: 'Choose your routine type', subtitle: 'What kind of skincare routine are you looking for?' },
-  { id: 2, label: 'Skin Type', title: "What's your skin type?", subtitle: 'Select the one that best describes your skin' },
-  { id: 3, label: 'Skin Concerns', title: 'What are your skin concerns?', subtitle: 'Select all that apply' },
-  { id: 4, label: 'Hair Care', title: 'Do you need hair care products?', subtitle: 'Select your hair concerns' },
-  { id: 5, label: 'Lip Care', title: 'Do you need lip care products?', subtitle: 'Select your lip concerns' },
-  { id: 6, label: 'Photo (Optional)', title: 'Upload a photo', subtitle: 'Optional — helps us understand your skin better' },
-  { id: 7, label: 'Contact Details', title: 'Your contact details', subtitle: "We'll send your personalized routine to your email" }
+  { id: 1, label: 'Get Started',       title: 'Choose your routine type',           subtitle: 'What kind of skincare routine are you looking for?' },
+  { id: 2, label: 'Skin Type',          title: "What's your skin type?",             subtitle: 'Select the one that best describes your skin' },
+  { id: 3, label: 'Skin Concerns',      title: 'What are your skin concerns?',       subtitle: 'Select all that apply' },
+  { id: 4, label: 'Hair Care',          title: 'Do you need hair care products?',    subtitle: 'Select your hair concerns' },
+  { id: 5, label: 'Lip Care',           title: 'Do you need lip care products?',     subtitle: 'Select your lip concerns' },
+  { id: 6, label: 'Tattoo Care',        title: 'Do you have a tattoo?',              subtitle: 'Select your tattoo concerns, or skip if not applicable' },
+  { id: 7, label: 'Photo (Optional)',   title: 'Upload a photo',                     subtitle: 'Optional — helps us understand your skin better' },
+  { id: 8, label: 'Contact Details',    title: 'Your contact details',               subtitle: "We'll send your personalized routine to your email" }
 ]
 
 function CheckIcon() {
@@ -38,6 +40,7 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount, on
     skinType: '',
     hairConcerns: [],
     lipConcerns: [],
+    tattooConcerns: [],
     photo: null,
     consultation: {
       name: '',
@@ -113,8 +116,10 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount, on
       case 5:
         return true // Lip care is optional
       case 6:
-        return true // Photo is optional
+        return true // Tattoo care is optional
       case 7:
+        return true // Photo is optional
+      case 8:
         return (
           formData.consultation.name &&
           formData.consultation.email &&
@@ -190,8 +195,9 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount, on
               {currentStep === 3 && 'What are your skin concerns?'}
               {currentStep === 4 && 'What are your hair care goals?'}
               {currentStep === 5 && 'What do you need for your lips?'}
-              {currentStep === 6 && 'Upload your photo (optional)'}
-              {currentStep === 7 && 'How can we reach you?'}
+              {currentStep === 6 && 'Do you have a tattoo?'}
+              {currentStep === 7 && 'Upload your photo (optional)'}
+              {currentStep === 8 && 'How can we reach you?'}
             </p>
 
             {currentStep === 1 && (
@@ -230,13 +236,20 @@ export default function BuildMyRegimen({ onNavigate, onLoginClick, cartCount, on
             )}
 
             {currentStep === 6 && (
+              <TattooCareStep
+                selected={formData.tattooConcerns}
+                onSelect={(concerns) => updateFormData('tattooConcerns', concerns)}
+              />
+            )}
+
+            {currentStep === 7 && (
               <PhotoUploadStep
                 photo={formData.photo}
                 onPhotoChange={(photo) => updateFormData('photo', photo)}
               />
             )}
 
-            {currentStep === 7 && (
+            {currentStep === 8 && (
               <ConsultationStep
                 data={formData.consultation}
                 onChange={updateConsultation}

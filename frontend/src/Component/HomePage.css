@@ -1737,3 +1737,22 @@
     font-size: 13px;
   }
 }
+
+/* Tattoo Butter Slider — smaller contained image */
+.hero__slide--serums.tattoo-slide-active .hero__bg,
+[data-slide-type="tattoo-slide"] .hero__bg {
+  width: 65%;
+  max-width: 420px;
+  background-size: contain;
+  background-position: center right;
+  margin-left: auto;
+}
+
+/* Sub-line below main sub heading */
+.hero__sub-line {
+  font-size: 15px;
+  color: #4a5d43;
+  font-weight: 600;
+  margin: -8px 0 12px;
+  font-style: italic;
+}

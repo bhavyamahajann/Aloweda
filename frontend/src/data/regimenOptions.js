@@ -10,6 +10,7 @@ export const skinConcerns = [
   { id: 'sensitive', label: 'Sensitive Skin & Redness' },
   { id: 'texture', label: 'Uneven Skin Texture' },
   { id: 'sundamage', label: 'Sun Damage' },
+  { id: 'puffiness', label: 'Puffiness & Dark Circles' },
   { id: 'general', label: 'General Skin Health' }
 ]
 
@@ -69,6 +70,7 @@ export const hairConcerns = [
   { id: 'splitends', label: 'Split Ends' },
   { id: 'lackofgrowth', label: 'Lack of Growth' },
   { id: 'dullhair', label: 'Dull & Lifeless Hair' },
+  { id: 'earlygreying', label: 'Early Greying of Hair' },
   { id: 'none', label: 'No Hair Concerns' }
 ]
 
@@ -78,5 +80,15 @@ export const lipConcerns = [
   { id: 'peeling', label: 'Peeling & Cracked Lips' },
   { id: 'lackofmoisture', label: 'Lack of Moisture' },
   { id: 'finelines', label: 'Fine Lines on Lips' },
+  { id: 'ulcers', label: 'Ulcers on Lips' },
   { id: 'none', label: 'No Lip Concerns' }
+]
+
+export const tattooConcerns = [
+  { id: 'fadingink', label: 'Fading Ink' },
+  { id: 'itching', label: 'Itching & Irritation' },
+  { id: 'dryness', label: 'Dryness & Peeling' },
+  { id: 'notHealing', label: 'Not Healing Properly' },
+  { id: 'colorsFading', label: 'Colours Are Fading' },
+  { id: 'none', label: 'No Tattoo Concerns' }
 ]

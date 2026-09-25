@@ -11,9 +11,18 @@ export const concernToProducts = {
   sensitive: ['day-cream', 'saffron-oil'],
   texture: ['tone-texture', 'radiance-cream'],
   sundamage: ['day-cream', 'super-glow'],
+  puffiness: ['super-glow', 'day-cream', 'radiance-cream'],
   general: ['day-cream', 'super-glow', 'saffron-oil'],
   lipcare: ['lip-butter'],
-  haircare: ['hair-serum']
+  ulcers: ['lip-butter'],
+  haircare: ['hair-serum'],
+  earlygreying: ['hair-serum'],
+  // Tattoo concerns
+  'fadingink': ['tattoo-cleanser', 'tattoo-butter'],
+  'itching': ['tattoo-cleanser', 'tattoo-butter'],
+  'dryness': ['tattoo-butter', 'tattoo-cleanser'],
+  'notHealing': ['tattoo-cleanser', 'tattoo-butter'],
+  'colorsFading': ['tattoo-butter', 'tattoo-cleanser'],
 }
 
 export const bundleToProducts = {
@@ -89,7 +98,7 @@ export const productDatabase = {
     size: '50 G',
     ingredients: 'Petroleum-free formula',
     purpose: 'Keeps ink vibrant and skin moisturised',
-    routine: 'special'
+    routine: 'tattoo'
   },
   'lip-butter': {
     id: 17, // Lip Butter 8g - CORRECTED ID
@@ -100,12 +109,28 @@ export const productDatabase = {
     routine: 'special'
   },
   'hair-serum': {
-    id: 16, // Hair Therapy Serum - CORRECTED ID
+    id: 16,
     name: 'Total Hair Therapy Serum',
     size: '50 ml',
     ingredients: 'Redensyl 5%, Anagain 5% & Biotin',
     purpose: 'Hair growth, strength and healthy shine',
     routine: 'special'
+  },
+  'tattoo-cleanser': {
+    id: 19,
+    name: 'Tattoo Cleanser 100 ml',
+    size: '100 ml',
+    ingredients: 'Orange, Lemon & Tangerine Extracts, Aloe Vera, Vitamin E',
+    purpose: 'Gently cleanses tattooed skin, removes impurities without stripping moisture',
+    routine: 'tattoo'
+  },
+  'tattoo-butter': {
+    id: 20,
+    name: 'Tattoo Butter 50 Grams',
+    size: '50 G',
+    ingredients: 'Shea, Cocoa, Mango & Kokum Butter, Beeswax, Fig Honey',
+    purpose: 'Nourishes & protects tattooed skin, preserves ink vibrancy',
+    routine: 'tattoo'
   },
   'glow-ritual-kit': {
     id: 10, // Glow Ritual Kit

@@ -53,6 +53,17 @@
 .navbar__link--arrow { display: flex; align-items: center; gap: 4px; }
 .arrow { font-size: 10px; opacity: 0.6; }
 
+/* Tattoo Quiz — subtle ink-dark accent */
+.navbar__link--tattoo {
+  color: var(--text-dark);
+}
+.navbar__link--tattoo::after {
+  background: #4a5d43;
+}
+.navbar__link--tattoo:hover {
+  color: #4a5d43;
+}
+
 /* Dropdown */
 .navbar__dropdown-wrap { position: relative; }
 .navbar__dropdown {
