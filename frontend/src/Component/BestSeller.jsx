@@ -28,7 +28,7 @@ import LC2 from '../LipCareImg/LipCare2.jpg'
 const productsByTab = {
   skincare: [
     { id:1,  img: SC1,  name: 'YOUR SIMPLE ROUTINE: The Day Cream + The Night Cream + Lip Butter',                                            price: '₹ 799', mrp: '',        tag: 'Best Seller' },
-    { id:2,  img: SC2,  name: 'PERFECT COMPLEXION RITUAL: Pigment Control Serum + The Day Cream + Complexion Cream + Smooth Perfection Serum', price: '₹ 999', mrp: '',        tag: 'Best Seller' },
+    { id:2,  img: SC2,  name: 'PERFECT COMPLEXION RITUAL: Pigment Control Serum + The Day Cream + Complexion Cream + Smooth Perfection Serum', price: '₹ 1,299', mrp: '₹ 1,599', tag: 'Best Seller' },
     { id:3,  img: SC3,  name: 'RITUAL OF RADIANCE: Super Glow Serum 30 ml + The Day Cream + Radiance Cream 50 gram',                          price: '₹ 999', mrp: '',        tag: 'Best Seller' },
     { id:4,  img: SC4,  name: 'Hyaluronic Acid, SPF 30 & Vitamin E : The Day Cream 50 G',                                                     price: '₹ 249', mrp: '',        tag: 'Best Seller' },
     { id:5,  img: SC5,  name: 'Retinol 1%, Niacinamide 10 %, Aloe Vera Extract & Carrot oil: The Night Cream 50 G',                           price: '₹ 549', mrp: '₹ 599',  tag: 'Best Seller', model3D: '/models/TheNightCream.glb' },

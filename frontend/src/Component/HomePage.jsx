@@ -495,7 +495,7 @@ function LookBookSlider({ onNavigate, onAddToCart, allProducts, cart = [] }) {
       category: 'Smart Skincare',
       products: [
         { id: 1, img: SC1, name: 'YOUR SIMPLE ROUTINE: The Day Cream + The Night Cream + Lip Butter', price: '₹ 799' },
-        { id: 2, img: SC2, name: 'PERFECT COMPLEXION RITUAL: Pigment Control Serum + The Day Cream+ Complexion Cream + Smooth Perfection Serum', price: '₹ 999' },
+        { id: 2, img: SC2, name: 'PERFECT COMPLEXION RITUAL: Pigment Control Serum + The Day Cream+ Complexion Cream + Smooth Perfection Serum', price: '₹ 1,299' },
         { id: 3, img: SC3, name: 'RITUAL OF RADIANCE: Super Glow Serum 30 ml + The Day Cream + Radiance Cream 50 gram', price: '₹ 999' },
       ]
     },

@@ -16,7 +16,7 @@ import SmartSkinCareImg from '../assets/SmartSkinCare.png'
 
 const BEST_SELLER_PRODUCTS = [
   { id: 1, img: SC1, name: 'YOUR SIMPLE ROUTINE: The Day Cream + The Night Cream + Lip Butter', category: 'Combo', price: '₹ 799', tag: 'Best Seller' },
-  { id: 2, img: SC2, name: 'PERFECT COMPLEXION RITUAL: Pigment Control Serum + The Day Cream + Complexion Cream + Smooth Perfection Serum', category: 'Combo', price: '₹ 999', tag: 'Best Seller' },
+  { id: 2, img: SC2, name: 'PERFECT COMPLEXION RITUAL: Pigment Control Serum + The Day Cream + Complexion Cream + Smooth Perfection Serum', category: 'Combo', price: '₹ 1,299', mrp: '₹ 1,599', tag: 'Best Seller' },
   { id: 3, img: SC3, name: 'RITUAL OF RADIANCE: Super Glow Serum 30 ml + The Day Cream + Radiance Cream 50 gram', category: 'Combo', price: '₹ 999', tag: 'Best Seller' },
   { id: 8, img: SC8, name: 'Vitamin C 15%, Ferulic Acid 1% & Niacinamide 5% : Super Glow Serum 30 ml', category: 'Serum', price: '₹ 549', tag: 'Best Seller' },
   { id: 12, img: SC12, name: 'Niacinamide 10 %, Acetyl Glucosamine & Ceramides: Tone & Texture Serum 30 ml', category: 'Serum', price: '₹ 375', mrp: '₹ 545', tag: 'Best Seller' },
