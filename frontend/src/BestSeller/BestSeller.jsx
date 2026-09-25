@@ -10,7 +10,8 @@ import SC2 from '../SkinCareImg/SkinCare2.png'
 import SC3 from '../SkinCareImg/SkinCare3.jpg'
 import SC8 from '../SkinCareImg/SkinCare8.jpg'
 import SC12 from '../SkinCareImg/SkinCare12.jpg'
-import HairCareImg from '../assets/HairCareFeaturedList.png'
+import HairCareImg from '../assets/HairCare.png'
+import HairCareHeroImg from '../assets/HairCareFeaturedList.png'
 import LipCareImg from '../assets/FeaturedListLipCare.jpg'
 import SmartSkinCareImg from '../assets/FeaturedListSkinCare.png'
 
@@ -24,7 +25,7 @@ const BEST_SELLER_PRODUCTS = [
 ]
 
 const HERO_ITEMS = [
-  { key: 'hair', img: HairCareImg, label: 'Hair Care', nav: 'hair' },
+  { key: 'hair', img: HairCareHeroImg, label: 'Hair Care', nav: 'hair' },
   { key: 'lip', img: LipCareImg, label: 'Lip Care', nav: 'lip' },
   { key: 'skincare', img: SmartSkinCareImg, label: 'Smart Skincare', nav: 'skincare' },
 ]

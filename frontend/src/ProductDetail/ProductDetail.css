@@ -1757,3 +1757,80 @@
 .product-detail__container {
   align-items: start;  /* Confirms both columns start at the same top line */
 }
+
+/* ── Tattoo Quiz Banner on Product Detail Page ── */
+.pd-tattoo-quiz-banner {
+  background: linear-gradient(135deg, #2b2620 0%, #3d3028 60%, #1e1a16 100%);
+  margin: 0 0 48px;
+  border-radius: 16px;
+  overflow: hidden;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 48px;
+}
+
+.pd-tattoo-quiz-banner__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 36px 48px;
+  flex-wrap: wrap;
+}
+
+.pd-tattoo-quiz-banner__eyebrow {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #a8c4a0;
+  border: 1px solid rgba(168, 196, 160, 0.4);
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-bottom: 10px;
+}
+
+.pd-tattoo-quiz-banner__title {
+  font-family: 'Comfortaa', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #faf6f0;
+  margin: 0 0 8px;
+}
+
+.pd-tattoo-quiz-banner__sub {
+  font-size: 14px;
+  color: rgba(250, 246, 240, 0.72);
+  margin: 0;
+  max-width: 400px;
+}
+
+.pd-tattoo-quiz-banner__btn {
+  display: inline-block;
+  background: #faf6f0;
+  color: #2b2620;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 14px 32px;
+  border-radius: 100px;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.pd-tattoo-quiz-banner__btn:hover {
+  background: #4a5d43;
+  color: #faf6f0;
+}
+
+@media (max-width: 600px) {
+  .pd-tattoo-quiz-banner__inner {
+    flex-direction: column;
+    padding: 28px 24px;
+    text-align: center;
+    align-items: center;
+  }
+}

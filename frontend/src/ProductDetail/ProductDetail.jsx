@@ -1,4 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
+import { Link } from 'react-router-dom'
 import Navbar from '../Navbar/navbar'
 import Footer from '../Footer/Footer'
 import LoveWhatYouSee from '../assets/LoveWhatYouSee.jpg'
@@ -372,6 +373,22 @@ export default function ProductDetail({ product, onNavigate, onBack, relatedProd
           </div>
         </div>
       </div>
+
+      {/* Tattoo Quiz Banner — only on tattoo products */}
+      {product.category === 'Tattoo' && (
+        <div className="pd-tattoo-quiz-banner">
+          <div className="pd-tattoo-quiz-banner__inner">
+            <div className="pd-tattoo-quiz-banner__text">
+              <span className="pd-tattoo-quiz-banner__eyebrow">Free Tool</span>
+              <h3 className="pd-tattoo-quiz-banner__title">Not sure what your tattoo needs?</h3>
+              <p className="pd-tattoo-quiz-banner__sub">Answer 5 quick questions and get a personalised tattoo care routine.</p>
+            </div>
+            <Link to="/tattoo-quiz" className="pd-tattoo-quiz-banner__btn">
+              Take the Quiz →
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* You May Also Like Section */}
       {relatedProducts && relatedProducts.length > 0 && (
