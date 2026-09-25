@@ -34,7 +34,7 @@ const productsByTab = {
     { id:5,  img: SC5,  name: 'Retinol 1%, Niacinamide 10 %, Aloe Vera Extract & Carrot oil: The Night Cream 50 G',                           price: '₹ 549', mrp: '₹ 599',  tag: 'Best Seller', model3D: '/models/TheNightCream.glb' },
     { id:6,  img: SC6,  name: 'Saffron Face Oil 30 ml: Saffron Essential Oil, Sweet Almond oil, Grape Seed Oil, Honey & Ghee',                price: '₹ 799', mrp: '',        tag: 'Best Seller' },
     { id:7,  img: SC7,  name: 'Alpha Arbutin 2%, Vitamin C 15 % & Micro Crystalline Wax: Complexion Cream 50 G',                              price: '₹ 499', mrp: '₹ 549',  tag: 'Best Seller' },
-    { id:8,  img: SC8,  name: 'Vitamin C 15%, Ferulic Acid 1% & Niacinamide 5% : Super Glow Serum 30 ml',                                     price: '₹ 549', mrp: '',        tag: 'Best Seller' },
+    { id:8,  img: SC8,  name: 'Vitamin C 15%, Niacinamide 5%, Hyaluronic Acid & Ferulic Acid 1% Serum 30 ml for Super Glow', category: 'Serum', price: '₹ 649', mrp: '₹ 699',  tag: 'Best Seller' },
     { id:9,  img: SC9,  name: 'Alpha Arbutin 2%, Aloe Vera Extract, Ceramides & Kojic Acid 1%: Pigment Control Serum 30 ml',                  price: '₹ 599', mrp: '₹ 649',  tag: 'Best Seller' },
     { id:10, img: SC10, name: 'Retinol 0.3%, Copper Tripeptide, Alpha Arbutin & Niacinamide: Wrinkles & Lines Cream 50 G',                    price: '₹ 549', mrp: '₹ 599',  tag: 'Best Seller' },
     { id:11, img: SC11, name: 'Encapsulated Retinol 1 %, Grape Seed Extract, & Ceramides : Lines & Wrinkles Serum 30 ml',                     price: '₹ 549', mrp: '₹ 599',  tag: 'Best Seller' },

@@ -175,10 +175,11 @@ const ALL_PRODUCTS = [
     id: 8, 
     img: SuperGlowSerumDetail, // Changed to new detail image
     images: [SuperGlowSerumDetail], // Only show new image
-    name: 'Vitamin C 15%, Ferulic Acid 1% & Niacinamide 5% : Super Glow Serum 30 ml', 
+    name: 'Vitamin C 15%, Niacinamide 5%, Hyaluronic Acid & Ferulic Acid 1% Serum 30 ml for Super Glow', 
     category: 'Serum', 
     keywords: 'vitamin c ferulic acid niacinamide super glow serum brightening radiance texture smoothness advanced 3-o-ethyl ascorbic acid ceramide hyaluronate', 
-    price: '₹ 549',
+    price: '₹ 649',
+    mrp: '₹ 699',
     model3D: '/models/AlovedaSuperGlowSerum.glb', 
     description: "Aloweda's Super Glow Serum: RADIANCE. TEXTURE. SMOOTHNESS\nAdvanced Brightening & Barrier Repair Serum\n\nThis advanced high-performance radiance serum is formulated with 3-O-Ethyl Ascorbic Acid, Niacinamide, Ferulic Acid, and Kojic Acid to help visibly brighten skin, improve the appearance of uneven tone, and support a more luminous complexion.\n\nSodium Hyaluronate, Sodium PCA, and Propanediol provide deep hydration and help maintain skin moisture balance, while Ceramide NP helps support the skin barrier for a smoother, healthier-looking appearance. Enriched with Allantoin and Grape Seed Extract for soothing antioxidant care, this lightweight serum helps leave skin feeling soft, replenished, and revitalized with a refined glow.\n\nVitamin C in the form of 3-O-ethyl Ascorbic Acid is extremely powerful BUT very sensitive & unstable. So Ferulic acid is added to stabilizes and provides antioxidant support to Vitamin C.\n\nHow to Use: Wash face with water / mild cleansing agent. Pat dry. Pump 2–3 drops of serum in the palm or directly on the face. Apply evenly on face and neck by gently tapping it on the skin with your fingertips with circular motions. Do Not massage. Allow the serum to be completely absorbed by the skin.\n\nWhen to Use: Twice a day: early morning and before going to bed at night.\n\nTip to Improve Effect: For optimal results, consistently use our The Day Cream during the day. Avoid layering with other strong exfoliating or brightening treatments over this serum as this serum is slightly acidic in nature.", 
     ingredients: 'Aqua, 3-o-ethyl ascorbic acid, Niacinamide, Ferulic Acid, Sodium Hyaluronate, Kojic Acid, Allantoin, Ceramide NP, Propanediol, phenoxyethanol, Ethylhexyglycerine, Propylene Glycol, Sodium PCA, Xanthan Gum, Carbomer, Grape Seed Extract, Potassium Sorbate, Sodium Citrate, fragrance', 
@@ -368,20 +369,7 @@ const ALL_PRODUCTS = [
     ingredients: 'Shea Butter, Cocoa Butter, Mango Butter, Kokum Butter, Clarified Butter, Fig Honey, Rosemery Essential oil, Rose Hip Oil, Almond Oil, Gotu Kola Extract, Beeswax, Niacinamide, Panthenol, Lemongrass Extract, Cardamom Essential Oil & Sandalwood Essential oil.\n\nNO CHEMICALS. NO ADDITIVES. NO PRESERVATIVES. NO PETROLIUM DERIVATIVES. NO FRAGRANCE.',
     howToUse: 'Spread a thin layer of this butter on your tattoo. DO NOT MASSAGE. Allow it to be absorbed by the skin. You can apply twice a day. Ideally give your tattoo a thick layer before going to bed.',
     shipping: 'We process all domestic orders within 1 business day. Delivery typically takes 5-7 business days, while remote or interior locations may require 7-10 business days.'
-  },
-  { 
-    id: 21, 
-    img: SC6, 
-    images: [SC6],
-    name: 'Hyaluronic Acid 2%, Ceramides & Vitamin B5: Hydration Boost Serum 30 ml', 
-    category: 'Serum', 
-    keywords: 'hyaluronic acid ceramides vitamin b5 hydration moisture plump dewy skin hydrating serum face serum skincare', 
-    price: '₹ 425',
-    description: 'HYDRATION BOOST SERUM\n\nA deeply hydrating serum formulated with 2% Hyaluronic Acid to deliver intense moisture and help plump the appearance of dehydrated skin. Enriched with Ceramides and Vitamin B5 (Panthenol), this lightweight formula helps restore the skin barrier, lock in hydration, and support a smooth, supple complexion.\n\nHyaluronic Acid attracts and retains moisture, helping to visibly reduce the appearance of fine lines and improve skin texture. Ceramides work to strengthen the skin barrier and prevent moisture loss, while Vitamin B5 soothes and conditions the skin for a soft, comfortable feel.\n\nIdeal for all skin types, especially dry or dehydrated skin, this serum absorbs quickly and layers beautifully under moisturizers and sunscreen. Use daily for visibly plumper, more radiant-looking skin.',
-    ingredients: 'Aqua, Hyaluronic Acid 2%, Panthenol (Vitamin B5), Ceramide NP, Glycerin, Propanediol, Sodium Hyaluronate, Allantoin, Phenoxyethanol, Ethylhexylglycerin.',
-    howToUse: 'Apply 2-3 drops to clean, dry skin morning and evening. Gently massage into face and neck until fully absorbed. Follow with your favorite moisturizer and sunscreen (in the morning). For best results, use consistently as part of your daily skincare routine.',
-    shipping: 'We process all domestic orders within 1 business day. Delivery typically takes 5-7 business days, while remote or interior locations may require 7-10 business days.'
-  },
+  }
 ]
 
 export default function App() {
