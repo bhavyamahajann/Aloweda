@@ -14,6 +14,7 @@ import HairCareSlider from '../assets/HairCareslider.png'
 // Category Images
 import HairCareImg from '../assets/HairCare.png'
 import RadianceCream2 from '../ProductDetailsImages/RadianceCream2.png'
+import LipCareLookBook from '../assets/lipCareLookBook.png'
 import LipCareImg from '../assets/LipCare.png'
 import FaceWashImg from '../assets/FaceWash.png'
 import TattooButterImg from '../assets/TattooButter.png'
@@ -534,7 +535,7 @@ function LookBookSlider({ onNavigate, onAddToCart, allProducts, cart = [] }) {
     },
     {
       id: 4,
-      background: RadianceCream2,
+      background: LipCareLookBook,
       category: 'Brightening & Glow',
       products: [
         { id: 14, img: SC14, name: 'Vitamin C 20%, Kojic Acid, Avocado Extract & Argan Oil : Radiance Cream 50 G', price: 'Rs. 499.00' },
