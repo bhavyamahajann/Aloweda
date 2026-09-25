@@ -13,6 +13,7 @@ import HairCareSlider from '../assets/HairCareslider.png'
 
 // Category Images
 import HairCareImg from '../assets/HairCare.png'
+import RadianceCream2 from '../ProductDetailsImages/RadianceCream2.png'
 import LipCareImg from '../assets/LipCare.png'
 import FaceWashImg from '../assets/FaceWash.png'
 import TattooButterImg from '../assets/TattooButter.png'
@@ -527,6 +528,16 @@ function LookBookSlider({ onNavigate, onAddToCart, allProducts, cart = [] }) {
         { id: 16, img: HairCareImg, name: 'Redensyl 5%, Anagain 5%, Rice water & Biotin: Total Hair Therapy Serum 50 ml', price: '₹ 575' },
         { id: 1, img: SC1, name: 'YOUR SIMPLE ROUTINE: The Day Cream + The Night Cream + Lip Butter', price: '₹ 799' },
         { id: 3, img: SC3, name: 'RITUAL OF RADIANCE: Super Glow Serum 30 ml + The Day Cream + Radiance Cream 50 gram', price: '₹ 999' },
+      ]
+    },
+    {
+      id: 4,
+      background: RadianceCream2,
+      category: 'Brightening & Glow',
+      products: [
+        { id: 14, img: SC14, name: 'Vitamin C 20%, Kojic Acid, Avocado Extract & Argan Oil : Radiance Cream 50 G', price: 'Rs. 499.00' },
+        { id: 8,  img: SC8,  name: 'Vitamin C 15%, Niacinamide 5%, Hyaluronic Acid & Ferulic Acid 1% Serum 30 ml for Super Glow', price: 'Rs. 649.00' },
+        { id: 3,  img: SC3,  name: 'RITUAL OF RADIANCE: Super Glow Serum 30 ml + The Day Cream + Radiance Cream 50 gram', price: 'Rs. 1,149.00' },
       ]
     },
   ]
