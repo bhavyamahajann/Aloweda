@@ -371,8 +371,8 @@ const ALL_PRODUCTS = [
   },
   { 
     id: 21, 
-    img: SaffronEssentialOilDetail, 
-    images: [SaffronEssentialOilDetail],
+    img: SC6, 
+    images: [SC6],
     name: 'Hyaluronic Acid 2%, Ceramides & Vitamin B5: Hydration Boost Serum 30 ml', 
     category: 'Serum', 
     keywords: 'hyaluronic acid ceramides vitamin b5 hydration moisture plump dewy skin hydrating serum face serum skincare', 
