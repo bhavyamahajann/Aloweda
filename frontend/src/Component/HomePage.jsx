@@ -26,7 +26,7 @@ import SafeSyntheticsVideo from '../assets/SafeSynthetics.mp4'
 import KnowledgeInnovationVideo from '../assets/Knowledge&Innovation.mp4'
 
 // LookBook Images
-import SmartSkinCareLookBook from '../assets/SmartSkinCareLookBook.png'
+import SmartSkinCareLookBook from '../assets/FeaturedListSkinCare.png'
 import FaceWashBG from '../assets/FaceWashBG.png'
 import HairCareLookBook from '../assets/HairCareLookBook.png'
 
