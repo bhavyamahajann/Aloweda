@@ -76,7 +76,6 @@ const slides = [
     id: 3,
     type: 'creams-slide',
     heading: 'Creams',
-    sub: 'Do not massage, they melt!',
     subLine: 'Allow them to melt into your skin',
     description: 'Our creams are designed to melt into your skin effortlessly. Rich, nourishing formulas that provide deep hydration without feeling heavy. Just apply and let them work their magic.',
     image: CreamSlider,
