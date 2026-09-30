@@ -137,7 +137,7 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
 
     // ONLINE PAYMENT via Razorpay
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'https://aloweda-backend.vercel.app'
+      const API_URL = import.meta.env.VITE_API_URL || 'https://aloweda-jitl.vercel.app'
       const KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_live_TiFjw4SPJzbxde'
 
       // 1. Create Razorpay order on backend
