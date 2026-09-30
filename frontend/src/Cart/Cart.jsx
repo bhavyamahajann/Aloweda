@@ -122,15 +122,81 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
     setCouponError('')
   }
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     // Check if total items exceed limit
     if (totalItems > 5) {
       alert('⚠️ Maximum 5 items allowed per order!\n\nYou currently have ' + totalItems + ' items in cart.\nPlease reduce the quantity to proceed to checkout.')
       return
     }
-    
-    alert('Checkout functionality coming soon!')
-    // TODO: Implement checkout
+
+    // COD — just show a simple form / confirmation (no Razorpay needed)
+    if (paymentMethod === 'cod') {
+      alert('✅ COD order placed! We will contact you shortly to confirm.')
+      return
+    }
+
+    // ONLINE PAYMENT via Razorpay
+    try {
+      const API_URL = import.meta.env.VITE_API_URL || 'https://aloweda-backend.vercel.app'
+      const KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_live_TiFjw4SPJzbxde'
+
+      // 1. Create Razorpay order on backend
+      const res = await fetch(`${API_URL}/api/payment/create-order`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: total, currency: 'INR' }),
+      })
+      const data = await res.json()
+      if (!data.success) throw new Error(data.message || 'Failed to create order')
+
+      // 2. Open Razorpay checkout
+      const options = {
+        key: KEY_ID,
+        amount: data.amount,
+        currency: data.currency,
+        name: 'Aloweda',
+        description: 'Skincare Order',
+        order_id: data.orderId,
+        handler: async function (response) {
+          // 3. Verify payment on backend
+          const verifyRes = await fetch(`${API_URL}/api/payment/verify`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            }),
+          })
+          const verifyData = await verifyRes.json()
+          if (verifyData.success) {
+            alert('🎉 Payment Successful! Your order has been placed.')
+          } else {
+            alert('⚠️ Payment verification failed. Please contact support.')
+          }
+        },
+        prefill: {
+          name: '',
+          email: '',
+          contact: '',
+        },
+        theme: { color: '#2c2416' },
+        modal: {
+          ondismiss: function () {
+            console.log('Razorpay checkout closed')
+          },
+        },
+      }
+
+      const rzp = new window.Razorpay(options)
+      rzp.on('payment.failed', function (response) {
+        alert('❌ Payment failed: ' + response.error.description)
+      })
+      rzp.open()
+    } catch (err) {
+      console.error('Checkout error:', err)
+      alert('Something went wrong. Please try again.\n' + err.message)
+    }
   }
 
   return (

@@ -118,6 +118,13 @@ const orderSchema = new mongoose.Schema({
     paymentGateway: String,
     paidAt: Date
   },
+  razorpayOrderId: {
+    type: String,
+    index: true
+  },
+  razorpayPaymentId: {
+    type: String
+  },
   orderStatus: {
     type: String,
     enum: ['Pending', 'Confirmed', 'Processing', 'Shipped', 'Delivered', 'Cancelled', 'Returned'],

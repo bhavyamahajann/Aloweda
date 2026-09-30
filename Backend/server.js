@@ -9,6 +9,7 @@ const couponRoutes = require('./routes/coupon');
 const announcementRoutes = require('./routes/announcement');
 const reviewRoutes = require('./routes/review');
 const orderRoutes = require('./routes/order');
+const paymentRoutes = require('./routes/payment');
 const protect = require('./middleware/auth');
 const User = require('./models/User');
 
@@ -32,6 +33,7 @@ app.use('/api/coupons', couponRoutes);
 app.use('/api/announcements', announcementRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/payment', paymentRoutes);
 
 // Example protected route - only accessible after login
 app.get('/api/profile', protect, async (req, res) => {
