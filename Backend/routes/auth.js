@@ -57,7 +57,7 @@ router.post('/signup', async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error, please try again later' });
+    res.status(500).json({ message: 'Server error, please try again later', detail: error.message });
   }
 });
 
