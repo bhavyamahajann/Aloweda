@@ -14,9 +14,35 @@ const codRoutes = require('./routes/cod');
 const protect = require('./middleware/auth');
 const User = require('./models/User');
 
+// ── Vercel-safe MongoDB connection cache ──────────────────────────────
+// Store connection promise on global so it survives across warm invocations
+let connectionPromise = global._mongooseConnectionPromise || null;
+
+async function connectDB() {
+  if (mongoose.connection.readyState === 1) return; // already connected
+  if (connectionPromise) return connectionPromise;   // connection in progress
+
+  connectionPromise = mongoose.connect(process.env.MONGO_URI, {
+    serverSelectionTimeoutMS: 30000,
+    socketTimeoutMS: 60000,
+  });
+
+  global._mongooseConnectionPromise = connectionPromise;
+
+  try {
+    await connectionPromise;
+    console.log('MongoDB connected ✅');
+  } catch (err) {
+    connectionPromise = null;
+    global._mongooseConnectionPromise = null;
+    console.error('MongoDB error:', err.message);
+    throw err;
+  }
+}
+
+// ── Express app ───────────────────────────────────────────────────────
 const app = express();
 
-// Middleware
 app.use(cors({
   origin: [
     'https://aloweda-smoky.vercel.app',
@@ -27,39 +53,20 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Health check - no DB needed
-app.get('/', (req, res) => {
-  res.send('Auth backend is running ✅');
-});
+// Health check — no DB needed
+app.get('/', (req, res) => res.send('Auth backend is running ✅'));
 
-// MongoDB connection
-let cachedConn = null;
-
-async function connectDB() {
-  if (cachedConn && mongoose.connection.readyState === 1) return cachedConn;
-  
-  cachedConn = await mongoose.connect(process.env.MONGO_URI, {
-    serverSelectionTimeoutMS: 30000,
-    socketTimeoutMS: 60000,
-    family: 4,
-  });
-  console.log('MongoDB connected ✅');
-  return cachedConn;
-}
-
-// DB middleware - runs before every route except health check
+// Connect DB before every API request
 app.use(async (req, res, next) => {
-  if (req.path === '/') return next();
   try {
     await connectDB();
     next();
   } catch (err) {
-    console.error('DB error:', err.message);
     res.status(500).json({ message: 'Database connection failed', error: err.message });
   }
 });
 
-// Routes
+// ── Routes ────────────────────────────────────────────────────────────
 app.use('/api/auth', authRoutes);
 app.use('/api/bundles', bundleRoutes);
 app.use('/api/coupons', couponRoutes);
@@ -75,11 +82,11 @@ app.get('/api/profile', protect, async (req, res) => {
   res.json({ user });
 });
 
-// Local dev server
+// ── Local dev ─────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
 if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`Server running at: http://localhost:${PORT}`);
+  connectDB().then(() => {
+    app.listen(PORT, () => console.log(`Server running at: http://localhost:${PORT}`));
   });
 }
 
