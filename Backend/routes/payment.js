@@ -3,6 +3,7 @@ const router = express.Router();
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
 const Order = require('../models/Order');
+const { sendOrderEmail } = require('../utils/emailService');
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -74,6 +75,18 @@ router.post('/verify', async (req, res) => {
         razorpayPaymentId: razorpay_payment_id,
       });
       await order.save();
+
+      // Send email notification
+      if (orderData.customer) {
+        const orderId = 'RZP-' + razorpay_payment_id.slice(-8).toUpperCase();
+        await sendOrderEmail({
+          customer: orderData.customer,
+          items: orderData.items || [],
+          total: orderData.total || '',
+          paymentMethod: 'Online Payment (Razorpay)',
+          orderId,
+        }).catch(err => console.error('Email error:', err));
+      }
 
       return res.json({
         success: true,

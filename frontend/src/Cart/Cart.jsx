@@ -12,6 +12,13 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
   const [paymentMethod, setPaymentMethod] = useState('cod') // 'cod' or 'online'
   const [appliedCoupon, setAppliedCoupon] = useState(null)
   const [couponError, setCouponError] = useState('')
+  const [showCheckoutForm, setShowCheckoutForm] = useState(false)
+  const [checkoutForm, setCheckoutForm] = useState({
+    name: '', phone: '', email: '', address: '', city: '', state: '', pincode: ''
+  })
+  const [formError, setFormError] = useState('')
+  const [orderPlaced, setOrderPlaced] = useState(false)
+  const [placedOrderId, setPlacedOrderId] = useState('')
   
   // Safety check for cart
   const safeCart = Array.isArray(cart) ? cart : [];
@@ -123,79 +130,117 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
   }
 
   const handleCheckout = async () => {
-    // Check if total items exceed limit
     if (totalItems > 5) {
       alert('⚠️ Maximum 5 items allowed per order!\n\nYou currently have ' + totalItems + ' items in cart.\nPlease reduce the quantity to proceed to checkout.')
       return
     }
+    // Open checkout form first
+    setShowCheckoutForm(true)
+  }
 
-    // COD — just show a simple form / confirmation (no Razorpay needed)
-    if (paymentMethod === 'cod') {
-      alert('✅ COD order placed! We will contact you shortly to confirm.')
+  const handleFormSubmit = async () => {
+    const { name, phone, address, city, state, pincode } = checkoutForm
+    if (!name || !phone || !address || !city || !state || !pincode) {
+      setFormError('Please fill all required fields.')
       return
     }
+    if (phone.length < 10) {
+      setFormError('Please enter a valid 10-digit phone number.')
+      return
+    }
+    setFormError('')
 
-    // ONLINE PAYMENT via Razorpay
-    try {
-      const API_URL = import.meta.env.VITE_API_URL || 'https://aloweda-jitl.vercel.app'
-      const KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_live_TiFjw4SPJzbxde'
+    const API_URL = import.meta.env.VITE_API_URL || 'https://aloweda-jitl.vercel.app'
+    const KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_live_TiFjw4SPJzbxde'
 
-      // 1. Create Razorpay order on backend
-      const res = await fetch(`${API_URL}/api/payment/create-order`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: total, currency: 'INR' }),
-      })
-      const data = await res.json()
-      if (!data.success) throw new Error(data.message || 'Failed to create order')
+    const orderItems = safeCart.map(item => ({
+      name: item.name,
+      quantity: item.quantity || 1,
+      price: item.price,
+    }))
 
-      // 2. Open Razorpay checkout
-      const options = {
-        key: KEY_ID,
-        amount: data.amount,
-        currency: data.currency,
-        name: 'Aloweda',
-        description: 'Skincare Order',
-        order_id: data.orderId,
-        handler: async function (response) {
-          // 3. Verify payment on backend
-          const verifyRes = await fetch(`${API_URL}/api/payment/verify`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-            }),
-          })
-          const verifyData = await verifyRes.json()
-          if (verifyData.success) {
-            alert('🎉 Payment Successful! Your order has been placed.')
-          } else {
-            alert('⚠️ Payment verification failed. Please contact support.')
-          }
-        },
-        prefill: {
-          name: '',
-          email: '',
-          contact: '',
-        },
-        theme: { color: '#2c2416' },
-        modal: {
-          ondismiss: function () {
-            console.log('Razorpay checkout closed')
-          },
-        },
+    if (paymentMethod === 'cod') {
+      // COD — call backend, send email
+      try {
+        const res = await fetch(`${API_URL}/api/cod/place-order`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            customer: checkoutForm,
+            items: orderItems,
+            total: total.toFixed(2),
+          }),
+        })
+        const data = await res.json()
+        if (data.success) {
+          setShowCheckoutForm(false)
+          setOrderPlaced(true)
+          setPlacedOrderId(data.orderId)
+        } else {
+          setFormError(data.message || 'Something went wrong.')
+        }
+      } catch (err) {
+        setFormError('Network error. Please try again.')
       }
+    } else {
+      // Online Payment via Razorpay
+      try {
+        const res = await fetch(`${API_URL}/api/payment/create-order`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount: total, currency: 'INR' }),
+        })
+        const data = await res.json()
+        if (!data.success) throw new Error(data.message || 'Failed to create order')
 
-      const rzp = new window.Razorpay(options)
-      rzp.on('payment.failed', function (response) {
-        alert('❌ Payment failed: ' + response.error.description)
-      })
-      rzp.open()
-    } catch (err) {
-      console.error('Checkout error:', err)
-      alert('Something went wrong. Please try again.\n' + err.message)
+        const options = {
+          key: KEY_ID,
+          amount: data.amount,
+          currency: data.currency,
+          name: 'Aloweda',
+          description: 'Skincare Order',
+          order_id: data.orderId,
+          prefill: {
+            name: checkoutForm.name,
+            email: checkoutForm.email,
+            contact: checkoutForm.phone,
+          },
+          handler: async function (response) {
+            const verifyRes = await fetch(`${API_URL}/api/payment/verify`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                orderData: {
+                  customer: checkoutForm,
+                  items: orderItems,
+                  total: total.toFixed(2),
+                },
+              }),
+            })
+            const verifyData = await verifyRes.json()
+            if (verifyData.success) {
+              setShowCheckoutForm(false)
+              setOrderPlaced(true)
+              setPlacedOrderId('RZP-' + response.razorpay_payment_id.slice(-8).toUpperCase())
+            } else {
+              alert('⚠️ Payment verification failed. Please contact support.')
+            }
+          },
+          theme: { color: '#2c2416' },
+          modal: { ondismiss: function () {} },
+        }
+        setShowCheckoutForm(false)
+        const rzp = new window.Razorpay(options)
+        rzp.on('payment.failed', function (response) {
+          alert('❌ Payment failed: ' + response.error.description)
+        })
+        rzp.open()
+      } catch (err) {
+        setFormError('Something went wrong. Please try again.')
+      }
     }
   }
 
@@ -760,6 +805,121 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
       </div>
 
       <Footer onLoginClick={onLoginClick} />
+
+      {/* ── Checkout Form Modal ── */}
+      {showCheckoutForm && (
+        <div style={{
+          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.55)',
+          zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center',
+          padding: '16px'
+        }}>
+          <div style={{
+            background: '#fff', borderRadius: '16px', padding: '32px',
+            width: '100%', maxWidth: '480px', maxHeight: '90vh', overflowY: 'auto',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+              <h2 style={{ margin: 0, color: '#2c2416', fontSize: '1.3rem' }}>Delivery Details</h2>
+              <button onClick={() => setShowCheckoutForm(false)} style={{
+                background: 'none', border: 'none', fontSize: '22px', cursor: 'pointer', color: '#6b5f4e'
+              }}>✕</button>
+            </div>
+
+            {[
+              { label: 'Full Name *', key: 'name', type: 'text', placeholder: 'Enter your full name' },
+              { label: 'Phone Number *', key: 'phone', type: 'tel', placeholder: '10-digit mobile number' },
+              { label: 'Email (optional)', key: 'email', type: 'email', placeholder: 'For order confirmation email' },
+              { label: 'Address *', key: 'address', type: 'text', placeholder: 'House no, Street, Area' },
+              { label: 'City *', key: 'city', type: 'text', placeholder: 'City' },
+              { label: 'State *', key: 'state', type: 'text', placeholder: 'State' },
+              { label: 'Pincode *', key: 'pincode', type: 'text', placeholder: '6-digit pincode' },
+            ].map(({ label, key, type, placeholder }) => (
+              <div key={key} style={{ marginBottom: '16px' }}>
+                <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#4a3728', marginBottom: '6px' }}>
+                  {label}
+                </label>
+                <input
+                  type={type}
+                  placeholder={placeholder}
+                  value={checkoutForm[key]}
+                  onChange={e => setCheckoutForm(prev => ({ ...prev, [key]: e.target.value }))}
+                  style={{
+                    width: '100%', padding: '10px 14px', borderRadius: '8px',
+                    border: '1.5px solid #e0d8cc', fontSize: '14px', color: '#2c2416',
+                    outline: 'none', boxSizing: 'border-box',
+                    fontFamily: 'inherit'
+                  }}
+                />
+              </div>
+            ))}
+
+            {formError && (
+              <div style={{
+                background: '#fff3cd', border: '1px solid #ffc107', borderRadius: '8px',
+                padding: '10px 14px', marginBottom: '16px', fontSize: '13px', color: '#856404'
+              }}>
+                ⚠️ {formError}
+              </div>
+            )}
+
+            <div style={{ background: '#f0ebe3', borderRadius: '8px', padding: '12px 16px', marginBottom: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', color: '#4a3728' }}>
+                <span>Payment Method</span>
+                <span style={{ fontWeight: '700', color: paymentMethod === 'cod' ? '#e67e22' : '#27ae60' }}>
+                  {paymentMethod === 'cod' ? '💵 Cash on Delivery' : '💳 Online Payment'}
+                </span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '16px', color: '#2c2416', marginTop: '8px', fontWeight: '700' }}>
+                <span>Total</span>
+                <span>₹ {total.toFixed(2)}</span>
+              </div>
+            </div>
+
+            <button
+              onClick={handleFormSubmit}
+              style={{
+                width: '100%', padding: '14px', background: '#2c2416', color: '#fff',
+                border: 'none', borderRadius: '8px', fontSize: '15px', fontWeight: '700',
+                cursor: 'pointer', letterSpacing: '1px'
+              }}
+            >
+              {paymentMethod === 'cod' ? '✅ PLACE ORDER (COD)' : '💳 PROCEED TO PAYMENT'}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── Order Success Screen ── */}
+      {orderPlaced && (
+        <div style={{
+          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.65)',
+          zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center',
+          padding: '16px'
+        }}>
+          <div style={{
+            background: '#fff', borderRadius: '16px', padding: '40px 32px',
+            width: '100%', maxWidth: '420px', textAlign: 'center',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
+          }}>
+            <div style={{ fontSize: '56px', marginBottom: '16px' }}>🎉</div>
+            <h2 style={{ color: '#2c2416', margin: '0 0 8px' }}>Order Placed!</h2>
+            <p style={{ color: '#6b5f4e', marginBottom: '8px' }}>Order ID: <strong>{placedOrderId}</strong></p>
+            <p style={{ color: '#6b5f4e', fontSize: '14px', marginBottom: '24px' }}>
+              A confirmation email has been sent. We will deliver within 5–7 business days.
+            </p>
+            <button
+              onClick={() => { setOrderPlaced(false); onNavigate('home') }}
+              style={{
+                background: '#2c2416', color: '#fff', border: 'none',
+                borderRadius: '8px', padding: '12px 32px', fontSize: '15px',
+                fontWeight: '700', cursor: 'pointer'
+              }}
+            >
+              Continue Shopping
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
