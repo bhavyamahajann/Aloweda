@@ -59,6 +59,17 @@ app.get('/', (req, res) => {
   res.send('Auth backend is running ✅');
 });
 
+// Debug route - remove after testing
+app.get('/api/debug', (req, res) => {
+  const uri = process.env.MONGO_URI || 'NOT SET';
+  res.json({ 
+    mongoUriSet: !!process.env.MONGO_URI,
+    mongoUriLength: uri.length,
+    mongoUriStart: uri.substring(0, 30),
+    dbState: mongoose.connection.readyState
+  });
+});
+
 // MongoDB se connect karo
 const PORT = process.env.PORT || 5000;
 
