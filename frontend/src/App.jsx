@@ -635,6 +635,7 @@ function AppContent() {
               onRemoveItem={removeFromCart}
               onLoginClick={() => setShowLogin(true)}
               cartCount={cartCount}
+              user={user}
             />
           } 
         />

@@ -3,7 +3,7 @@ import Navbar from '../Navbar/navbar'
 import Footer from '../Footer/Footer'
 import './Cart.css'
 
-export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemoveItem, onLoginClick, cartCount = 0 }) {
+export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemoveItem, onLoginClick, cartCount = 0, user = null }) {
   // Early return for testing - this will show if component is even rendering
   console.log('🔥 CART COMPONENT LOADING...', { cart, cartCount });
   
@@ -134,7 +134,12 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
       alert('⚠️ Maximum 5 items allowed per order!\n\nYou currently have ' + totalItems + ' items in cart.\nPlease reduce the quantity to proceed to checkout.')
       return
     }
-    // Open checkout form first
+    // Check login
+    if (!user) {
+      onLoginClick()
+      return
+    }
+    // Open checkout form
     setShowCheckoutForm(true)
   }
 
@@ -770,7 +775,7 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
                   cursor: totalItems > 5 ? 'not-allowed' : 'pointer'
                 }}
               >
-                {totalItems > 5 ? '⚠️ Reduce Items to Checkout' : 'Proceed to Checkout'}
+                {totalItems > 5 ? '⚠️ Reduce Items to Checkout' : !user ? '🔒 Login to Checkout' : 'Proceed to Checkout'}
               </button>
 
               <button className="continue-shopping-btn" onClick={() => onNavigate('shop')}>
@@ -862,14 +867,45 @@ export default function Cart({ cart = [], onNavigate, onUpdateQuantity, onRemove
               </div>
             )}
 
-            <div style={{ background: '#f0ebe3', borderRadius: '8px', padding: '12px 16px', marginBottom: '20px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', color: '#4a3728' }}>
-                <span>Payment Method</span>
-                <span style={{ fontWeight: '700', color: paymentMethod === 'cod' ? '#e67e22' : '#27ae60' }}>
-                  {paymentMethod === 'cod' ? '💵 Cash on Delivery' : '💳 Online Payment'}
-                </span>
+            {/* Payment Method Selection inside form */}
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#4a3728', marginBottom: '10px' }}>
+                Payment Method *
+              </label>
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <div
+                  onClick={() => setPaymentMethod('cod')}
+                  style={{
+                    flex: 1, padding: '12px', borderRadius: '8px', cursor: 'pointer',
+                    border: paymentMethod === 'cod' ? '2px solid #2c2416' : '2px solid #e0d8cc',
+                    background: paymentMethod === 'cod' ? '#f0ebe3' : '#fff',
+                    textAlign: 'center', fontSize: '13px', fontWeight: '600', color: '#2c2416'
+                  }}
+                >
+                  💵 Cash on Delivery
+                </div>
+                <div
+                  onClick={() => setPaymentMethod('online')}
+                  style={{
+                    flex: 1, padding: '12px', borderRadius: '8px', cursor: 'pointer',
+                    border: paymentMethod === 'online' ? '2px solid #27ae60' : '2px solid #e0d8cc',
+                    background: paymentMethod === 'online' ? '#f0fff4' : '#fff',
+                    textAlign: 'center', fontSize: '13px', fontWeight: '600', color: '#27ae60',
+                    position: 'relative'
+                  }}
+                >
+                  💳 Online
+                  <span style={{
+                    position: 'absolute', top: '-8px', right: '6px',
+                    background: '#27ae60', color: '#fff', fontSize: '10px',
+                    padding: '2px 6px', borderRadius: '8px'
+                  }}>SAVE 10%</span>
+                </div>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '16px', color: '#2c2416', marginTop: '8px', fontWeight: '700' }}>
+            </div>
+
+            <div style={{ background: '#f0ebe3', borderRadius: '8px', padding: '12px 16px', marginBottom: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '16px', color: '#2c2416', fontWeight: '700' }}>
                 <span>Total</span>
                 <span>₹ {total.toFixed(2)}</span>
               </div>
