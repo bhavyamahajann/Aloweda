@@ -54,23 +54,21 @@ app.get('/api/profile', protect, async (req, res) => {
   res.json({ user });
 });
 
-// Health check
+// Health check - NO DB needed
 app.get('/', (req, res) => {
   res.send('Auth backend is running ✅');
 });
 
-// Debug route - remove after testing
-app.get('/api/debug', (req, res) => {
-  const uri = process.env.MONGO_URI || 'NOT SET';
-  res.json({ 
-    mongoUriSet: !!process.env.MONGO_URI,
-    mongoUriLength: uri.length,
-    mongoUriStart: uri.substring(0, 30),
-    dbState: mongoose.connection.readyState
-  });
+// Ensure DB connected before each request (skip health check)
+app.use(async (req, res, next) => {
+  if (req.path === '/') return next();
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    res.status(500).json({ message: 'Database connection failed', error: err.message });
+  }
 });
-
-// MongoDB se connect karo
 const PORT = process.env.PORT || 5000;
 
 // MongoDB connection - Vercel serverless optimized
@@ -79,15 +77,18 @@ let isConnected = false;
 async function connectDB() {
   if (isConnected) return;
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      serverSelectionTimeoutMS: 10000,
+    const uri = process.env.MONGO_URI;
+    await mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 15000,
       socketTimeoutMS: 45000,
       bufferCommands: false,
+      family: 4, // Force IPv4
     });
     isConnected = true;
     console.log('MongoDB connected ✅');
   } catch (err) {
     console.error('MongoDB connection error ❌:', err.message);
+    isConnected = false;
     throw err;
   }
 }
