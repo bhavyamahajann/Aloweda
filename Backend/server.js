@@ -27,6 +27,16 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// Ensure DB connected before each request
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    res.status(500).json({ message: 'Database connection failed' });
+  }
+});
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/bundles', bundleRoutes);
@@ -52,17 +62,27 @@ app.get('/', (req, res) => {
 // MongoDB se connect karo
 const PORT = process.env.PORT || 5000;
 
-// MongoDB connection - Vercel optimized
-if (mongoose.connection.readyState === 0) {
-  mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => {
-      console.log('MongoDB connected ✅');
-    })
-    .catch((err) => {
-      console.error('MongoDB connection error ❌:', err.message);
+// MongoDB connection - Vercel serverless optimized
+let isConnected = false;
+
+async function connectDB() {
+  if (isConnected) return;
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 10000,
+      socketTimeoutMS: 45000,
+      bufferCommands: false,
     });
+    isConnected = true;
+    console.log('MongoDB connected ✅');
+  } catch (err) {
+    console.error('MongoDB connection error ❌:', err.message);
+    throw err;
+  }
 }
+
+// Connect on startup
+connectDB();
 
 // Local development server start
 if (process.env.NODE_ENV !== 'production') {
