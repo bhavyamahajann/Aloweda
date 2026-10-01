@@ -1,5 +1,5 @@
 // API Base URL
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://aloweda-scwy.vercel.app';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://aloweda-jitl.vercel.app';
 
 // Helper function for API calls
 async function apiCall(endpoint, options = {}) {
