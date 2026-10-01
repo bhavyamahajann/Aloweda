@@ -81,8 +81,7 @@ async function connectDB() {
     await mongoose.connect(uri, {
       serverSelectionTimeoutMS: 15000,
       socketTimeoutMS: 45000,
-      bufferCommands: false,
-      family: 4, // Force IPv4
+      family: 4,
     });
     isConnected = true;
     console.log('MongoDB connected ✅');
