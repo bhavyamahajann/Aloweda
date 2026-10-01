@@ -17,7 +17,7 @@ const User = require('./models/User');
 const app = express();
 
 // Middleware
-app.use(cors({ 
+app.use(cors({
   origin: [
     'https://aloweda-smoky.vercel.app',
     'http://localhost:5173',
@@ -27,12 +27,34 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Ensure DB connected before each request
+// Health check - no DB needed
+app.get('/', (req, res) => {
+  res.send('Auth backend is running ✅');
+});
+
+// MongoDB connection
+let cachedConn = null;
+
+async function connectDB() {
+  if (cachedConn && mongoose.connection.readyState === 1) return cachedConn;
+  
+  cachedConn = await mongoose.connect(process.env.MONGO_URI, {
+    serverSelectionTimeoutMS: 30000,
+    socketTimeoutMS: 60000,
+    family: 4,
+  });
+  console.log('MongoDB connected ✅');
+  return cachedConn;
+}
+
+// DB middleware - runs before every route except health check
 app.use(async (req, res, next) => {
+  if (req.path === '/') return next();
   try {
     await connectDB();
     next();
   } catch (err) {
+    console.error('DB error:', err.message);
     res.status(500).json({ message: 'Database connection failed', error: err.message });
   }
 });
@@ -47,60 +69,18 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/cod', codRoutes);
 
-// Example protected route - only accessible after login
 app.get('/api/profile', protect, async (req, res) => {
   const user = await User.findById(req.userId).select('-password');
   if (!user) return res.status(404).json({ message: 'User not found' });
   res.json({ user });
 });
 
-// Health check - NO DB needed
-app.get('/', (req, res) => {
-  res.send('Auth backend is running ✅');
-});
-
-// Ensure DB connected before each request (skip health check)
-app.use(async (req, res, next) => {
-  if (req.path === '/') return next();
-  try {
-    await connectDB();
-    next();
-  } catch (err) {
-    res.status(500).json({ message: 'Database connection failed', error: err.message });
-  }
-});
+// Local dev server
 const PORT = process.env.PORT || 5000;
-
-// MongoDB connection - Vercel serverless optimized
-let isConnected = false;
-
-async function connectDB() {
-  if (isConnected) return;
-  try {
-    const uri = process.env.MONGO_URI;
-    await mongoose.connect(uri, {
-      serverSelectionTimeoutMS: 15000,
-      socketTimeoutMS: 45000,
-      family: 4,
-    });
-    isConnected = true;
-    console.log('MongoDB connected ✅');
-  } catch (err) {
-    console.error('MongoDB connection error ❌:', err.message);
-    isConnected = false;
-    throw err;
-  }
-}
-
-// Connect on startup
-connectDB();
-
-// Local development server start
 if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => {
     console.log(`Server running at: http://localhost:${PORT}`);
   });
 }
 
-// Export app for Vercel
 module.exports = app;
