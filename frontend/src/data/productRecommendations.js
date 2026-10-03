@@ -25,6 +25,29 @@ export const concernToProducts = {
   'colorsFading': ['tattoo-butter', 'tattoo-cleanser'],
 }
 
+// Hair concern to product mappings
+export const hairConcernToProducts = {
+  hairfall: ['hair-serum'],
+  dandruff: ['hair-serum'],
+  dryness: ['hair-serum'],
+  frizz: ['hair-serum'],
+  oilyscalp: ['hair-serum'],
+  splitends: ['hair-serum'],
+  lackofgrowth: ['hair-serum'],
+  dullhair: ['hair-serum'],
+  none: []
+}
+
+// Lip concern to product mappings
+export const lipConcernToProducts = {
+  dryness: ['lip-butter'],
+  darkening: ['lip-butter'],
+  peeling: ['lip-butter'],
+  lackofmoisture: ['lip-butter'],
+  finelines: ['lip-butter'],
+  none: []
+}
+
 export const bundleToProducts = {
   starter: ['day-cream', 'super-glow'],
   hydration: ['day-cream', 'saffron-oil'],
