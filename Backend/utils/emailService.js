@@ -1,9 +1,7 @@
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.titan.email',
-  port: 465,
-  secure: true,
+  service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -14,6 +12,11 @@ const transporter = nodemailer.createTransport({
  * Send order notification email to admin + confirmation to customer (if email provided)
  */
 async function sendOrderEmail({ customer, items, total, paymentMethod, orderId }) {
+  // Temporarily disabled until Gmail App Password is configured
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.log('⚠️ Email not configured. Skipping email notification.');
+    return;
+  }
   const itemsHtml = items.map(item => `
     <tr>
       <td style="padding:8px 12px;border-bottom:1px solid #f0ebe3;">${item.name}</td>
