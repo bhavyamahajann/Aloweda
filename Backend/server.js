@@ -52,6 +52,10 @@ const PORT = process.env.PORT || 5000;
 
 // MongoDB connection - Vercel optimized
 if (mongoose.connection.readyState === 0) {
+  console.log('MONGO_URI exists:', !!process.env.MONGO_URI);
+  console.log('MONGO_URI length:', process.env.MONGO_URI?.length);
+  console.log('MONGO_URI ends with:', process.env.MONGO_URI?.slice(-20));
+  
   mongoose
     .connect(process.env.MONGO_URI)
     .then(() => {
