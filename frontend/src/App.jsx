@@ -20,6 +20,7 @@ import NotFound from './Pages/NotFound'
 import AnnouncementBar from './Components/AnnouncementBar/AnnouncementBar'
 import About from './Pages/About'
 import Consultation from './Pages/Consultation'
+import TermsAndConditions from './Pages/TermsAndConditions'
 
 // Import all products
 import SC1  from './SkinCareImg/SkinCare1.png'
@@ -617,6 +618,12 @@ function AppContent() {
           element={<Consultation onNavigate={handleNavigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} />} 
         />
 
+        {/* Terms & Conditions Route */}
+        <Route 
+          path="/terms" 
+          element={<TermsAndConditions onNavigate={handleNavigate} onLoginClick={() => setShowLogin(true)} cartCount={cartCount} />} 
+        />
+
         {/* Cart Route */}
         <Route 
           path="/cart" 
@@ -628,6 +635,7 @@ function AppContent() {
               onRemoveItem={removeFromCart}
               onLoginClick={() => setShowLogin(true)}
               cartCount={cartCount}
+              user={user}
             />
           } 
         />

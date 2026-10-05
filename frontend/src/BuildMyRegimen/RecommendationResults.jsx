@@ -1,61 +1,26 @@
 import { useState, useEffect } from 'react'
 import Navbar from '../Navbar/navbar'
 import Footer from '../Footer/Footer'
-import { concernToProducts, bundleToProducts, skinTypeToProducts, productDatabase } from '../data/productRecommendations'
-import { skinConcerns, bundles, skinTypes, tattooConcerns, hairConcerns, lipConcerns } from '../data/regimenOptions'
+import { concernToProducts, bundleToProducts, skinTypeToProducts, hairConcernToProducts, lipConcernToProducts, productDatabase } from '../data/productRecommendations'
+import { skinConcerns, bundles, skinTypes, hairConcerns, lipConcerns } from '../data/regimenOptions'
 import { PRODUCTS } from '../data/products'
-import TattooCleanser from '../assets/TattooCleanser.png'
-import TattooButter from '../assets/TattooButter.png'
 import './RecommendationResults.css'
 
-// Tattoo product data (pulled directly — not through the scoring engine)
-const TATTOO_PRODUCTS_MAP = {
-  'tattoo-cleanser': {
-    id: 19,
-    name: 'Tattoo Cleanser 100 ml',
-    size: '100 ml',
-    ingredients: 'Orange, Lemon & Tangerine Extracts, Aloe Vera, Vitamin E',
-    purpose: 'Gently cleanses tattooed skin without stripping moisture',
-    price: 'Rs. 299.00',
-    mrp: 'Rs. 349.00',
-    img: TattooCleanser,
-    routine: 'tattoo'
-  },
-  'tattoo-butter': {
-    id: 20,
-    name: 'Tattoo Butter 50 Grams',
-    size: '50 G',
-    ingredients: 'Shea, Cocoa, Mango & Kokum Butter, Beeswax, Fig Honey',
-    purpose: 'Nourishes & protects tattooed skin, preserves ink vibrancy',
-    price: 'Rs. 799.00',
-    mrp: 'Rs. 899.00',
-    img: TattooButter,
-    routine: 'tattoo'
-  }
-}
-
-const TATTOO_CONCERN_TO_PRODUCTS = {
-  fadingink:    ['tattoo-cleanser', 'tattoo-butter'],
-  itching:      ['tattoo-cleanser', 'tattoo-butter'],
-  dryness:      ['tattoo-butter', 'tattoo-cleanser'],
-  notHealing:   ['tattoo-cleanser', 'tattoo-butter'],
-  colorsFading: ['tattoo-butter', 'tattoo-cleanser'],
-}
-
 export default function RecommendationResults({ formData, onNavigate, onAddToCart }) {
-  const [recommendations, setRecommendations] = useState({ morning: [], evening: [], optional: [], tattoo: [], hair: [], lip: [] })
+  const [recommendations, setRecommendations] = useState({ morning: [], evening: [], optional: [] })
   const [success, setSuccess] = useState(false)
   const [addedProducts, setAddedProducts] = useState(new Set())
 
   useEffect(() => {
     calculateRecommendations()
+    // Simulate submission
     setTimeout(() => setSuccess(true), 500)
   }, [])
 
   const calculateRecommendations = () => {
     const productScores = {}
 
-    // ── Skin concerns (+3 each) ──────────────────────────────────
+    // Score products based on concerns
     formData.skinConcerns.forEach(concern => {
       const products = concernToProducts[concern] || []
       products.forEach(productId => {
@@ -63,7 +28,7 @@ export default function RecommendationResults({ formData, onNavigate, onAddToCar
       })
     })
 
-    // ── Bundle (+2 each) ─────────────────────────────────────────
+    // Score products based on bundle
     if (formData.bundle) {
       const products = bundleToProducts[formData.bundle] || []
       products.forEach(productId => {
@@ -71,7 +36,7 @@ export default function RecommendationResults({ formData, onNavigate, onAddToCar
       })
     }
 
-    // ── Skin type (+2 each) ──────────────────────────────────────
+    // Score products based on skin type
     if (formData.skinType && formData.skinType !== 'notsure') {
       const products = skinTypeToProducts[formData.skinType] || []
       products.forEach(productId => {
@@ -79,57 +44,41 @@ export default function RecommendationResults({ formData, onNavigate, onAddToCar
       })
     }
 
-    // ── Hair concerns → hair-serum ───────────────────────────────
-    const hasHairConcern = formData.hairConcerns?.length > 0 &&
-      !formData.hairConcerns.includes('none')
-    if (hasHairConcern) {
-      productScores['hair-serum'] = (productScores['hair-serum'] || 0) + 4
+    // Score products based on hair concerns
+    if (formData.hairConcerns && formData.hairConcerns.length > 0) {
+      formData.hairConcerns.forEach(concern => {
+        const products = hairConcernToProducts[concern] || []
+        products.forEach(productId => {
+          productScores[productId] = (productScores[productId] || 0) + 3
+        })
+      })
     }
 
-    // ── Lip concerns → lip-butter ────────────────────────────────
-    const hasLipConcern = formData.lipConcerns?.length > 0 &&
-      !formData.lipConcerns.includes('none')
-    if (hasLipConcern) {
-      productScores['lip-butter'] = (productScores['lip-butter'] || 0) + 4
+    // Score products based on lip concerns
+    if (formData.lipConcerns && formData.lipConcerns.length > 0) {
+      formData.lipConcerns.forEach(concern => {
+        const products = lipConcernToProducts[concern] || []
+        products.forEach(productId => {
+          productScores[productId] = (productScores[productId] || 0) + 3
+        })
+      })
     }
 
-    // ── Sort & hydrate skin/hair/lip products ────────────────────
+    // Sort by score and categorize
     const sortedProducts = Object.entries(productScores)
       .sort(([, a], [, b]) => b - a)
       .map(([id]) => {
         const recProduct = productDatabase[id]
-        if (!recProduct) return null
-        const fullProduct = PRODUCTS.find(p => p.id === recProduct.id)
+        const fullProduct = PRODUCTS.find(p => p.id === recProduct?.id)
         return { ...recProduct, ...fullProduct }
       })
       .filter(Boolean)
 
-    const morning  = sortedProducts.filter(p => p.routine === 'morning').slice(0, 3)
-    const evening  = sortedProducts.filter(p => p.routine === 'evening').slice(0, 3)
-    const optional = sortedProducts.filter(p => p.routine === 'optional').slice(0, 2)
-    const hair     = hasHairConcern ? sortedProducts.filter(p => p.routine === 'special' && p.name?.toLowerCase().includes('hair')).slice(0, 1) : []
-    const lip      = hasLipConcern  ? sortedProducts.filter(p => p.routine === 'special' && p.name?.toLowerCase().includes('lip')).slice(0, 1)  : []
+    const morning = sortedProducts.filter(p => p.routine === 'morning').slice(0, 3)
+    const evening = sortedProducts.filter(p => p.routine === 'evening').slice(0, 3)
+    const optional = sortedProducts.filter(p => p.routine === 'optional' || p.routine === 'special').slice(0, 2)
 
-    // ── Tattoo products (separate scoring) ───────────────────────
-    const hasTattooConcern = formData.tattooConcerns?.length > 0 &&
-      !formData.tattooConcerns.includes('none')
-
-    let tattoo = []
-    if (hasTattooConcern) {
-      const tattooScores = {}
-      formData.tattooConcerns.forEach(concern => {
-        const products = TATTOO_CONCERN_TO_PRODUCTS[concern] || []
-        products.forEach((slug, index) => {
-          tattooScores[slug] = (tattooScores[slug] || 0) + (index === 0 ? 3 : 2)
-        })
-      })
-      tattoo = Object.entries(tattooScores)
-        .sort(([, a], [, b]) => b - a)
-        .map(([slug]) => TATTOO_PRODUCTS_MAP[slug])
-        .filter(Boolean)
-    }
-
-    setRecommendations({ morning, evening, optional, tattoo, hair, lip })
+    setRecommendations({ morning, evening, optional })
   }
 
   const handleAddToCart = (product) => {
@@ -142,85 +91,40 @@ export default function RecommendationResults({ formData, onNavigate, onAddToCar
           newSet.delete(product.id)
           return newSet
         })
-      }, 2500)
+      }, 2000)
     }
   }
 
-  // ── Label helpers ──────────────────────────────────────────────
-  const getSelectedConcernLabels = () =>
-    formData.skinConcerns.map(id => skinConcerns.find(c => c.id === id)?.label).filter(Boolean).join(', ')
-
-  const getSelectedBundleLabel = () =>
-    bundles.find(b => b.id === formData.bundle)?.label || ''
-
-  const getSelectedSkinTypeLabel = () =>
-    skinTypes.find(t => t.id === formData.skinType)?.label || ''
-
-  const getTattooConcernLabels = () =>
-    (formData.tattooConcerns || [])
-      .filter(id => id !== 'none')
-      .map(id => tattooConcerns.find(c => c.id === id)?.label)
+  const getSelectedConcernLabels = () => {
+    return formData.skinConcerns
+      .map(id => skinConcerns.find(c => c.id === id)?.label)
       .filter(Boolean)
       .join(', ')
+  }
 
-  const getHairConcernLabels = () =>
-    (formData.hairConcerns || [])
-      .filter(id => id !== 'none')
+  const getSelectedBundleLabel = () => {
+    return bundles.find(b => b.id === formData.bundle)?.label || ''
+  }
+
+  const getSelectedSkinTypeLabel = () => {
+    return skinTypes.find(t => t.id === formData.skinType)?.label || ''
+  }
+
+  const getSelectedHairConcernLabels = () => {
+    if (!formData.hairConcerns || formData.hairConcerns.length === 0) return 'None selected'
+    return formData.hairConcerns
       .map(id => hairConcerns.find(c => c.id === id)?.label)
       .filter(Boolean)
       .join(', ')
+  }
 
-  const getLipConcernLabels = () =>
-    (formData.lipConcerns || [])
-      .filter(id => id !== 'none')
+  const getSelectedLipConcernLabels = () => {
+    if (!formData.lipConcerns || formData.lipConcerns.length === 0) return 'None selected'
+    return formData.lipConcerns
       .map(id => lipConcerns.find(c => c.id === id)?.label)
       .filter(Boolean)
       .join(', ')
-
-  // ── Reusable product card ──────────────────────────────────────
-  const ProductCard = ({ product, idx, showNumber = false }) => (
-    <div className="product-rec-card">
-      {showNumber && <div className="product-number">{idx + 1}</div>}
-      {product.img && (
-        <img src={product.img} alt={product.name} className="product-rec-image" />
-      )}
-      <h4>{product.name}</h4>
-      {product.size && <p className="product-size">{product.size}</p>}
-      <p className="product-purpose">{product.purpose}</p>
-      <p className="product-ingredients"><strong>Key Ingredients:</strong> {product.ingredients}</p>
-      {product.price && (
-        <div className="product-price-section">
-          <div className="product-pricing">
-            <span className="product-price">{product.price}</span>
-            {product.mrp && <span className="product-mrp">{product.mrp}</span>}
-          </div>
-          <button
-            className={`add-to-cart-btn ${addedProducts.has(product.id) ? 'added' : ''}`}
-            onClick={() => handleAddToCart(product)}
-            disabled={addedProducts.has(product.id)}
-          >
-            {addedProducts.has(product.id) ? (
-              <>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-                Added
-              </>
-            ) : (
-              <>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-                  <line x1="3" y1="6" x2="21" y2="6" />
-                  <path d="M16 10a4 4 0 0 1-8 0" />
-                </svg>
-                Add to Cart
-              </>
-            )}
-          </button>
-        </div>
-      )}
-    </div>
-  )
+  }
 
   if (success) {
     return (
@@ -238,7 +142,7 @@ export default function RecommendationResults({ formData, onNavigate, onAddToCar
 
             <div className="results-summary">
               <div className="summary-item">
-                <h3>Your Concerns</h3>
+                <h3>Skin Concerns</h3>
                 <p>{getSelectedConcernLabels()}</p>
               </div>
               <div className="summary-item">
@@ -249,101 +153,170 @@ export default function RecommendationResults({ formData, onNavigate, onAddToCar
                 <h3>Skin Type</h3>
                 <p>{getSelectedSkinTypeLabel()}</p>
               </div>
-              {getTattooConcernLabels() && (
-                <div className="summary-item">
-                  <h3>Tattoo Concerns</h3>
-                  <p>{getTattooConcernLabels()}</p>
-                </div>
-              )}
-              {getHairConcernLabels() && (
-                <div className="summary-item">
-                  <h3>Hair Concerns</h3>
-                  <p>{getHairConcernLabels()}</p>
-                </div>
-              )}
-              {getLipConcernLabels() && (
-                <div className="summary-item">
-                  <h3>Lip Concerns</h3>
-                  <p>{getLipConcernLabels()}</p>
-                </div>
-              )}
+              <div className="summary-item">
+                <h3>Hair Concerns</h3>
+                <p>{getSelectedHairConcernLabels()}</p>
+              </div>
+              <div className="summary-item">
+                <h3>Lip Concerns</h3>
+                <p>{getSelectedLipConcernLabels()}</p>
+              </div>
             </div>
 
-            {/* Morning Routine */}
             {recommendations.morning.length > 0 && (
               <div className="routine-section">
                 <h3 className="routine-heading">Morning Routine</h3>
                 <div className="product-grid">
                   {recommendations.morning.map((product, idx) => (
-                    <ProductCard key={idx} product={product} idx={idx} showNumber />
+                    <div key={idx} className="product-rec-card">
+                      <div className="product-number">{idx + 1}</div>
+                      {product.img && (
+                        <img src={product.img} alt={product.name} className="product-rec-image" />
+                      )}
+                      <h4>{product.name}</h4>
+                      <p className="product-size">{product.size}</p>
+                      <p className="product-purpose">{product.purpose}</p>
+                      <p className="product-ingredients"><strong>Key Ingredients:</strong> {product.ingredients}</p>
+                      {product.price && (
+                        <div className="product-price-section">
+                          <div className="product-pricing">
+                            <span className="product-price">₹{product.price}</span>
+                            {product.mrp && <span className="product-mrp">₹{product.mrp}</span>}
+                          </div>
+                          <button 
+                            className={`add-to-cart-btn ${addedProducts.has(product.id) ? 'added' : ''}`}
+                            onClick={() => handleAddToCart(product)}
+                            disabled={addedProducts.has(product.id)}
+                          >
+                            {addedProducts.has(product.id) ? (
+                              <>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                  <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Added
+                              </>
+                            ) : (
+                              <>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                                  <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                </svg>
+                                Add to Cart
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Evening Routine */}
             {recommendations.evening.length > 0 && (
               <div className="routine-section">
                 <h3 className="routine-heading">Evening Routine</h3>
                 <div className="product-grid">
                   {recommendations.evening.map((product, idx) => (
-                    <ProductCard key={idx} product={product} idx={idx} showNumber />
+                    <div key={idx} className="product-rec-card">
+                      <div className="product-number">{idx + 1}</div>
+                      {product.img && (
+                        <img src={product.img} alt={product.name} className="product-rec-image" />
+                      )}
+                      <h4>{product.name}</h4>
+                      <p className="product-size">{product.size}</p>
+                      <p className="product-purpose">{product.purpose}</p>
+                      <p className="product-ingredients"><strong>Key Ingredients:</strong> {product.ingredients}</p>
+                      {product.price && (
+                        <div className="product-price-section">
+                          <div className="product-pricing">
+                            <span className="product-price">₹{product.price}</span>
+                            {product.mrp && <span className="product-mrp">₹{product.mrp}</span>}
+                          </div>
+                          <button 
+                            className={`add-to-cart-btn ${addedProducts.has(product.id) ? 'added' : ''}`}
+                            onClick={() => handleAddToCart(product)}
+                            disabled={addedProducts.has(product.id)}
+                          >
+                            {addedProducts.has(product.id) ? (
+                              <>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                  <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Added
+                              </>
+                            ) : (
+                              <>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                                  <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                </svg>
+                                Add to Cart
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Optional */}
             {recommendations.optional.length > 0 && (
               <div className="routine-section">
                 <h3 className="routine-heading">Optional / As Needed</h3>
                 <div className="product-grid">
                   {recommendations.optional.map((product, idx) => (
-                    <ProductCard key={idx} product={product} idx={idx} />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Hair Care */}
-            {recommendations.hair.length > 0 && (
-              <div className="routine-section">
-                <h3 className="routine-heading">Hair Care</h3>
-                <div className="product-grid">
-                  {recommendations.hair.map((product, idx) => (
-                    <ProductCard key={idx} product={product} idx={idx} />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Lip Care */}
-            {recommendations.lip.length > 0 && (
-              <div className="routine-section">
-                <h3 className="routine-heading">Lip Care</h3>
-                <div className="product-grid">
-                  {recommendations.lip.map((product, idx) => (
-                    <ProductCard key={idx} product={product} idx={idx} />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Tattoo Care — separate section */}
-            {recommendations.tattoo.length > 0 && (
-              <div className="routine-section routine-section--tattoo">
-                <h3 className="routine-heading routine-heading--tattoo">🖤 Tattoo Care</h3>
-                <p className="routine-subtext">Based on your tattoo concerns, here's what we recommend</p>
-                <div className="product-grid">
-                  {recommendations.tattoo.map((product, idx) => (
-                    <ProductCard key={idx} product={product} idx={idx} />
+                    <div key={idx} className="product-rec-card">
+                      {product.img && (
+                        <img src={product.img} alt={product.name} className="product-rec-image" />
+                      )}
+                      <h4>{product.name}</h4>
+                      <p className="product-size">{product.size}</p>
+                      <p className="product-purpose">{product.purpose}</p>
+                      <p className="product-ingredients"><strong>Key Ingredients:</strong> {product.ingredients}</p>
+                      {product.price && (
+                        <div className="product-price-section">
+                          <div className="product-pricing">
+                            <span className="product-price">₹{product.price}</span>
+                            {product.mrp && <span className="product-mrp">₹{product.mrp}</span>}
+                          </div>
+                          <button 
+                            className={`add-to-cart-btn ${addedProducts.has(product.id) ? 'added' : ''}`}
+                            onClick={() => handleAddToCart(product)}
+                            disabled={addedProducts.has(product.id)}
+                          >
+                            {addedProducts.has(product.id) ? (
+                              <>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                  <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Added
+                              </>
+                            ) : (
+                              <>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                                  <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                </svg>
+                                Add to Cart
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   ))}
                 </div>
               </div>
             )}
 
             <div className="results-disclaimer">
-              <p><strong>Disclaimer:</strong> These are skincare suggestions based on your selected concerns. This is not a medical diagnosis. For specific skin conditions, please consult a dermatologist.</p>
+              <p><strong>Disclaimer:</strong> These are product suggestions based on your selected concerns. This is not a medical diagnosis. For specific skin, hair, or lip conditions, please consult a dermatologist or healthcare professional.</p>
             </div>
 
             <button className="results-btn" onClick={() => onNavigate('home')}>
@@ -356,15 +329,5 @@ export default function RecommendationResults({ formData, onNavigate, onAddToCar
     )
   }
 
-  return (
-    <div className="results-page">
-      <Navbar onNavigate={onNavigate} />
-      <div className="results-container">
-        <div className="loading-state">
-          <div className="loading-spinner" />
-          <p>Preparing your personalized regimen…</p>
-        </div>
-      </div>
-    </div>
-  )
+  return <div className="loading">Processing your regimen...</div>
 }

@@ -43,7 +43,7 @@ export default function Footer({ onLoginClick }) {
             <a href="#" className="footer__link">Shipping Policy</a>
             <a href="#" className="footer__link">Cancellation/Refund Policy</a>
             <a href="#" className="footer__link">Privacy policy</a>
-            <a href="#" className="footer__link">Terms &amp; Conditions</a>
+            <Link to="/terms" className="footer__link">Terms &amp; Conditions</Link>
           </div>
 
           {/* Col 4 — Newsletter */}

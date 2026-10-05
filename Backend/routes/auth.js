@@ -71,7 +71,7 @@ router.post('/signup', async (req, res) => {
       return res.status(500).json({ message: 'Server configuration error' });
     }
     
-    res.status(500).json({ message: 'Server error, please try again later' });
+    res.status(500).json({ message: 'Server error, please try again later', detail: error.message });
   }
 });
 
