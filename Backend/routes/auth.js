@@ -7,6 +7,9 @@ const router = express.Router();
 
 // Helper: generate JWT token
 const generateToken = (userId) => {
+  if (!process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET is not defined in environment variables');
+  }
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
     expiresIn: '7d',
   });
@@ -44,7 +47,11 @@ router.post('/signup', async (req, res) => {
       password: hashedPassword,
     });
 
+    console.log('User created successfully:', user._id);
+    console.log('JWT_SECRET exists:', !!process.env.JWT_SECRET);
+    
     const token = generateToken(user._id);
+    console.log('Token generated successfully');
 
     res.status(201).json({
       message: 'Account created successfully',
@@ -56,7 +63,14 @@ router.post('/signup', async (req, res) => {
       },
     });
   } catch (error) {
-    console.error(error);
+    console.error('Signup error:', error.message);
+    console.error('Full error:', error);
+    
+    // Send more specific error message
+    if (error.message.includes('JWT_SECRET')) {
+      return res.status(500).json({ message: 'Server configuration error' });
+    }
+    
     res.status(500).json({ message: 'Server error, please try again later', detail: error.message });
   }
 });
